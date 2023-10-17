@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 import CustomModal from '../components/Modal';
 
-function LandingPage(): JSX.Element {
+function Login(): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -35,4 +35,4 @@ function LandingPage(): JSX.Element {
   );
 }
 
-export default LandingPage;
+export default Login;

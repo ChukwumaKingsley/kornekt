@@ -1,7 +1,3 @@
-// src/pages/Contact.js
-
-import React from 'react';
-
 function Contact() {
   return (
     <div>
