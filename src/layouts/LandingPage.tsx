@@ -1,6 +1,5 @@
-import { Box, Spacer, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import CustomModal from "../components/Modal";
-import Header from "../components/Header";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
@@ -54,7 +53,6 @@ export default function LandingPage() {
           >
             Login
           </Text>
-          {/* <Spacer width="20px" /> */}
           <Text
             mx={2}
             cursor="pointer"
