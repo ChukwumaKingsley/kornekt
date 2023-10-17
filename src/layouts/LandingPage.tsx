@@ -1,7 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import CustomModal from "../components/Modal";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
 
 export default function LandingPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function LandingPage() {
     };
   
     return (
-    <div>
+    <Flex flexDir={'column'} height={"100svh"}>
       <Box
         p={4}
         bg="blue.500"
@@ -23,6 +24,7 @@ export default function LandingPage() {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
+        height="20"
       >
         <Text fontSize="2xl" fontWeight="bold">
           Kornekt
@@ -64,6 +66,9 @@ export default function LandingPage() {
         <CustomModal isOpen={isModalOpen} onClose={closeModal} />
       </Box>
     <Outlet />
-    </div>
+    <Box justifySelf={"end"}>
+        <Footer />
+    </Box>
+    </Flex>
     );
   }

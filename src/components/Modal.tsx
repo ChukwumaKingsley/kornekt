@@ -5,7 +5,6 @@ import {
   ModalContent,
   ModalOverlay,
   ModalHeader,
-  ModalCloseButton,
   ModalBody,
   ModalFooter,
   Input,
@@ -40,16 +39,16 @@ function CustomModal({ isOpen, onClose }: CustomModalProps): JSX.Element {
         <ModalHeader>
           <Button
             colorScheme="blue"
-            variant={isLoginState ? 'solid' : 'outline'} // Use different variants
+            variant={isLoginState ? 'solid' : 'outline'}
             onClick={switchToLogin}
             w="50%"
             borderRadius={0}
-          >
+            >
             Login
           </Button>
           <Button
             colorScheme="blue"
-            variant={!isLoginState ? 'solid' : 'outline'} // Use different variants
+            variant={!isLoginState ? 'solid' : 'outline'}
             onClick={switchToSignup}
             w="50%"
             borderRadius={0}
@@ -57,7 +56,6 @@ function CustomModal({ isOpen, onClose }: CustomModalProps): JSX.Element {
             Signup
           </Button>
         </ModalHeader>
-        <ModalCloseButton />
         <ModalBody>
           {isLoginState ? (
             <div>
@@ -88,6 +86,9 @@ function CustomModal({ isOpen, onClose }: CustomModalProps): JSX.Element {
           )}
         </ModalBody>
         <ModalFooter>
+          <Button colorScheme="blue" mr={2} onClick={onClose}>
+            Cancel
+          </Button>
           <Button colorScheme="blue" onClick={onClose}>
             {isLoginState ? 'Login' : 'Signup'}
           </Button>

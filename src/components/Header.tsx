@@ -22,7 +22,7 @@ function Header() {
       justifyContent="space-between"
       alignItems="center"
     >
-      <Text fontSize="2xl" fontWeight="bold">
+      <Text fontSize="2xl" fontWeight="bold" marginLeft={"30px"}>
         Kornekt
       </Text>
       <Box display="flex" alignItems="center">
