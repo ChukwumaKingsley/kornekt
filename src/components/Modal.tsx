@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Button,
   Modal,
@@ -43,6 +43,7 @@ function CustomModal({ isOpen, onClose }: CustomModalProps): JSX.Element {
             variant={isLoginState ? 'solid' : 'outline'} // Use different variants
             onClick={switchToLogin}
             w="50%"
+            borderRadius={0}
           >
             Login
           </Button>
@@ -51,6 +52,7 @@ function CustomModal({ isOpen, onClose }: CustomModalProps): JSX.Element {
             variant={!isLoginState ? 'solid' : 'outline'} // Use different variants
             onClick={switchToSignup}
             w="50%"
+            borderRadius={0}
           >
             Signup
           </Button>
