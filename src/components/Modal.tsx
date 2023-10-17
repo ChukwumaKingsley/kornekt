@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Modal,
@@ -21,7 +21,7 @@ interface CustomModalProps {
 function CustomModal({ isOpen, onClose }: CustomModalProps): JSX.Element {
   const [isLoginState, setIsLoginState] = useState(true);
 
-  const switchState = () => {
+  const switchToLogin = () => {
     if (!isLoginState) {
       setIsLoginState(true);
     }
@@ -40,21 +40,19 @@ function CustomModal({ isOpen, onClose }: CustomModalProps): JSX.Element {
         <ModalHeader>
           <Button
             colorScheme="blue"
-            variant="link"
-            onClick={switchState}
-            isDisabled={isLoginState}
-            w="50%"
-          >
-            Signup
-          </Button>
-          <Button
-            colorScheme="blue"
-            variant="link"
-            onClick={switchToSignup}
-            isDisabled={!isLoginState}
+            variant={isLoginState ? 'solid' : 'outline'} // Use different variants
+            onClick={switchToLogin}
             w="50%"
           >
             Login
+          </Button>
+          <Button
+            colorScheme="blue"
+            variant={!isLoginState ? 'solid' : 'outline'} // Use different variants
+            onClick={switchToSignup}
+            w="50%"
+          >
+            Signup
           </Button>
         </ModalHeader>
         <ModalCloseButton />
