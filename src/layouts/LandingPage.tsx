@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import CustomModal from "../components/Modal";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
@@ -26,9 +26,7 @@ export default function LandingPage() {
         alignItems="center"
         height="20"
       >
-        <Text fontSize="2xl" fontWeight="bold">
-          Kornekt
-        </Text>
+        <Heading as={'h1'}>Kornekt</Heading>
         <Box display="flex" alignItems="center">
         <Text
             mx={2}
@@ -46,7 +44,7 @@ export default function LandingPage() {
             mx={2}
             cursor="pointer"
           >
-            <NavLink to='contact'>Contact</NavLink>
+            <NavLink to='contact'>Help</NavLink>
           </Text>
           <Text
             mx={2}
@@ -66,7 +64,7 @@ export default function LandingPage() {
         <CustomModal isOpen={isModalOpen} onClose={closeModal} />
       </Box>
     <Outlet />
-    <Box justifySelf={"end"}>
+    <Box justifySelf={"end"} marginTop={'auto'}>
         <Footer />
     </Box>
     </Flex>

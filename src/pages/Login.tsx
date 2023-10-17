@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
   Box,
   Button,
+  Container,
   Flex,
   Image,
 } from '@chakra-ui/react';
@@ -19,8 +20,9 @@ function Login(): JSX.Element {
   };
 
   return (
+    <div>
     <Box p={4} minW="400px" maxW="400px" m="auto" mt={8} bg="white" borderRadius="lg" boxShadow="lg">
-      <Image src="your_image_url.jpg" alt="Meme Image" w="100%" maxH="200px" />
+      <Image src="../public/connect-pic.jpg" alt="Meme Image" w="100%" h="350px" />
       <Flex justifyContent="center" mt={4}>
         <Button colorScheme="blue" variant="outline" mx={2} onClick={openModal}>
           Login
@@ -32,6 +34,8 @@ function Login(): JSX.Element {
 
       <CustomModal isOpen={isModalOpen} onClose={closeModal} />
     </Box>
+    <Container marginTop={'10px'}>Want to conect with others around the globe? Hop on to this stuff then!!!</Container>
+    </div>
   );
 }
 

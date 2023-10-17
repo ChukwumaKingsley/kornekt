@@ -1,12 +1,10 @@
 import { ChakraProvider, CSSReset, extendTheme, ThemeConfig } from '@chakra-ui/react';
-import Header from './components/Header'; // Import the Header component
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
-import Home from './pages/Home';
 
 
 //pages
 import About from './pages/About';
-import Contact from './pages/Contact';
+import Help from './pages/Help';
 import Login from './pages/Login';
 
 //Layouts
@@ -25,7 +23,7 @@ const router = createBrowserRouter(
     <Route path='/' element={<LandingPage />}>
       <Route index element={<Login />} />
       <Route path='about' element={<About />} />
-      <Route path='contact' element={<Contact />} />
+      <Route path='contact' element={<Help />} />
     </Route>
   )
   )
