@@ -1,6 +1,7 @@
+import { Text } from "@chakra-ui/react";
 
 export default function Posts() {
   return (
-    <div>Posts</div>
+    <Text color={'black'}>Hello bastards</Text>
   )
 }
