@@ -9,6 +9,9 @@ import Login from './pages/Login';
 
 //Layouts
 import LandingPage from './layouts/LandingPage';
+import Posts from './pages/Posts';
+import HomePage from './layouts/HomePage';
+import Post from './components/Post';
 
 
 const themeConfig: ThemeConfig = {
@@ -20,10 +23,16 @@ const theme = extendTheme({ config: themeConfig });
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<LandingPage />}>
-      <Route index element={<Login />} />
-      <Route path='about' element={<About />} />
-      <Route path='contact' element={<Help />} />
+    <Route path='/'>
+      <Route path='/' element={<LandingPage />}>
+        <Route index element={<Login />} />
+        <Route path='about' element={<About />} />
+        <Route path='contact' element={<Help />} />
+        <Route path='posts' element={<Posts /> } />
+      </Route>
+      <Route path='home' element={<HomePage />}>
+        <Route path='posts' element={<Post />} />
+      </Route>
     </Route>
   )
   )
