@@ -12,6 +12,8 @@ import LandingPage from './layouts/LandingPage';
 import Posts from './pages/Posts';
 import HomePage from './layouts/HomePage';
 import Post from './components/Post';
+import NotFound from './pages/NotFound';
+import NotFoundLoggedIn from './pages/NotFoundLoggedIn';
 
 
 const themeConfig: ThemeConfig = {
@@ -28,10 +30,12 @@ const router = createBrowserRouter(
         <Route index element={<Login />} />
         <Route path='about' element={<About />} />
         <Route path='contact' element={<Help />} />
+        <Route path='*' element={<NotFound />}/>
         {/* <Route path='posts' element={<Posts /> } /> */}
       </Route>
       <Route path='home' element={<HomePage />}>
         <Route path='posts' element={<Posts />} />
+        <Route path='*' element={<NotFoundLoggedIn />}/>
       </Route>
     </Route>
   )
