@@ -1,18 +1,27 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import CustomModal from "../components/Modal";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
+import LoginModal from "../components/loginModal";
+import SignUpModal from "../components/SignUpModal";
 
 export default function LandingPage() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
-    const openModal = () => {
-      setIsModalOpen(true);
+    const openLoginModal = () => {
+        setIsLoginModalOpen(true);
+        setIsSignUpModalOpen(false);
+    };
+    
+    const openSignUpModal = () => {
+        setIsSignUpModalOpen(true);
+        setIsLoginModalOpen(false);
     };
   
     const closeModal = () => {
-      setIsModalOpen(false);
+      setIsLoginModalOpen(false);
+      setIsSignUpModalOpen(false);
     };
   
     return (
@@ -49,19 +58,20 @@ export default function LandingPage() {
           <Text
             mx={2}
             cursor="pointer"
-            onClick={openModal}
+            onClick={openLoginModal}
           >
             Login
           </Text>
           <Text
             mx={2}
             cursor="pointer"
-            onClick={openModal}
+            onClick={openSignUpModal}
           >
             Signup
           </Text>
         </Box>
-        <CustomModal isOpen={isModalOpen} onClose={closeModal} />
+        <SignUpModal isOpen={isSignUpModalOpen} openLoginModal={openLoginModal} onClose={closeModal} />
+        <LoginModal isOpen={isLoginModalOpen} openSignUpModal={openSignUpModal} onClose={closeModal} />
       </Box>
     <Outlet />
     <Box justifySelf={"end"} marginTop={'auto'}>

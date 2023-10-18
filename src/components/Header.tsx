@@ -1,6 +1,6 @@
 import { Box, Text, Spacer } from '@chakra-ui/react';
 import { useState } from 'react';
-import CustomModal from '../components/Modal';
+import CustomModal from './SignUpModal';
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);

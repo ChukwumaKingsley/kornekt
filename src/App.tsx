@@ -14,6 +14,8 @@ import HomePage from './layouts/HomePage';
 import Post from './components/Post';
 import NotFound from './pages/NotFound';
 import NotFoundLoggedIn from './pages/NotFoundLoggedIn';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 
 const themeConfig: ThemeConfig = {
@@ -41,12 +43,17 @@ const router = createBrowserRouter(
   )
   )
 
+  const queryClient = new QueryClient();
+
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <CSSReset />
-      <RouterProvider router={router} />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <CSSReset />
+        <RouterProvider router={router} />
+        <ReactQueryDevtools />
+      </ChakraProvider>
+    </QueryClientProvider>
   );
 }
 
