@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Button,
   Modal,
@@ -16,8 +16,16 @@ interface CustomModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
+const userDataFormat = {
+  email: '',
+  name: '',
+  password: '',
+  confirmPassword: ''
+}
 function CustomModal({ isOpen, onClose }: CustomModalProps): JSX.Element {
+  const [user, setUser] = useState(userDataFormat)
+
+
   const [isLoginState, setIsLoginState] = useState(true);
 
   const switchToLogin = () => {
@@ -31,7 +39,12 @@ function CustomModal({ isOpen, onClose }: CustomModalProps): JSX.Element {
       setIsLoginState(false);
     }
   };
-
+  console.log(user)
+  useEffect(() => {
+    setUser(userDataFormat)
+    return
+  }, [isLoginState])
+  
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -60,27 +73,91 @@ function CustomModal({ isOpen, onClose }: CustomModalProps): JSX.Element {
           {isLoginState ? (
             <div>
               <FormControl>
-                <FormLabel>Username (Email)</FormLabel>
-                <Input type="text" placeholder="Enter your username (email)" />
+                <FormLabel>Username</FormLabel>
+                <Input 
+                  type="text" 
+                  value={user.email} 
+                  placeholder="Enter your username (email)" 
+                  onChange={(e: any) => {
+										setUser({
+											...user,
+											email: e.target.value,
+										});
+									}} 
+                />
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Password</FormLabel>
-                <Input type="password" placeholder="Enter your password" />
+                <Input 
+                  type="password" 
+                  placeholder="Enter your password" 
+                  value={user.password} 
+                  onChange={(e: any) => {
+										setUser({
+											...user,
+											password: e.target.value,
+										});
+									}}
+                />
               </FormControl>
             </div>
           ) : (
             <div>
               <FormControl>
                 <FormLabel>Name</FormLabel>
-                <Input type="text" placeholder="Enter your name" />
+                <Input 
+                  type="text" 
+                  placeholder="Enter your name"
+                  value={user.name} 
+                  onChange={(e: any) => {
+										setUser({
+											...user,
+											name: e.target.value,
+										});
+									}}
+                />
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Username (Email)</FormLabel>
-                <Input type="text" placeholder="Enter your username (email)" />
+                <Input 
+                  type="text"
+                  placeholder="Enter your username (email)"
+                  value={user.email} 
+                  onChange={(e: any) => {
+										setUser({
+											...user,
+											email: e.target.value,
+										});
+									}}
+                />
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Password</FormLabel>
-                <Input type="password" placeholder="Enter your password" />
+                <Input
+                  type="password"
+                  placeholder="Enter new password"
+                  value={user.password} 
+                  onChange={(e: any) => {
+										setUser({
+											...user,
+											password: e.target.value,
+										});
+									}}
+                />
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Confirm Password</FormLabel>
+                <Input
+                  type="password"
+                  placeholder="Confirm new password" 
+                  value={user.confirmPassword} 
+                  onChange={(e: any) => {
+										setUser({
+											...user,
+											confirmPassword: e.target.value,
+										});
+									}}
+                />
               </FormControl>
             </div>
           )}
