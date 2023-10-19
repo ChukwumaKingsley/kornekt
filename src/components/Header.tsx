@@ -1,6 +1,5 @@
 import { Box, Flex, Heading, Spacer, Text } from '@chakra-ui/react'
-import { Link } from "react-router-dom";
-
+import LogoutButton from './LogoutButton';
 // import UserAvartar from './UserAvartar'
 
 export default function Header() {
@@ -14,9 +13,7 @@ export default function Header() {
           {/* <UserAvartar size='xl' show={false} /> */}
         </Box>
 
-        <Text as={Link} to="/" cursor="pointer" textAlign="center" marginRight={'auto'}>
-            Logout
-        </Text>
+        <LogoutButton />
     </Flex>
   )
 }

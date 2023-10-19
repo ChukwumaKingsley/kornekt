@@ -2,12 +2,13 @@ import { Container, Heading, Text } from '@chakra-ui/react'
 import { NavLink } from 'react-router-dom'
 
 function NotFound() {
+  const style = {textDecoration: 'underline', color: 'blue'}
   return (
-    <Container>
-        <Heading as={'h2'} mb={10}>Page not found!</Heading>
-        <Text>Seems like you searched the wrong thing.</Text>
-
-        <Text>Go to the <NavLink to='/'>Home Page</NavLink>.</Text>
+    <Container textAlign={'center'}>
+        <Heading as={'h2'} mb={10} color={'blue.400'}>Page not found!</Heading>
+        <Text>
+          Page not found. Click <NavLink style={style} to='/'>here</NavLink> return to Home Page.
+        </Text>
     </Container>
   )
 }

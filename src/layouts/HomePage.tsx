@@ -7,6 +7,9 @@ import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 
 export default function HomePage() {
+    if (!localStorage.getItem("token")){
+        window.location.href = "/";
+    } else {
   return (
     <SimpleGrid columns={6}>
         <Sidebar />
@@ -16,4 +19,5 @@ export default function HomePage() {
         </Flex>
     </SimpleGrid>
   );
+}
 }

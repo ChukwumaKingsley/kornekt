@@ -1,4 +1,4 @@
-import { Box, Button, Center, Container, Flex, HStack, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Container, Divider, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
 import useMyProfile from "../hooks/useMyProfile";
 import { useEffect } from "react";
 import UserAvartar from "../components/UserAvartar";
@@ -24,12 +24,6 @@ function UserProfile() {
     }
   }, [accessToken]);
 
-  // ... Handle loading and error states as before
-
-  if (isLoading) {
-    return <Text>Loading profile...</Text>;
-  }
-
   if (isError) {
     return <Text>Error: {error.message}</Text>;
   }
@@ -37,8 +31,10 @@ function UserProfile() {
   return (
     <div>
     <Flex flexDirection="column" alignItems="center" p={'10px'} >
+        {isLoading && <Spinner color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
+        {!isLoading &&
       <Box width='80%'p={'10px'} bg="white.100" borderRadius="md" boxShadow="md">
-        <Container borderBottom={'1px'} marginBottom={10}>
+        <Container  marginBottom={10}>
             <UserAvartar size='xl' show={true}/>
             <HStack alignItems={'center'} p={'5px'}>
             <Text>{data?.email}</Text>
@@ -47,8 +43,8 @@ function UserProfile() {
                 <Text>{formatJoinDate(data?.created_at)}</Text>
             </Box>
         </HStack>
-            
         </Container>
+        <Divider size={'5px'}/>
         <HStack justifyContent="space-between" padding={'10px'}>
             <Text>0 posts</Text>
             <Text>1 likes</Text>
@@ -56,9 +52,10 @@ function UserProfile() {
         </HStack>
 
       </Box>
+      }
     </Flex>
     <Center>
-        <Button colorScheme="blue">
+        <Button colorScheme="blue" marginTop={'20px'}>
             Edit Profile
         </Button>
     </Center>

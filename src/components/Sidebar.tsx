@@ -1,6 +1,7 @@
 import { Flex, Spacer, Text } from "@chakra-ui/react";
 import { Link, NavLink } from "react-router-dom";
 import UserAvartar from "./UserAvartar";
+import LogoutButton from "./LogoutButton";
 
 export default function Sidebar() {
 
@@ -13,6 +14,7 @@ export default function Sidebar() {
         flexDirection="column"
         justifyContent="space-between" // To align items at the top and bottom
         color={'white'}
+        p={'10px'}
       >
 
         {/* User Profile Icon */}
@@ -37,9 +39,7 @@ export default function Sidebar() {
           </Text>
         </Flex>
         <Spacer />
-        <Text as={Link} to="/" cursor="pointer" textAlign="center" pb={5}>
-          Logout
-        </Text>
+        <LogoutButton />
       </Flex>
   )
 }
