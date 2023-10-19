@@ -32,6 +32,7 @@ function SignUpModal({ isOpen, onClose, openLoginModal }: SignUpModalProps): JSX
   }
   
   const [user, setUser] = useState(userData)
+  const [isLoading, setIsLoading] = useState(false)
   const [passwordsMatch, setPasswordsMatch] = useState(true); // Track password matching
   
   const onChange = (e: any) => {
@@ -44,9 +45,10 @@ function SignUpModal({ isOpen, onClose, openLoginModal }: SignUpModalProps): JSX
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsLoading(true)
     if (user.password !== user.confirmPassword) {
       setPasswordsMatch(false); // Set the match state to false
+      setIsLoading(false)
       return; // Don't proceed with the request
     } else {
       setPasswordsMatch(true); // Passwords match, reset the match state
@@ -57,8 +59,13 @@ function SignUpModal({ isOpen, onClose, openLoginModal }: SignUpModalProps): JSX
 const onSignUpSuccess = () => {
   onClose();
   openLoginModal()
+  setIsLoading(false)
+  setUser(userData)
 };
-const signUpMutation = useSignUp(onSignUpSuccess);
+const onSignUpFail = () => {
+  setIsLoading(false)
+}
+const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
   
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -140,7 +147,8 @@ const signUpMutation = useSignUp(onSignUpSuccess);
             </Button>
             <Button 
             type='submit'
-            colorScheme="blue" 
+            colorScheme="blue"
+            isLoading={isLoading}
           >
             {'Signup'}
           </Button>

@@ -2,7 +2,12 @@ import { useMutation } from "@tanstack/react-query";
 import http from "../utils/http";
 import { useToast } from "@chakra-ui/react";
 
-function useSignUp(onSignUpSuccess: () => void) {
+interface FailorSuccess {
+  onSignUpSuccess: () => void,
+  onSignUpFail: () => void
+}
+
+function useSignUp({onSignUpSuccess, onSignUpFail}: FailorSuccess) {
   const toast = useToast();
 
   return useMutation({
@@ -19,9 +24,10 @@ function useSignUp(onSignUpSuccess: () => void) {
 			position: 'top'
           });
         //   navigate("/");
-		onSignUpSuccess();
+		  onSignUpSuccess();
         }
       } catch (error: any) {
+        onSignUpFail()
         if (error.response) {
           // The request was made, but the server responded with a status code that falls out of the range of 2xx
           if (error.response.status === 400) {

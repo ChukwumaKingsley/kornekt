@@ -26,6 +26,7 @@ function LoginModal({ isOpen, onClose, openSignUpModal }: LoginModalProps): JSX.
     password: ''
   }
   const [user, setUser] = useState(userData)
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
 
   const onChange = (e: any) => {
     setUser({
@@ -35,11 +36,11 @@ function LoginModal({ isOpen, onClose, openSignUpModal }: LoginModalProps): JSX.
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsLoading(true); // Set loading state when the request starts
     loginMutation.mutate(user);
   }
 
   const loginMutation = useLogin();
-    
   
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -96,6 +97,7 @@ function LoginModal({ isOpen, onClose, openSignUpModal }: LoginModalProps): JSX.
             <Button 
             colorScheme="blue" 
             type='submit'
+            isLoading={isLoading}
           >
             {'Login'}
           </Button>
