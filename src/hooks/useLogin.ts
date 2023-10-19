@@ -2,7 +2,11 @@ import { useMutation } from "@tanstack/react-query";
 import http from "../utils/http";
 import { useToast } from "@chakra-ui/react";
 
-function useLogin() {
+interface onLoginFail {
+	onLoginFail: () => void
+}
+
+function useLogin({onLoginFail}: onLoginFail) {
 
 	const toast = useToast()
 
@@ -24,6 +28,7 @@ function useLogin() {
 
 				window.location.href = "/home";
 			} catch (error: any) {
+				onLoginFail()
 				if (error.response.status === 403){
 					toast({
 						title: "Invalid username or password!",

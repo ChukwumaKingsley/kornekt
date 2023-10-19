@@ -39,8 +39,12 @@ function LoginModal({ isOpen, onClose, openSignUpModal }: LoginModalProps): JSX.
     setIsLoading(true); // Set loading state when the request starts
     loginMutation.mutate(user);
   }
-
-  const loginMutation = useLogin();
+  
+  const onLoginFail = () => {
+    setIsLoading(false)
+  }
+  
+  const loginMutation = useLogin({onLoginFail});
   
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
