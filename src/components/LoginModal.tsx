@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Button,
   Modal,
@@ -33,67 +33,75 @@ function LoginModal({ isOpen, onClose, openSignUpModal }: LoginModalProps): JSX.
       [e?.target?.name]: e.target.value
     });
   }
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    loginMutation.mutate(user);
+  }
+
   const loginMutation = useLogin();
+    
   
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>
-          <Button
-            colorScheme="blue"
-            variant={'solid'}
-            w="50%"
-            borderRadius={0}
+      <form onSubmit={handleSubmit}>
+        <ModalContent>
+          <ModalHeader>
+            <Button
+              colorScheme="blue"
+              variant={'solid'}
+              w="50%"
+              borderRadius={0}
+              >
+              Login
+            </Button>
+            <Button
+              colorScheme="blue"
+              variant={'outline'}
+              onClick={openSignUpModal}
+              w="50%"
+              borderRadius={0}
             >
-            Login
-          </Button>
-          <Button
-            colorScheme="blue"
-            variant={'outline'}
-            onClick={openSignUpModal}
-            w="50%"
-            borderRadius={0}
+              Signup
+            </Button>
+          </ModalHeader>
+          <ModalBody>
+                <FormControl>
+                  <FormLabel>Username</FormLabel>
+                  <Input 
+                    type="email" 
+                    value={user.email} 
+                    placeholder="Enter your username (email)" 
+                    name='email'
+                    onChange={onChange}
+                    required
+                  />
+                </FormControl>
+                <FormControl mt={4}>
+                  <FormLabel>Password</FormLabel>
+                  <Input 
+                    type="password" 
+                    placeholder="Enter your password" 
+                    name='password'
+                    value={user.password} 
+                    onChange={onChange}
+                    required
+                  />
+                </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={2} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button 
+            colorScheme="blue" 
+            type='submit'
           >
-            Signup
+            {'Login'}
           </Button>
-        </ModalHeader>
-        <ModalBody>
-              <FormControl>
-                <FormLabel>Username</FormLabel>
-                <Input 
-                  type="text" 
-                  value={user.email} 
-                  placeholder="Enter your username (email)" 
-                  name='email'
-                  onChange={onChange} 
-                />
-              </FormControl>
-              <FormControl mt={4}>
-                <FormLabel>Password</FormLabel>
-                <Input 
-                  type="password" 
-                  placeholder="Enter your password" 
-                  name='password'
-                  value={user.password} 
-                  onChange={onChange}
-                />
-              </FormControl>
-        </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" mr={2} onClick={onClose}>
-            Cancel
-          </Button>
-          <Button 
-          colorScheme="blue" 
-          // onClick={onClose}
-          // isLoading={loginMutation.Loading} 
-          // onClick={() => loginMutation.mutate(user)}
-        >
-          {'Login'}
-        </Button>
-        </ModalFooter>
-      </ModalContent>
+          </ModalFooter>
+        </ModalContent>
+      </form>
     </Modal>
   );
 }

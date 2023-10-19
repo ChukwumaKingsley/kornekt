@@ -1,10 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import http from "../utils/http";
 import { useToast } from "@chakra-ui/react";
 
 function useSignUp(onSignUpSuccess: () => void) {
-  const navigate = useNavigate();
   const toast = useToast();
 
   return useMutation({
