@@ -11,7 +11,6 @@ import Login from './pages/Login';
 import LandingPage from './layouts/LandingPage';
 import Posts from './pages/Posts';
 import HomePage from './layouts/HomePage';
-import Post from './components/Post';
 import NotFound from './pages/NotFound';
 import NotFoundLoggedIn from './pages/NotFoundLoggedIn';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';

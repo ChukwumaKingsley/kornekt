@@ -3,12 +3,14 @@ import http from "../utils/http";
 
 function useLogin() {
 	return useMutation({
-		mutationFn: async ({ username, password }: { username: string; password: string }) => {
+		mutationFn: async ({ email, password }: { email: string; password: string }) => {
 			try {
 				const formData = new FormData();
 
-				formData.append("username", username);
+				formData.append("email", email);
 				formData.append("password", password);
+
+				console.log(formData)
 
 				const res = await http.post("/login", formData);
 
