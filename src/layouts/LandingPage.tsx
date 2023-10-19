@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
-import LoginModal from "../components/loginModal";
+import LoginModal from "../components/LoginModal";
 import SignUpModal from "../components/SignUpModal";
 
 export default function LandingPage() {

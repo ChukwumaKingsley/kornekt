@@ -50,7 +50,7 @@ function SignUpModal({ isOpen, onClose, openLoginModal }: SignUpModalProps): JSX
       return; // Don't proceed with the request
     } else {
       setPasswordsMatch(true); // Passwords match, reset the match state
-        signUpMutation.mutate(user);
+      signUpMutation.mutate(user);
   }
 }
 

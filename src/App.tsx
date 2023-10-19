@@ -15,6 +15,7 @@ import NotFound from './pages/NotFound';
 import NotFoundLoggedIn from './pages/NotFoundLoggedIn';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import UserProfile from './pages/UserProfile';
 
 
 const themeConfig: ThemeConfig = {
@@ -36,6 +37,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path='home' element={<HomePage />}>
         <Route path='posts' element={<Posts />} />
+        <Route path='my_profile' element={<UserProfile />} />
         <Route path='*' element={<NotFoundLoggedIn />}/>
       </Route>
     </Route>

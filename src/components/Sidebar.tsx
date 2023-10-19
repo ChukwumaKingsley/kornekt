@@ -27,9 +27,9 @@ export default function Sidebar() {
             Posts
           </Text>
           <Text as={NavLink} to="/home/my_posts" p={2} borderBottomWidth="1px" borderColor="gray.200"  cursor="pointer">
-            My Posts
+            Activity
           </Text>
-          <Text as={NavLink} to="/profile" p={2} borderBottomWidth="1px" borderColor="gray.200" cursor="pointer">
+          <Text as={NavLink} to="/home/my_profile" p={2} borderBottomWidth="1px" borderColor="gray.200" cursor="pointer">
             Profile
           </Text>
           <Text as={NavLink} to="/reset_password" p={2} borderBottomWidth="1px" borderColor="gray.200"  cursor="pointer">
