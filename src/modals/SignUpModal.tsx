@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Button,
   Modal,
@@ -11,9 +11,15 @@ import {
   Text,
   FormControl,
   FormLabel,
+  Icon,
 } from '@chakra-ui/react';
+import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import useSignUp from '../hooks/useSignUp';
+
+const user_regex = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const password_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
 interface SignUpModalProps {
   isOpen: boolean;
@@ -30,8 +36,50 @@ function SignUpModal({ isOpen, onClose, openLoginModal }: SignUpModalProps): JSX
     password: '',
     confirmPassword: ''
   }
-  
+
+  const userRef = useRef<HTMLInputElement | null>(null);
+  const errRef = useRef<HTMLInputElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
   const [user, setUser] = useState(userData)
+  
+  //name states
+  // const [name, setName] = useState('')
+  const [validName, setValidName] = useState(false)
+  const [userFocus, setUserFocus] = useState(false)
+  
+  //password states
+  // const [password, setPassword] = useState('')
+  const [validPassword, setValidPassword] = useState(false)
+  const [passwordFocus, setPasswordFocus] = useState(false)
+
+  //password match
+  // const [matchPassword, setMatchPassword] = useState('')
+  const [validMatchPassword, setValidMatchPassword] = useState(false)
+  const [matchFocus, setMatchFocus] = useState(false)
+
+  //Error messages and success
+  const [errMsg, setErrMsg] = useState('');
+  const [success, setSuccess] = useState(false)
+
+  useEffect(() => {
+    userRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    setValidName(user_regex.test(user.name))
+  }, [user.name])
+  
+  useEffect(() => {
+    setValidPassword(password_regex.test(user.password));
+    setValidMatchPassword(user.password === user.confirmPassword)
+  }, [user.password, user.confirmPassword])
+
+  useEffect(() => {
+    setErrMsg('')
+  }, [user])
+  
+  
+  //for the button
   const [isLoading, setIsLoading] = useState(false)
   const [passwordsMatch, setPasswordsMatch] = useState(true); // Track password matching
   
@@ -74,6 +122,7 @@ const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
       <form onSubmit={handleSubmit}>
         <ModalContent>
           <ModalHeader>
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live='assertive'>{errMsg}</p>
             <Button
               colorScheme="blue"
               variant={'outline'}
@@ -94,37 +143,65 @@ const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
           </ModalHeader>
           <ModalBody>
                 <FormControl>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>
+                    {validName && <FontAwesomeIcon color='green' icon={faCheck} />}
+                    {!(validName || !user.name) && <FontAwesomeIcon color='red' icon={faTimes} />}
+                    Name:
+                  </FormLabel>
                   <Input 
                     type="text" 
+                    ref={userRef}
+                    autoComplete='off'
                     placeholder="Enter your name"
                     value={user.name}
                     name='name'
                     onChange={onChange}
                     required
+                    aria-invalid={validName ? "false" : "true"}
+                    aria-describedby='uidnote'
+                    onFocus={() => setUserFocus(true)}
+                    onBlur={() => setUserFocus(false)}
                   />
-                                </FormControl>
+                  {userFocus && user.name && !validName && 
+                  <Text id='uidnote' fontSize={'12px'} color={'blue.900'} p={'5px'}>
+                    <FontAwesomeIcon icon={faInfoCircle} /> 4 to 24 characters.<br/>
+                    Must begin with a letter.<br/>
+                    Letters, numbers, underscores, hyphens allowed.
+                  </Text>}
+                </FormControl>
                 <FormControl mt={4}>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <Input 
                     type='email'
+                    ref={emailRef}
                     placeholder="Enter your username (email)"
                     name='email'
+                    autoComplete='off'
                     value={user.email} 
                     onChange={onChange}
                     required
                   />
                 </FormControl>
                 <FormControl mt={4}>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>
+                    {validPassword && <FontAwesomeIcon color='green' icon={faCheck} />}
+                    {!(validPassword || !user.password) && <FontAwesomeIcon color='red' icon={faTimes} />}
+                    Password
+                  </FormLabel>
                   <Input
                     type="password"
                     placeholder="Enter new password"
                     name='password'
-                    value={user.password} 
+                    value={user.password}
                     onChange={onChange}
                     required
+                    aria-invalid={validName ? "false" : "true"}
+                    aria-describedby='uidnote'
                   />
+                  <Text fontSize="sm">
+                    Password must contain at least one numerical digit, one lowercase letter,
+                    one uppercase letter, and one of the following: @#$%&*
+                  </Text>
                 </FormControl>
                 <FormControl mt={4}>
                   <FormLabel>Confirm Password</FormLabel>

@@ -53,10 +53,12 @@ import useUpdatePassword from "../hooks/useUpdatePassword";
             <ModalHeader textAlign={'center'}>Update user information</ModalHeader>
             <ModalBody>
               <Box p={4}>
-                <FormLabel>Password:</FormLabel>
+                <FormLabel>Old password:</FormLabel>
+                <Input placeholder="Enter old password" size="lg" mb={4} value={newPassword} onChange={handleChange} required/>
+                <FormLabel>New password:</FormLabel>
                 <Input placeholder="Enter new password" size="lg" mb={4} value={newPassword} onChange={handleChange} required/>
-                <Input placeholder="Enter new password" size="lg" mb={4} value={newPassword} onChange={handleChange} required/>
-                <Input placeholder="Enter new password" size="lg" mb={4} value={newPassword} onChange={handleChange} required/>
+                <FormLabel>Confirm new password:</FormLabel>
+                <Input placeholder="Confirm new password" size="lg" mb={4} value={newPassword} onChange={handleChange} required/>
               </Box>
             </ModalBody>
             <ModalFooter>
