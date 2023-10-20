@@ -1,12 +1,24 @@
 import { useMutation } from "@tanstack/react-query";
 import http from "../utils/http";
 import { useToast } from "@chakra-ui/react";
+// import { useContext } from "react";
+import { useUser } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
+
+
+
+
 
 interface onLoginFail {
 	onLoginFail: () => void
 }
 
 function useLogin({onLoginFail}: onLoginFail) {
+
+	// const userContext = useContext(UserContext)
+	const { user, saveDetails} = useUser()
+	const navigate = useNavigate()
+
 
 	const toast = useToast()
 
@@ -18,18 +30,20 @@ function useLogin({onLoginFail}: onLoginFail) {
 				formData.append("email", email);
 				formData.append("password", password);
 
-				console.log(formData)
-
 				const res = await http.post("/login", formData);
+				
 
-				console.log("ress", res);
 
-				localStorage.setItem("token", res.data.access_token);
+				localStorage.setItem('accessToken', res.data.access_token);
+				// localStorage.setItem('userID', res.data.user)
 
-				window.location.href = "/home";
+				// console.log(localStorage.getItem('accessToken'), localStorage.getItem('userID'));
+				navigate('/home')
+
+
 			} catch (error: any) {
 				onLoginFail()
-				if (error.response.status === 403){
+				if (error?.response?.status === 403){
 					toast({
 						title: "Invalid username or password!",
 						status: "warning",

@@ -1,21 +1,24 @@
 import { ChakraProvider, CSSReset, extendTheme, ThemeConfig } from '@chakra-ui/react';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 
 //pages
 import About from './pages/About';
 import Help from './pages/Help';
 import Login from './pages/Login';
+import UserProfile from './pages/UserProfile';
+import NotFound from './pages/NotFound';
+import Posts from './pages/Posts';
+import NotFoundLoggedIn from './pages/NotFoundLoggedIn';
 
 //Layouts
 import LandingPage from './layouts/LandingPage';
-import Posts from './pages/Posts';
 import HomePage from './layouts/HomePage';
-import NotFound from './pages/NotFound';
-import NotFoundLoggedIn from './pages/NotFoundLoggedIn';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import UserProfile from './pages/UserProfile';
+
+//context for authentication
+import { UserContextProvider } from './contexts/UserContext';
 
 
 const themeConfig: ThemeConfig = {
@@ -48,13 +51,15 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <CSSReset />
-        <RouterProvider router={router} />
-        <ReactQueryDevtools />
-      </ChakraProvider>
-    </QueryClientProvider>
+    <UserContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <CSSReset />
+          <RouterProvider router={router} />
+          <ReactQueryDevtools />
+        </ChakraProvider>
+      </QueryClientProvider>
+    </UserContextProvider>
   );
 }
 

@@ -65,6 +65,7 @@ const onSignUpSuccess = () => {
 const onSignUpFail = () => {
   setIsLoading(false)
 }
+
 const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
   
   return (

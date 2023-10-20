@@ -6,8 +6,8 @@ export function handleToast(err: any) {
 	toast({
 		title: err?.response?.data?.detail,
 		containerStyle: {
-			backgroundColor: "red",
-			color: "white",
+							backgroundColor: "red",
+							color: "white",
 		},
 	});
 }

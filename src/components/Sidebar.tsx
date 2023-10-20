@@ -1,5 +1,5 @@
 import { Flex, Spacer, Text } from "@chakra-ui/react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import UserAvartar from "./UserAvartar";
 import LogoutButton from "./LogoutButton";
 

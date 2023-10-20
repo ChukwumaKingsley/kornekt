@@ -1,28 +1,41 @@
-import { Box, Button, Center, Container, Divider, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Container, Divider, Flex, HStack, Spinner, Text, useDisclosure } from "@chakra-ui/react";
 import useMyProfile from "../hooks/useMyProfile";
 import { useEffect } from "react";
 import UserAvartar from "../components/UserAvartar";
-import UpdateUser from "../components/UpdateUser";
+import UpdateUserModal from "../components/UpdateUserModal";
+import { useUser } from "../contexts/UserContext";
 
 
-function formatJoinDate(joinDate: any) {
-    const options = { year: 'numeric', month: 'long' };
+function formatJoinDate(joinDate: string | undefined) {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+    };
     return new Date(joinDate).toLocaleDateString('en-US', options);
   }
+  
 
 
 function UserProfile() {
   // Retrieve the access token from local storage
-  const accessToken = localStorage.getItem("token");
+  const accessToken = localStorage.getItem("accessToken");
 
-  const { data, isLoading, isError, error } = useMyProfile(accessToken);
+  const {user} = useUser()
+  console.log('happy')
+  console.log(user?.user)
+
+  const { data, isLoading, isError, error } = useMyProfile();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (!accessToken) {
       // Handle the case where the token is not found in local storage
       console.log("Access token not found in local storage");
+      window.location.href = "/";
+      return
+
     }
-  }, [accessToken]);
+  }, [user?.token]);
 
   if (isError) {
     return <Text>Error: {error.message}</Text>;
@@ -33,7 +46,7 @@ function UserProfile() {
     <Flex flexDirection="column" alignItems="center" p={'10px'} >
         {isLoading && <Spinner color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
         {!isLoading &&
-      <Box width='80%'p={'10px'} bg="white.100" borderRadius="md" boxShadow="md">
+      <Box width='80%'p={'10px'} bg="white" borderRadius="md" boxShadow="md">
         <Container  marginBottom={10}>
             <UserAvartar size='xl' show={true}/>
             <HStack alignItems={'center'} p={'5px'}>
@@ -55,11 +68,11 @@ function UserProfile() {
       }
     </Flex>
     <Center>
-        <Button colorScheme="blue" marginTop={'20px'}>
+        <Button colorScheme="blue" marginTop={'20px'} onClick={onOpen}>
             Edit Profile
         </Button>
     </Center>
-    {true && <UpdateUser />}
+    <UpdateUserModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </div>
   );
 }

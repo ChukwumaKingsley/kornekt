@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Spacer, Text } from '@chakra-ui/react'
+import { Box, Flex, Heading, Spacer } from '@chakra-ui/react'
 import LogoutButton from './LogoutButton';
 // import UserAvartar from './UserAvartar'
 
