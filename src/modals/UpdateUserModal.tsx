@@ -12,7 +12,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useUpdateUser from "../hooks/useUpdateUser";
 
 interface UpdateProps {
@@ -26,8 +25,6 @@ export default function UpdateUserModal({onClose, isOpen}: UpdateProps) {
   const accessToken = localStorage.getItem('token')
   const [newName, setNewName] = useState('')
   const toast = useToast();
-  const navigate = useNavigate()
-
 
   const { isLoading } = useUpdateUser(accessToken, newName);
 

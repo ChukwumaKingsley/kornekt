@@ -1,41 +1,21 @@
-import { Box, Button, Center, Container, Divider, Flex, HStack, Spinner, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Center, Container, Divider, Link, Flex, HStack, Spinner, Text, useDisclosure } from "@chakra-ui/react";
 import useMyProfile from "../hooks/useMyProfile";
-import { useEffect } from "react";
 import UserAvartar from "../components/UserAvartar";
-import UpdateUserModal from "../components/UpdateUserModal";
-import { useUser } from "../contexts/UserContext";
+import UpdateUserModal from "../modals/UpdateUserModal";
 
 
-function formatJoinDate(joinDate: string | undefined) {
+function formatJoinDate(joinDate: any) {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: 'long',
     };
     return new Date(joinDate).toLocaleDateString('en-US', options);
   }
-  
-
 
 function UserProfile() {
-  // Retrieve the access token from local storage
-  const accessToken = localStorage.getItem("accessToken");
-
-  const {user} = useUser()
-  console.log('happy')
-  console.log(user?.user)
 
   const { data, isLoading, isError, error } = useMyProfile();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  useEffect(() => {
-    if (!accessToken) {
-      // Handle the case where the token is not found in local storage
-      console.log("Access token not found in local storage");
-      window.location.href = "/";
-      return
-
-    }
-  }, [user?.token]);
 
   if (isError) {
     return <Text>Error: {error.message}</Text>;
@@ -67,10 +47,9 @@ function UserProfile() {
       </Box>
       }
     </Flex>
-    <Center>
-        <Button colorScheme="blue" marginTop={'20px'} onClick={onOpen}>
-            Edit Profile
-        </Button>
+    <Center color="blue.500" marginTop="40px">
+      <Link onClick={onOpen}>Edit Profile</Link>
+      <Link marginLeft="40px" onClick={onOpen}>Edit Password</Link>
     </Center>
     <UpdateUserModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </div>

@@ -6,8 +6,8 @@ import {
   Flex,
   Image,
 } from '@chakra-ui/react';
-import SignUpModal from '../components/SignUpModal';
-import LoginModal from '../components/LoginModal';
+import SignUpModal from '../modals/SignUpModal';
+import LoginModal from '../modals/LoginModal';
 
 function Login(): JSX.Element {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);

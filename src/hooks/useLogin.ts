@@ -1,8 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import http from "../utils/http";
 import { useToast } from "@chakra-ui/react";
-// import { useContext } from "react";
-import { useUser } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
 
@@ -14,9 +12,6 @@ interface onLoginFail {
 }
 
 function useLogin({onLoginFail}: onLoginFail) {
-
-	// const userContext = useContext(UserContext)
-	const { user, saveDetails} = useUser()
 	const navigate = useNavigate()
 
 
