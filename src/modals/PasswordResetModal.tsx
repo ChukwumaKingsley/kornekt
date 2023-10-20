@@ -20,7 +20,7 @@ import useUpdatePassword from "../hooks/useUpdatePassword";
       isOpen: boolean
   }
   
-  export default function UpdateUserModal({onClose, isOpen}: UpdateProps) {
+  export default function PassworResetModal({onClose, isOpen}: UpdateProps) {
   
     const accessToken = localStorage.getItem('token')
     const [newPassword, setNewPassword] = useState('')
@@ -54,6 +54,8 @@ import useUpdatePassword from "../hooks/useUpdatePassword";
             <ModalBody>
               <Box p={4}>
                 <FormLabel>Password:</FormLabel>
+                <Input placeholder="Enter new password" size="lg" mb={4} value={newPassword} onChange={handleChange} required/>
+                <Input placeholder="Enter new password" size="lg" mb={4} value={newPassword} onChange={handleChange} required/>
                 <Input placeholder="Enter new password" size="lg" mb={4} value={newPassword} onChange={handleChange} required/>
               </Box>
             </ModalBody>

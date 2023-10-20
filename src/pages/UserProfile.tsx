@@ -2,6 +2,8 @@ import { Box, Center, Container, Divider, Link, Flex, HStack, Spinner, Text, use
 import useMyProfile from "../hooks/useMyProfile";
 import UserAvartar from "../components/UserAvartar";
 import UpdateUserModal from "../modals/UpdateUserModal";
+import { useState } from "react";
+import PassworResetModal from "../modals/PasswordResetModal";
 
 
 function formatJoinDate(joinDate: any) {
@@ -15,7 +17,21 @@ function formatJoinDate(joinDate: any) {
 function UserProfile() {
 
   const { data, isLoading, isError, error } = useMyProfile();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [passwordResetIsOpen, setPasswordResetIsOpen] = useState(false)
+  const [profileUpdateIsOpen, setProfileUpdateIsOpen] = useState(false)
+
+  const onOpenPasswordReset = () => {
+    setPasswordResetIsOpen(true)
+  }
+  const onOpenProfileUpdate = () => {
+    setProfileUpdateIsOpen(true)
+  }
+  const onClose = () => {
+    setPasswordResetIsOpen(false)
+    setProfileUpdateIsOpen(false)
+  }
 
   if (isError) {
     return <Text>Error: {error.message}</Text>;
@@ -48,10 +64,11 @@ function UserProfile() {
       }
     </Flex>
     <Center color="blue.500" marginTop="40px">
-      <Link onClick={onOpen}>Edit Profile</Link>
-      <Link marginLeft="40px" onClick={onOpen}>Edit Password</Link>
+      <Link onClick={onOpenProfileUpdate}>Edit Profile</Link>
+      <Link marginLeft="40px" onClick={onOpenPasswordReset}>Edit Password</Link>
     </Center>
-    <UpdateUserModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+    <UpdateUserModal isOpen={profileUpdateIsOpen} onOpen={onOpenProfileUpdate} onClose={onClose} />
+    <PassworResetModal isOpen={passwordResetIsOpen} onOpen={onOpenPasswordReset} onClose={onClose} />
     </div>
   );
 }
