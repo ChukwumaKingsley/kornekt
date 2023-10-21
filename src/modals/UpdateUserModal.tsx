@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import useUpdateUser from "../hooks/useUpdateUser";
-import { useNavigate } from "react-router-dom";
 
 interface UpdateProps {
     onOpen: () => void,
@@ -38,7 +37,7 @@ export default function UpdateUserModal({onClose, isOpen}: UpdateProps) {
       title: "Name Update successful!",
       status: "success",
       position: "top",
-      duration: 30000
+      duration: 3000
     });
     setIsLoading(false)
     setTimeout(function() {
@@ -59,7 +58,7 @@ export default function UpdateUserModal({onClose, isOpen}: UpdateProps) {
   const handleChange = (e: any) => {
     setNewName(e.target.value)
   }
-  console.log(newName)
+  
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>

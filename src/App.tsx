@@ -39,7 +39,7 @@ const router = createBrowserRouter(
         {/* <Route path='posts' element={<Posts /> } /> */}
       </Route>
       <Route path='home' element={<HomePage />}>
-        <Route path='posts' element={<Posts />} />
+        <Route index element={<Posts />} />
         <Route path='my_profile' element={<UserProfile />} />
         <Route path='*' element={<NotFoundLoggedIn />}/>
       </Route>
@@ -56,7 +56,7 @@ function App() {
         <ChakraProvider theme={theme}>
           <CSSReset />
           <RouterProvider router={router} />
-          <ReactQueryDevtools />
+          {/* <ReactQueryDevtools /> */}
         </ChakraProvider>
       </QueryClientProvider>
     </UserContextProvider>

@@ -23,7 +23,7 @@ export default function HomePage() {
   return (
     <SimpleGrid columns={6}>
         <Sidebar />
-        <Flex flexDir={'column'} height={'100vh'} gridColumn={'span 5'} bg={'gray.200'} >
+        <Flex flexDir={'column'} height={'100svh'} gridColumn={'span 5'} bg={'gray.200'} >
             <Header />
             <Outlet />
         </Flex>

@@ -6,7 +6,7 @@ import { useState } from "react";
 import PassworResetModal from "../modals/PasswordResetModal";
 
 
-function formatJoinDate(joinDate: any) {
+export function formatJoinDate(joinDate: any) {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: 'long',
