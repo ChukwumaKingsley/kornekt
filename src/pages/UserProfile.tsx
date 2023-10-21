@@ -1,4 +1,4 @@
-import { Box, Center, Container, Divider, Link, Flex, HStack, Spinner, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Center, Container, Divider, Link, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
 import useMyProfile from "../hooks/useMyProfile";
 import UserAvartar from "../components/UserAvartar";
 import UpdateUserModal from "../modals/UpdateUserModal";
@@ -17,8 +17,6 @@ function formatJoinDate(joinDate: any) {
 function UserProfile() {
 
   const { data, isLoading, isError, error } = useMyProfile();
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [passwordResetIsOpen, setPasswordResetIsOpen] = useState(false)
   const [profileUpdateIsOpen, setProfileUpdateIsOpen] = useState(false)
 

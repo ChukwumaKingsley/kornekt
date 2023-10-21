@@ -15,18 +15,18 @@ function useMyProfile() {
   const navigate = useNavigate();
   const toast = useToast();
 
-  if (!accessToken) {
-    // Redirect to the login page if the access token is not found
-    console.log('huray')
-    return ({
-      isLoading: false,
-      data: null,
-      isError: true,
-      error: {
-        message: 'No access token'
-      }
-    })
-  }
+  // if (!accessToken) {
+  //   // Redirect to the login page if the access token is not found
+  //   console.log('huray')
+  //   return ({
+  //     isLoading: false,
+  //     data: null,
+  //     isError: true,
+  //     error: {
+  //       message: 'No access token'
+  //     }
+  //   })
+  // }
 
   return useQuery<UserProfile, Error>({
     queryKey: ["myProfile"],
@@ -47,7 +47,7 @@ function useMyProfile() {
             status: "warning",
             position: "top",
           });
-          navigate('/home');
+          // navigate('/home');
         } else if (error.response && error.response.status === 400) {
           toast({
             title: "Login required",
@@ -55,7 +55,7 @@ function useMyProfile() {
             position: "top",
             duration: 1,
           });
-          navigate('/home');
+          // navigate('/home');
         } else {
           toast({
             title: 'Server not reachable',

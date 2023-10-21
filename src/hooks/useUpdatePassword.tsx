@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
 import { useToast } from "@chakra-ui/react";
+import { ResetData } from "../modals/PasswordResetModal";
 
 interface UserProfile {
   name: string; // Add the 'name' field to UserProfile
@@ -8,7 +9,7 @@ interface UserProfile {
   email: string,
 }
 
-function useUpdatePassword(accessToken: string | null, name: string) {
+function useUpdatePassword(accessToken: string | null, name: ResetData) {
   const toast = useToast();
 
   return useQuery<UserProfile, Error>({

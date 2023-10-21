@@ -20,11 +20,16 @@ function useUpdateUser(accessToken: string | null, name: string) {
 
       try {
         const res = await http.put("/users/update", {
-          name, 
+          name: name
+        }, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          }
         });
-
+        
         return res.data;
       } catch (error: any) {
+        console.log(error)
         // Handle specific error status codes
         if (error.response && error.response.status === 403) {
           toast({
@@ -39,7 +44,6 @@ function useUpdateUser(accessToken: string | null, name: string) {
             position: "top",
             duration: 1,
           });
-          window.location.href = "/";
         }
         // throw error;
       }
