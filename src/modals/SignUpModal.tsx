@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import useSignUp from '../hooks/useSignUp';
 
-const user_regex = /^[a-zA-Z\s][a-zA-Z0-9\s-_]{3,23}$/;
+export const user_regex = /^[a-zA-Z\s][a-zA-Z0-9\s-_]{3,23}$/;
 export const password_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 const email_regex = /^.+@.+\..+$/
 

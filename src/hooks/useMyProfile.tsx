@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
 import { useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 
 interface UserProfile {
   email: string;
@@ -12,21 +11,8 @@ interface UserProfile {
 
 function useMyProfile() {
   const accessToken = localStorage.getItem('accessToken');
-  const navigate = useNavigate();
   const toast = useToast();
 
-  // if (!accessToken) {
-  //   // Redirect to the login page if the access token is not found
-  //   console.log('huray')
-  //   return ({
-  //     isLoading: false,
-  //     data: null,
-  //     isError: true,
-  //     error: {
-  //       message: 'No access token'
-  //     }
-  //   })
-  // }
 
   return useQuery<UserProfile, Error>({
     queryKey: ["myProfile"],

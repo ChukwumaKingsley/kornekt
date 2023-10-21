@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import useUpdateUser from "../hooks/useUpdateUser";
+import { useNavigate } from "react-router-dom";
 
 interface UpdateProps {
     onOpen: () => void,
@@ -22,22 +23,39 @@ interface UpdateProps {
 
 export default function UpdateUserModal({onClose, isOpen}: UpdateProps) {
 
-  const accessToken = localStorage.getItem('token')
+  const toast = useToast()
   const [newName, setNewName] = useState('')
-  const toast = useToast();
 
-  const { isLoading } = useUpdateUser(accessToken, newName);
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleUpdate = (e: any) => {
     e.preventDefault()
-    toast({
-      title: "Profile update successful!",
-      status: "success",
-      position: "top"
-    })
-    // onClose()
-    // navigate("/home/my_profile")
+    setIsLoading(true)
+    updateMutation.mutate({name: newName})
   }
+  const onUpdateSuccess = () => {
+    toast({
+      title: "Name Update successful!",
+      status: "success",
+      position: "top",
+      duration: 30000
+    });
+    setIsLoading(false)
+    setTimeout(function() {
+      onClose()
+    }, 1500)
+    setNewName('')
+    setTimeout(function() {
+      window.location.reload()
+    }, 1500)
+  }
+
+  const onUpdateFail =() => {
+    setIsLoading(false)
+  }
+
+  const updateMutation = useUpdateUser({onUpdateSuccess, onUpdateFail});
+  
   const handleChange = (e: any) => {
     setNewName(e.target.value)
   }
