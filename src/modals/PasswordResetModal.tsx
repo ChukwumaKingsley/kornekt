@@ -26,19 +26,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   }
 
   export interface ResetData {
-        oldPassword: string;
-        newPassword: string;
-        confirmNewPassword: string;
+        old_Password: string;
+        new_Password: string;
     }
 
 
   export default function PassworResetModal({onClose, isOpen}: UpdateProps) {
+
+    interface formData {
+      oldPassword: string;
+      newPassword: string;
+      confirmNewPassword: string;
+  }
   
-    const accessToken = localStorage.getItem('accessToken')
     const toast = useToast();
-    // const navigate = useNavigate()
     
-    const [resetData, setResetData] = useState<ResetData>({oldPassword: '', newPassword: '', confirmNewPassword: ''})
+    const [resetData, setResetData] = useState<formData>({oldPassword: '', newPassword: '', confirmNewPassword: ''})
     const [validPassword, setValidPassword] = useState(false)
     const [validMatchPassword, setValidMatchPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -48,24 +51,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
         setValidPassword(password_regex.test(resetData.newPassword));
         setValidMatchPassword(resetData.newPassword === resetData.confirmNewPassword)
     }, [resetData.newPassword, resetData.confirmNewPassword])
-
-    const handleUpdate = (e: any) => {
-        e.preventDefault()
-        setIsLoading(true)
-        toast({
-            title: "Password update successful!",
-            status: "success",
-            position: "top"
-        })
-        useUpdatePassword(accessToken, resetData);
-        setIsLoading(false)
-    }
+    
     const handleChange = (e: any) => {
         setResetData({
           ...resetData,
           [e.target.name]: e.target.value
         });
       }
+      const handleUpdate = (e: any) => {
+        e.preventDefault()
+        setIsLoading(true)
+        passwordMutation.mutate({old_password: resetData.oldPassword, new_password: resetData.newPassword})
+      }
+      const onUpdateSuccess = () => {
+        toast({
+          title: "Password reset successful!",
+          status: "success",
+          position: "top",
+          duration: 3000
+        });
+        setIsLoading(false)
+        setTimeout(function() {
+          onClose()
+        }, 1500)
+        setResetData({oldPassword: '', newPassword: '', confirmNewPassword: ''})
+      }
+    
+      const onUpdateFail =() => {
+        setIsLoading(false)
+      }
+
+      const passwordMutation = useUpdatePassword({onUpdateSuccess, onUpdateFail});
 
     return (
       <div>
