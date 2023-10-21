@@ -17,8 +17,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import useSignUp from '../hooks/useSignUp';
 
-const user_regex = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const user_regex = /^[a-zA-Z\s][a-zA-Z0-9\s-_]{3,23}$/;
 const password_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
+const email_regex = /^.+@.+\..+$/
+
 
 interface SignUpModalProps {
   isOpen: boolean;
@@ -38,59 +40,41 @@ function SignUpModal({ isOpen, onClose, openLoginModal }: SignUpModalProps): JSX
 
   const [user, setUser] = useState(userData)
   
-  //name states
-  // const [name, setName] = useState('')
+  //Input validation states
   const [validName, setValidName] = useState(false)
-  
-  //password states
-  // const [password, setPassword] = useState('')
+  const [validEmail, setValidEmail] = useState(false)
   const [validPassword, setValidPassword] = useState(false)
-
-  //password match
-  // const [matchPassword, setMatchPassword] = useState('')
   const [validMatchPassword, setValidMatchPassword] = useState(false)
 
-  //Error messages and success
-  const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false)
 
   useEffect(() => {
     setValidName(user_regex.test(user.name))
   }, [user.name])
+
+  useEffect(() => {
+    setValidEmail(email_regex.test(user.email))
+  }, [user.email])
+  
   
   useEffect(() => {
     setValidPassword(password_regex.test(user.password));
     setValidMatchPassword(user.password === user.confirmPassword)
   }, [user.password, user.confirmPassword])
-
-  useEffect(() => {
-    setErrMsg('')
-  }, [user])
-  
   
   //for the button
   const [isLoading, setIsLoading] = useState(false)
-  const [passwordsMatch, setPasswordsMatch] = useState(true); // Track password matching
-  
+
   const onChange = (e: any) => {
     setUser({
       ...user,
       [e.target.name]: e.target.value
     });
-    setPasswordsMatch(true); // Reset the match state when input changes
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true)
-    if (user.password !== user.confirmPassword) {
-      setPasswordsMatch(false); // Set the match state to false
-      setIsLoading(false)
-      return; // Don't proceed with the request
-    } else {
-      setPasswordsMatch(true); // Passwords match, reset the match state
-      signUpMutation.mutate(user);
-  }
+    signUpMutation.mutate(user);
 }
 
 const onSignUpSuccess = () => {
@@ -111,7 +95,6 @@ const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
       <form onSubmit={handleSubmit}>
         <ModalContent>
           <ModalHeader>
-            <p className={errMsg ? "errmsg" : "offscreen"} aria-live='assertive'>{errMsg}</p>
             <Button
               colorScheme="blue"
               variant={'outline'}
@@ -152,11 +135,15 @@ const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
                   <Text id='uidnote' fontSize={'12px'} color={'blue.900'} p={'5px'}>
                     <FontAwesomeIcon icon={faInfoCircle} /> 4 to 24 characters.<br/>
                     Must begin with a letter.<br/>
-                    Letters, numbers, underscores, hyphens allowed.
+                    Letters, numbers, spaces, underscores, hyphens allowed.
                   </Text>}
                 </FormControl>
                 <FormControl mt={4}>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>
+                    {validEmail && <FontAwesomeIcon color='green' icon={faCheck} />}
+                    {!(validEmail || !user.email) && <FontAwesomeIcon color='red' icon={faTimes} />}
+                    Email
+                  </FormLabel>
                   <Input 
                     type='email'
                     placeholder="Enter your username (email)"
@@ -166,6 +153,10 @@ const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
                     onChange={onChange}
                     required
                   />
+                  {user.email && !validEmail && 
+                  <Text id='uidnote' fontSize={'12px'} color={'blue.900'} p={'5px'}>
+                    <FontAwesomeIcon icon={faInfoCircle} /><br/>Please enter a valid email: example@domain.con
+                  </Text>}
                 </FormControl>
                 <FormControl mt={4}>
                   <FormLabel>
@@ -175,7 +166,7 @@ const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
                   </FormLabel>
                   <Input
                     type="password"
-                    placeholder="Enter new password"
+                    placeholder="Enter password"
                     name='password'
                     value={user.password}
                     onChange={onChange}
@@ -192,19 +183,25 @@ const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
                   </Text>}
                 </FormControl>
                 <FormControl mt={4}>
-                  <FormLabel>Confirm Password</FormLabel>
+                  <FormLabel>
+                    {validMatchPassword && user.confirmPassword && <FontAwesomeIcon color='green' icon={faCheck} />}
+                    {!(validMatchPassword || !user.confirmPassword) && <FontAwesomeIcon color='red' icon={faTimes} />}
+                    Confirm Password
+                  </FormLabel>
                   <Input
                     type="password"
-                    placeholder="Confirm new password" 
+                    placeholder="Confirm password" 
                     name='confirmPassword'
                     value={user.confirmPassword} 
                     onChange={onChange}
+                    required
+                    aria-invalid={validMatchPassword ? "false" : "true"}
+                    aria-describedby='confirmnote'
                   />
-                  {!passwordsMatch && (
-                    <Text color="red" fontSize="sm">
-                      Passwords do not match
-                    </Text>
-                  )}
+                  {!validMatchPassword && user.confirmPassword &&
+                  <Text id='pwdnote' fontSize={'12px'} color={'blue.900'} p={'5px'}>
+                    <FontAwesomeIcon icon={faInfoCircle} /><br/>Must match previous password
+                  </Text>}
                 </FormControl>
           </ModalBody>
           <ModalFooter>
@@ -215,6 +212,7 @@ const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
             type='submit'
             colorScheme="blue"
             isLoading={isLoading}
+            isDisabled = {!validName || !validEmail || !validPassword || !validMatchPassword ? true : false}
           >
             {'Signup'}
           </Button>
