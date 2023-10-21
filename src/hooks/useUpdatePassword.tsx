@@ -9,7 +9,7 @@ interface UserProfile {
   email: string,
 }
 
-function useUpdatePassword(accessToken: string | null, name: ResetData) {
+function useUpdatePassword(accessToken: string | null, resetData: ResetData) {
   const toast = useToast();
 
   return useQuery<UserProfile, Error>({
@@ -20,9 +20,15 @@ function useUpdatePassword(accessToken: string | null, name: ResetData) {
       }
 
       try {
+
+        const formData = { old_password: resetData.oldPassword, new_password: resetData.newPassword}
         const res = await http.put("/users/update", {
-          name, 
-        });
+            formData
+          }, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            }
+          });          
 
         return res.data;
       } catch (error: any) {

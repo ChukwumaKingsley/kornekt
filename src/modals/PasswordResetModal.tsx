@@ -28,36 +28,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   export interface ResetData {
         oldPassword: string;
         newPassword: string;
-        confirmNewPassowrd: string;
+        confirmNewPassword: string;
     }
 
 
   export default function PassworResetModal({onClose, isOpen}: UpdateProps) {
   
-    const accessToken = localStorage.getItem('token')
+    const accessToken = localStorage.getItem('accessToken')
     const toast = useToast();
     // const navigate = useNavigate()
     
-    const [resetData, setResetData] = useState<ResetData>({oldPassword: '', newPassword: '', confirmNewPassowrd: ''})
-    const { isLoading } = useUpdatePassword(accessToken, resetData);
+    const [resetData, setResetData] = useState<ResetData>({oldPassword: '', newPassword: '', confirmNewPassword: ''})
     const [validPassword, setValidPassword] = useState(false)
     const [validMatchPassword, setValidMatchPassword] = useState(false)
-
-
+    const [isLoading, setIsLoading] = useState(false)
+    
+    
     useEffect(() => {
         setValidPassword(password_regex.test(resetData.newPassword));
-        setValidMatchPassword(resetData.newPassword === resetData.confirmNewPassowrd)
-      }, [resetData.newPassword, resetData.confirmNewPassowrd])
-  
+        setValidMatchPassword(resetData.newPassword === resetData.confirmNewPassword)
+    }, [resetData.newPassword, resetData.confirmNewPassword])
+
     const handleUpdate = (e: any) => {
-      e.preventDefault()
-      toast({
-        title: "Password update successful!",
-        status: "success",
-        position: "top"
-      })
-      // onClose()
-      // navigate("/home/my_profile")
+        e.preventDefault()
+        setIsLoading(true)
+        toast({
+            title: "Password update successful!",
+            status: "success",
+            position: "top"
+        })
+        useUpdatePassword(accessToken, resetData);
+        setIsLoading(false)
     }
     const handleChange = (e: any) => {
         setResetData({
@@ -80,7 +81,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
                         {resetData.oldPassword && <FontAwesomeIcon color='green' icon={faCheck} />}
                         Old password:
                     </FormLabel>
-                    <Input placeholder="Enter old password" size="lg" mb={4} value={resetData?.oldPassword} onChange={handleChange} required/>
+                    <Input placeholder="Enter old password" size="lg" type="password" name="oldPassword" value={resetData?.oldPassword} onChange={handleChange} required/>
                     {!resetData.newPassword && 
                     <Text fontSize={'12px'} color={'blue.900'} p={'5px'}>
                         <FontAwesomeIcon icon={faInfoCircle} /><br/>
@@ -93,7 +94,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
                     {!(validPassword || !resetData.newPassword) && <FontAwesomeIcon color='red' icon={faTimes} />}
                         New password:
                     </FormLabel>
-                    <Input placeholder="Enter new password" size="lg" mb={4} value={resetData?.newPassword} onChange={handleChange} required/>
+                    <Input placeholder="Enter new password" size="lg" type="password" name='newPassword' value={resetData?.newPassword} onChange={handleChange} required/>
                     {resetData.newPassword && !validPassword && 
                     <Text fontSize={'12px'} color={'blue.900'} p={'5px'}>
                         <FontAwesomeIcon icon={faInfoCircle} /> 8 to 24 characters.<br/>
@@ -104,12 +105,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
                 </FormControl>
                 <FormControl>
                     <FormLabel>
-                        {validMatchPassword && resetData.confirmNewPassowrd && <FontAwesomeIcon color='green' icon={faCheck} />}
-                        {!(validMatchPassword || !resetData.confirmNewPassowrd) && <FontAwesomeIcon color='red' icon={faTimes} />}
+                        {validMatchPassword && resetData.confirmNewPassword && <FontAwesomeIcon color='green' icon={faCheck} />}
+                        {!(validMatchPassword || !resetData.confirmNewPassword) && <FontAwesomeIcon color='red' icon={faTimes} />}
                         Confirm new password:
                     </FormLabel>
-                    <Input placeholder="Confirm new password" size="lg" mb={4} value={resetData?.confirmNewPassowrd} onChange={handleChange} required/>
-                    {!validMatchPassword && resetData.confirmNewPassowrd &&
+                    <Input placeholder="Confirm new password" size="lg" type="password" name='confirmNewPassword' value={resetData?.confirmNewPassword} onChange={handleChange} required/>
+                    {!validMatchPassword && resetData.confirmNewPassword &&
                   <Text id='pwdnote' fontSize={'12px'} color={'blue.900'} p={'5px'}>
                     <FontAwesomeIcon icon={faInfoCircle} /><br/>Must match previous password
                   </Text>}
@@ -120,7 +121,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
             <Button colorScheme="red"  width={'90px'}  onClick={onClose} marginRight={'10px'}>
                 Cancel
               </Button>
-              <Button colorScheme="blue" width={'90px'} type="submit" isLoading={isLoading}>
+              <Button 
+                colorScheme="blue" 
+                width={'90px'} type="submit" 
+                isDisabled = {!validPassword || !validMatchPassword || !resetData.oldPassword ? true : false} isLoading={isLoading}>
                 Update
               </Button>
             </ModalFooter>
