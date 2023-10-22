@@ -21,9 +21,9 @@ export default function HomePage() {
     
 
   return (
-    <SimpleGrid columns={6}>
+    <SimpleGrid columns={5}>
         <Sidebar />
-        <Flex flexDir={'column'} height={'100svh'} gridColumn={'span 5'} bg={'gray.200'} >
+        <Flex flexDir={'column'} height={'100svh'} gridColumn={{base: 'span 5', md: 'span 4'}} bg={'gray.200'} >
             <Header />
             <Outlet />
         </Flex>

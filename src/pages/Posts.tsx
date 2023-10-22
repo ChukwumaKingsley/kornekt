@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
 import { Flex } from "@chakra-ui/react";
-import Post, { PostData } from "../components/PostCard";
+import Post from "../components/PostCard";
 
 function Posts() {
   const { data, isLoading, isError, error } = useQuery({queryKey:[ "myData"], queryFn: fetchData});
