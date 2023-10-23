@@ -23,16 +23,16 @@ export default function Sidebar() {
         {/* Navigation Links with borders and white text */}
 
         <Flex textAlign="center" flexDirection={{base: 'row', md: "column"}} gap={0}>
-          <Text as={NavLink} to="/home" p={2} borderBottomWidth={{base: 0, md: "1px"}} borderColor={'blue.700'} cursor="pointer" boxShadow={'1px grey'}>
+          <Text as={NavLink} to="/home" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor={'blue.700'} cursor="pointer" boxShadow={'1px grey'}>
             Posts
           </Text>
-          <Text as={NavLink} to="/home/my_posts" p={2} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700"  cursor="pointer">
+          <Text as={NavLink} to="/home/my_posts" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700"  cursor="pointer">
             Activity
           </Text>
-          <Text as={NavLink} to="/home/my_profile" p={2} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700" cursor="pointer">
+          <Text as={NavLink} to="/home/my_profile" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700" cursor="pointer">
             Profile
           </Text>
-          <Text as={NavLink} to="/home/reset_password" p={2} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700" cursor="pointer">
+          <Text as={NavLink} to="/home/reset_password" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700" cursor="pointer">
             Users
           </Text>
         </Flex>

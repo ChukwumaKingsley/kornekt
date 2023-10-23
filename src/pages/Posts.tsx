@@ -1,10 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
-import { Flex } from "@chakra-ui/react";
-import Post from "../components/PostCard";
+import { Flex, useToast } from "@chakra-ui/react";
+import PostCard from "../components/PostCard";
+import { useNavigate } from "react-router-dom";
 
 function Posts() {
-  const { data, isLoading, isError, error } = useQuery({queryKey:[ "myData"], queryFn: fetchData});
+  const toast = useToast()
+  const navigate = useNavigate()
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["getPosts"],
+    queryFn: () => fetchData(toast, navigate),
+  });
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -15,32 +21,48 @@ function Posts() {
 
   // Data is available here
   return (
-    <Flex maxHeight={'100'} flexDirection={'column'}>
-      {data.map((data: any) => 
-        <Post key={data.post_id} post={data} />)}
+    <Flex maxHeight={'100svh'} flexDirection={'column'}>
+      {data.map((post: any) => 
+        <PostCard 
+          key={post.id}
+          post_id={post.id}
+          user_name={post.user_name}
+          title={post.title}
+          content={post.content}
+          created_at={post.created_at}
+          votes_count={post.votes}
+          downvotes_count={post.downvotes}
+          user_voted={post.user_voted}
+          user_downvoted={post.user_downvoted}
+        />)}
     </Flex>
   );
 }
 
 // Define a function to fetch the data
-async function fetchData() {
+async function fetchData(toast: any, navigate: any) {
+  const accessToken = localStorage.getItem('accessToken')
   try {
-    const accessToken = localStorage.getItem('accessToken')
-
     if (!accessToken) {
       throw new Error("Access token not found");
     }
-
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
+    const response = await http.get("/posts", { headers });
 
-
-    const response = await http.get("/posts", { headers }); // Replace with your API endpoint
-    console.log(response.data)
-    return response.data;
-  } catch (error) {
-    throw new Error("Failed to fetch data");
+    return response.data
+  } catch (error: any) {
+    if (error?.response){
+      if (error.response.status === 400){
+        toast({
+          title: "Invalid access token",
+          status: "warning",
+          position: "top",
+        });
+        navigate('/')
+      }
+    }
   }
 }
 

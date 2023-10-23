@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
 import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 interface UserProfile {
   email: string;
@@ -10,20 +11,20 @@ interface UserProfile {
 }
 
 function useMyProfile() {
-  const accessToken = localStorage.getItem('accessToken');
   const toast = useToast();
-
-
+  const navigate =  useNavigate()
+  
+  
   return useQuery<UserProfile, Error>({
     queryKey: ["myProfile"],
     queryFn: async () => {
       try {
+        const accessToken = localStorage.getItem('accessToken');
         const res = await http.get("/users/me", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-
         return res.data;
       } catch (error: any) {
         // Handle specific error status codes
@@ -33,7 +34,7 @@ function useMyProfile() {
             status: "warning",
             position: "top",
           });
-          // navigate('/home');
+          navigate('/');
         } else if (error.response && error.response.status === 400) {
           toast({
             title: "Login required",
@@ -41,7 +42,7 @@ function useMyProfile() {
             position: "top",
             duration: 1,
           });
-          // navigate('/home');
+          navigate('/');
         } else {
           toast({
             title: 'Server not reachable',

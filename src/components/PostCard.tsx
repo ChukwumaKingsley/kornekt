@@ -1,7 +1,9 @@
 import { Box, Text, Badge, IconButton, HStack, Stack, Spacer, Flex } from '@chakra-ui/react';
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import http from '../utils/http';
-import { useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
+import { useEffect, useState } from 'react';
+// import { useMutation } from 'react-query';
 
 
 export interface PostData {
@@ -14,27 +16,42 @@ export interface PostData {
     downvote_count: number;
   }
   
-const Post = (post: any) => {
+const PostCard = (props: any) => {
 
-    const vote = async () => {
-        try {
-          const response = await postvote(post.post.post_id);
-          // Handle the response if needed
-          console.log(response);
-        } catch (error) {
-          console.error("Failed to vote", error);
-        }
-      };
+  const [voted, setVoted] = useState(props.user_voted)
+  const [downvoted, setDownvoted] = useState(props.user_downvoted)
+  // console.log(voted, downvoted)
+
+  // const onVote = () => {
+
+  //   setVoted((prev: boolean) => !prev)
+  //   setDownvoted(false)
+  // }
+
+  // const onDownvote = () => {
+  //   setDownvoted((prev: boolean) => !prev)
+  //   setVoted(false)
+  // }
+
+  // useEffect(() => {
+    
+  // }, [voted, downvoted])
+
+  //   const vote = async () => {
+  //       try {
+  //         const response = await postvote(post.post.post_id);
+  //         // Handle the response if needed
+  //         console.log(response);
+  //       } catch (error) {
+  //         console.error("Failed to vote", error);
+  //       }
+  //     };
+
     
       const downvote = async () => {
-        try {
-          const response = await postdownvote(post.post.post_id);
-          // Handle the response if needed
-          console.log(response);
-        } catch (error) {
-          console.error("Failed to downvote", error);
-        }
+        (await downvoteMutation).mutate(props.post_id)
       };
+      const downvoteMutation = usePostDownvote()
   return (
     <Box 
       maxWidth='400px' 
@@ -43,34 +60,34 @@ const Post = (post: any) => {
       borderWidth="1px" 
       borderRadius="lg" 
       p="4" shadow="md" 
-      key={post.post_id} 
+      key={props.post_id}
       alignSelf={'center'}>
       <Text fontSize="xl" fontWeight="bold">
-        {post.post.title}
+        {props.title}
       </Text>
       <Text fontSize="md" my="2">
-        {post.post.content}
+        {props.content}
       </Text>
       <Flex alignItems="center">
         <Text fontSize="sm" color="gray.500">
-          Posted by {post.post.user_name} on {new Date(post.post.created_at).toLocaleString()}
+          Posted by {props.user_name} on {new Date(props.created_at).toLocaleString()}
         </Text>
         <Spacer />
         <HStack spacing={1}>
 
-            <Text>{post.post.votes}</Text>
+            <Text>{props.votes_count}</Text>
           <IconButton
             size="sm"
-            bg={post.post.user_voted ? 'blue.300' : 'gray.400'}
-            onClick={vote}
+            bg={voted ? 'blue.300' : 'gray.400'}
+            onClick={downvote}
             aria-label="Upvote"
 
             icon={<ChevronUpIcon />}
           />
-          <Text>{post.post.downvotes}</Text>
+          <Text>{props.downvotes_count}</Text>
           <IconButton
             size="sm"
-            bg={post.post.user_downvoted ? 'red.300' : 'gray.400'}
+            bg={downvoted ? 'red.300' : 'gray.400'}
             onClick={downvote}
             aria-label="Downvote"
             icon={<ChevronDownIcon />}
@@ -82,49 +99,28 @@ const Post = (post: any) => {
   );
 };
 
-async function postvote(id: any) {
-    try {
-      const accessToken = localStorage.getItem('accessToken')
-      console.log(accessToken)
-  
-      if (!accessToken) {
-        throw new Error("Access token not found");
-      }
-  
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-      };
-  
-  
-      const response = await http.post(`/vote/${id}`, { headers, } ); // Replace with your API endpoint
-      console.log(response)
-      return response.data;
-    } catch (error) {
+
+async function usePostDownvote() {
+  return useMutation({
+    mutationKey: ["downvoting"],
+    mutationFn: async (id: any) => {
+      try {
+        
+        const accessToken = localStorage.getItem('accessToken');
+        const res = await http.post(`/vote/${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log(res);
+        return res;
+      } catch (error: any) {
         console.log(error)
-      throw new Error("Failed to vote");
-    }
-  }
-
-  async function postdownvote(id: any) {
-    try {
-      const accessToken = localStorage.getItem('accessToken')  
-      if (!accessToken) {
-        throw new Error("Access token not found");
+        throw error
       }
+    },
+  });
+}
   
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-      };
-  
-  
-      const response = await http.post(`/downvote/${id}`, { headers }); // Replace with your API endpoint
-      console.log(response)
-      return response.data;
-    } catch (error) {
-      throw new Error("Failed to vote");
-    }
-  }
-
-export default Post;
-
-
+    
+export default PostCard

@@ -15,7 +15,7 @@ export default function HomePage() {
     useEffect(() => {
       if (!accessToken) {
         // navigate('/')
-        console.log(accessToken)
+        navigate('/s')
       }
     }, [])
     
