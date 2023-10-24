@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
-import { Box, Button, Flex, Input, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Input, Text, useToast } from "@chakra-ui/react";
 import PostCard from "../components/PostCard";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -22,7 +22,6 @@ function Posts() {
   }
   const handleSearch = (e: any) => {
     e.preventDefault()
-    console.log("Search button clicked");
     refetch()
   }
 
@@ -57,7 +56,7 @@ function Posts() {
             </form>
           </Box>
           <Flex overflowY={"auto"} flexDirection={"column"}>
-          {data.map((post: any) => 
+          {data.length > 0 && data.map((post: any) => 
             <PostCard 
             key={post.id}
             post_id={post.id}
@@ -70,6 +69,7 @@ function Posts() {
             user_voted={post.user_voted}
             user_downvoted={post.user_downvoted}
             />)}
+            {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>
       </Flex>
   );
