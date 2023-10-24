@@ -1,57 +1,21 @@
-import { Box, Text, Badge, IconButton, HStack, Stack, Spacer, Flex } from '@chakra-ui/react';
+import { Box, Text, IconButton, HStack, Spacer, Flex } from '@chakra-ui/react';
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import http from '../utils/http';
 import { useMutation } from '@tanstack/react-query'
-import { useEffect, useState } from 'react';
-// import { useMutation } from 'react-query';
 
-
-export interface PostData {
-    post_id: number;
-    title: string;
-    content: string;
-    created_at: string;
-    user_name: string;
-    vote_count: number;
-    downvote_count: number;
-  }
-  
 const PostCard = (props: any) => {
 
-  const [voted, setVoted] = useState(props.user_voted)
-  const [downvoted, setDownvoted] = useState(props.user_downvoted)
-  // console.log(voted, downvoted)
+  const downvote = async () => {
+    await downvoteMutation.mutate(props.post_id);
+  };
+  
+  const vote = async () => {
+    await voteMutation.mutate(props.post_id);
+  }
+  
+  const downvoteMutation = usePostDownvote()
+  const voteMutation = usePostVote()
 
-  // const onVote = () => {
-
-  //   setVoted((prev: boolean) => !prev)
-  //   setDownvoted(false)
-  // }
-
-  // const onDownvote = () => {
-  //   setDownvoted((prev: boolean) => !prev)
-  //   setVoted(false)
-  // }
-
-  // useEffect(() => {
-    
-  // }, [voted, downvoted])
-
-  //   const vote = async () => {
-  //       try {
-  //         const response = await postvote(post.post.post_id);
-  //         // Handle the response if needed
-  //         console.log(response);
-  //       } catch (error) {
-  //         console.error("Failed to vote", error);
-  //       }
-  //     };
-
-    
-      const downvote = async () => {
-        (await downvoteMutation).mutate(props.post_id)
-      };
-      const downvoteMutation = usePostDownvote()
   return (
     <Box 
       maxWidth='400px' 
@@ -78,8 +42,8 @@ const PostCard = (props: any) => {
             <Text>{props.votes_count}</Text>
           <IconButton
             size="sm"
-            bg={voted ? 'blue.300' : 'gray.400'}
-            onClick={downvote}
+            bg={props.user_voted ? 'blue.300' : 'gray.400'}
+            onClick={vote}
             aria-label="Upvote"
 
             icon={<ChevronUpIcon />}
@@ -87,7 +51,7 @@ const PostCard = (props: any) => {
           <Text>{props.downvotes_count}</Text>
           <IconButton
             size="sm"
-            bg={downvoted ? 'red.300' : 'gray.400'}
+            bg={props.user_downvoted ? 'red.300' : 'gray.400'}
             onClick={downvote}
             aria-label="Downvote"
             icon={<ChevronDownIcon />}
@@ -100,23 +64,33 @@ const PostCard = (props: any) => {
 };
 
 
-async function usePostDownvote() {
+function usePostDownvote() {
   return useMutation({
     mutationKey: ["downvoting"],
     mutationFn: async (id: any) => {
       try {
-        
-        const accessToken = localStorage.getItem('accessToken');
-        const res = await http.post(`/vote/${id}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        console.log(res);
+        const res = await http.post(`/downvote/${id}`);
+        console.log(res)
         return res;
-      } catch (error: any) {
-        console.log(error)
-        throw error
+      } catch (error) {
+        console.error("Error while downvoting:", error);
+        throw new Error("Failed to downvote the post");
+      }
+    },
+  });
+}
+
+function usePostVote() {
+  return useMutation({
+    mutationKey: ["voting"],
+    mutationFn: async (id: any) => {
+      try {
+        const res = await http.post(`/vote/${id}`);
+        console.log(res)
+        return res;
+      } catch (error) {
+        console.error("Error while voting:", error);
+        throw new Error("Failed to vote the post");
       }
     },
   });
