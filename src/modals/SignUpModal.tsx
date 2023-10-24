@@ -39,7 +39,6 @@ function SignUpModal({ isOpen, onClose, openLoginModal }: SignUpModalProps): JSX
   }
 
   const [user, setUser] = useState(userData)
-  
   //Input validation states
   const [validName, setValidName] = useState(false)
   const [validEmail, setValidEmail] = useState(false)
@@ -214,6 +213,7 @@ const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
             isLoading={isLoading}
             isDisabled = {!validName || !validEmail || !validPassword || !validMatchPassword ? true : false}
           >
+            Signup
           </Button>
           
           </ModalFooter>

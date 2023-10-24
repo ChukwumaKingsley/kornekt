@@ -1,7 +1,6 @@
 import { ChakraProvider, CSSReset, extendTheme, ThemeConfig } from '@chakra-ui/react';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 
 //pages
@@ -19,6 +18,7 @@ import HomePage from './layouts/HomePage';
 
 //context for authentication
 import { UserContextProvider } from './contexts/UserContext';
+import Users from './pages/Users';
 
 
 const themeConfig: ThemeConfig = {
@@ -41,6 +41,7 @@ const router = createBrowserRouter(
       <Route path='home' element={<HomePage />}>
         <Route index element={<Posts />} />
         <Route path='my_profile' element={<UserProfile />} />
+        <Route path='users' element={<Users />} />
         <Route path='*' element={<NotFoundLoggedIn />}/>
       </Route>
     </Route>
@@ -56,7 +57,6 @@ function App() {
         <ChakraProvider theme={theme}>
           <CSSReset />
           <RouterProvider router={router} />
-          {/* <ReactQueryDevtools /> */}
         </ChakraProvider>
       </QueryClientProvider>
     </UserContextProvider>

@@ -29,7 +29,7 @@ export default function Sidebar() {
           <Text as={NavLink} to="/home/my_profile" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700" cursor="pointer">
             Profile
           </Text>
-          <Text as={NavLink} to="/home/reset_password" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700" cursor="pointer">
+          <Text as={NavLink} to="/home/users" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700" cursor="pointer">
             Users
           </Text>
         </Flex>
