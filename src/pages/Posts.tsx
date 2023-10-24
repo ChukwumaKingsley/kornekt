@@ -41,6 +41,7 @@ function Posts() {
       <Flex maxHeight={'100svh'} overflowY={"auto"} flexDirection={'column'}>
           <Box alignSelf={'center'}>
             <form onSubmit={handleSearch}>
+              <Flex>
                 <Input 
                   type="text" 
                   placeholder="Search" 
@@ -52,6 +53,7 @@ function Posts() {
                   onChange={handleSearchChange} 
                   value={search}/>
                 <Button colorScheme="blue" borderRadius={'100px'} type="submit">Go</Button>
+              </Flex>
             </form>
           </Box>
           <Flex overflowY={"auto"} flexDirection={"column"}>

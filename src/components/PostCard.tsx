@@ -1,10 +1,8 @@
-import { Box, Text, IconButton, HStack, Spacer, Flex, Card, CardHeader, CardBody, CardFooter, Spinner, Avatar } from '@chakra-ui/react';
+import { Box, Text, IconButton, HStack, Spacer, Flex, Card, CardHeader, CardBody, Avatar, CardFooter } from '@chakra-ui/react';
 import {  } from '@chakra-ui/react'
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import http from '../utils/http';
 import { useMutation } from '@tanstack/react-query'
-import UserAvartar from './UserAvartar';
-import { NavLink } from 'react-router-dom';
 
 const PostCard = (props: any) => {
 
@@ -13,6 +11,7 @@ const PostCard = (props: any) => {
   };
   
   const vote = async () => {
+    console.log(Date.now)
     await voteMutation.mutate(props.post_id);
   }
   
@@ -20,62 +19,51 @@ const PostCard = (props: any) => {
   const voteMutation = usePostVote()
 
   return (
-    <div>
-      <Card>
-        <CardHeader>
-            <Avatar size={'sm'} bg='blue.900' bgSize={'inherit'} src={'hll'} name={props.user_name} />
+      <Card maxWidth={'400px'}  width={"90%"} mb={'20px'} alignSelf={'center'}>
+        <CardHeader borderBottom={'1px'} borderColor={'gray.300'}>
+          <Flex alignItems={'center'} >
+
+            <Avatar size={'sm'} marginRight={'5px'} bg='blue.900' bgSize={'inherit'} src={'hll'} name={props.user_name} />
+            <Text fontSize="sm" color="gray.500">
+              {props.user_name}
+            </Text>
+            <Spacer />
+            <Text fontSize="sm" color="gray.500">
+              {new Date(props.created_at).toLocaleString()}
+            </Text>
+          </Flex>
         </CardHeader>
-        <CardBody>
-
+        <CardBody borderBottom={'1px'} borderColor={'gray.300'}>
+          <Text fontSize="lg" fontWeight="bold">
+          {props.title}
+          </Text>
+          <Text fontSize="md" my="2">
+            {props.content}
+          </Text>
         </CardBody>
-        <CardBody>
-
-        </CardBody>
-      </Card>
-    <Box 
-      maxWidth='400px' 
-      mb={'20px'}
-      bg='white' 
-      borderWidth="1px" 
-      borderRadius="lg" 
-      p="4" shadow="md" 
-      key={props.post_id}
-      alignSelf={'center'}>
-      <Text fontSize="xl" fontWeight="bold">
-        {props.title}
-      </Text>
-      <Text fontSize="md" my="2">
-        {props.content}
-      </Text>
-      <Flex alignItems="center">
-        <Text fontSize="sm" color="gray.500">
-          Posted by {props.user_name} on {new Date(props.created_at).toLocaleString()}
-        </Text>
-        <Spacer />
-        <HStack spacing={1}>
-
-            <Text>{props.votes_count}</Text>
+        <CardFooter height={'20px'}>
+        <HStack marginLeft={'auto'} spacing={1}>
+          <Text>{props.votes_count}</Text>
           <IconButton
-            size="sm"
-            bg={props.user_voted ? 'blue.300' : 'gray.400'}
-            onClick={vote}
-            aria-label="Upvote"
+          size="sm"
+          bg={props.user_voted ? 'blue.300' : 'gray.400'}
+          onClick={vote}
+          aria-label="Upvote"
 
-            icon={<ChevronUpIcon />}
+          icon={<ChevronUpIcon />}
           />
           <Text>{props.downvotes_count}</Text>
           <IconButton
-            size="sm"
-            bg={props.user_downvoted ? 'red.300' : 'gray.400'}
-            onClick={downvote}
-            aria-label="Downvote"
-            icon={<ChevronDownIcon />}
+          size="sm"
+          bg={props.user_downvoted ? 'red.300' : 'gray.400'}
+          onClick={downvote}
+          aria-label="Downvote"
+          icon={<ChevronDownIcon />}
           >
           </IconButton>
         </HStack>
-      </Flex>
-    </Box>
-    </div>
+        </CardFooter>
+      </Card>
   );
 };
 

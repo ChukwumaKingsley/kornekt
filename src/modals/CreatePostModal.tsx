@@ -44,7 +44,6 @@ const defaultData = {
     published: true
 }
 
-const toast = useToast()
 const [postData, setPostData] = useState<PostData>(defaultData)
 
 const [isLoading, setIsLoading] = useState(false)
