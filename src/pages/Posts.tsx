@@ -37,7 +37,7 @@ function Posts() {
 
   // Data is available here
   return (
-      <Flex maxHeight={'100svh'} overflowY={"auto"} flexDirection={'column'}>
+      <Flex mt='20px' maxHeight={'100svh'} overflowY={"auto"} flexDirection={'column'}>
           <Box alignSelf={'center'}>
             <form onSubmit={handleSearch}>
               <Flex>

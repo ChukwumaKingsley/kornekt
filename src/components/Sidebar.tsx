@@ -1,9 +1,12 @@
 import { Flex, Spacer, Text } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import UserAvartar from "./UserAvartar";
 import LogoutButton from "./LogoutButton";
 
 export default function Sidebar() {
+
+  const location = useLocation()
+  const { pathname } = location;
 
   return (
     <Flex
@@ -16,20 +19,62 @@ export default function Sidebar() {
         alignItems={{base: 'center'}}
         color={'white'}
         p={'10px'}
+        pl={0}
+        pr={0}
       >
 
-        <UserAvartar size='md' show={false} />
-        <Flex textAlign="center" flexDirection={{base: 'row', md: "column"}} gap={0}>
-          <Text as={NavLink} to="/home" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor={'blue.700'} cursor="pointer" boxShadow={'1px grey'}>
+        <UserAvartar size='lg' show={false} />
+        <Flex textAlign="center" flexDirection={{base: 'row', md: "column"}} gap={0} width={'100%'}>
+          <Text 
+            as={NavLink}
+            background={pathname === '/home' ? 'blue.600' : ''}
+            to="/home" 
+            p={'10px'} 
+            fontSize={{base: '18px', md: '20px'}}
+            borderBottomWidth={{base: 0, md: "1px"}}
+            borderColor={'blue.200'}
+            cursor="pointer"
+            boxShadow={'1px grey'}
+          >
             Posts
           </Text>
-          <Text as={NavLink} to="/home/my_posts" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700"  cursor="pointer">
+          <Text 
+            as={NavLink} 
+            to="/home/activity"
+            background={pathname === '/home/activity' ? 'blue.600' : ''}
+            p={'10px'} 
+            fontSize={{base: '18px', md: '20px'}}
+            borderBottomWidth={{base: 0, md: "1px"}}
+            borderColor={'blue.200'}
+            cursor="pointer"
+            boxShadow={'1px grey'}
+          >
             Activity
           </Text>
-          <Text as={NavLink} to="/home/my_profile" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700" cursor="pointer">
+          <Text 
+            as={NavLink} 
+            to="/home/my_profile"
+            background={pathname === '/home/my_profile' ? 'blue.600' : ''}
+            p={'10px'} 
+            fontSize={{base: '18px', md: '20px'}}
+            borderBottomWidth={{base: 0, md: "1px"}}
+            borderColor={'blue.200'}
+            cursor="pointer"
+            boxShadow={'1px grey'}
+          >
             Profile
           </Text>
-          <Text as={NavLink} to="/home/users" p={'10px'} fontSize={{base: '18px', md: '20px'}} borderBottomWidth={{base: 0, md: "1px"}} borderColor="blue.700" cursor="pointer">
+          <Text 
+            as={NavLink} 
+            to="/home/users"
+            background={pathname === '/home/users' ? 'blue.600' : ''} 
+            p={'10px'} 
+            fontSize={{base: '18px', md: '20px'}}
+            borderBottomWidth={{base: 0, md: "1px"}}
+            borderColor={'blue.200'}
+            cursor="pointer"
+            boxShadow={'1px grey'}
+          >
             Users
           </Text>
         </Flex>

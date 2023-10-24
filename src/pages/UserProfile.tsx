@@ -37,7 +37,7 @@ function UserProfile() {
 
   return (
     <div>
-    <Flex flexDirection="column" alignItems="center" p={'10px'} >
+    <Flex mt={'20px'} flexDirection="column" alignItems="center" p={'10px'} >
         {isLoading && <Spinner color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
         {!isLoading &&
       <Box width='80%'p={'10px'} bg="white" borderRadius="md" boxShadow="md">

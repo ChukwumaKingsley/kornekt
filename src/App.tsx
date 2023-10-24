@@ -19,6 +19,8 @@ import HomePage from './layouts/HomePage';
 //context for authentication
 import { UserContextProvider } from './contexts/UserContext';
 import Users from './pages/Users';
+import MyPosts from './pages/MyPosts';
+import Activity from './layouts/Activity';
 
 
 const themeConfig: ThemeConfig = {
@@ -41,7 +43,11 @@ const router = createBrowserRouter(
       <Route path='home' element={<HomePage />}>
         <Route index element={<Posts />} />
         <Route path='my_profile' element={<UserProfile />} />
-        <Route path='users' element={<Users />} />
+        <Route path='users' element={<Users />}>
+        </Route>
+        <Route path='activity' element={<Activity />}>
+          <Route index element={<MyPosts />} />
+        </Route>
         <Route path='*' element={<NotFoundLoggedIn />}/>
       </Route>
     </Route>

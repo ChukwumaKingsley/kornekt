@@ -39,6 +39,7 @@ function SignUpModal({ isOpen, onClose, openLoginModal }: SignUpModalProps): JSX
   }
 
   const [user, setUser] = useState(userData)
+  
   //Input validation states
   const [validName, setValidName] = useState(false)
   const [validEmail, setValidEmail] = useState(false)

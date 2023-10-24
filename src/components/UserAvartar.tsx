@@ -5,7 +5,6 @@ import useMyProfile from '../hooks/useMyProfile';
 export default function UserAvartar({size, show}: {size: string, show: boolean}) {
 
   const { isLoading, data } = useMyProfile();
-  console.log(data)
   return (
     <Flex p={2} 
         flexDir='column' 
