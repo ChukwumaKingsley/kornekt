@@ -8,6 +8,9 @@ interface UserProfile {
   id: number;
   created_at: string; // Replace with the appropriate date type if necessary
   name: string;
+  votes_count: number;
+  downvotes_count: number;
+  posts_count: number;
 }
 
 function useMyProfile() {

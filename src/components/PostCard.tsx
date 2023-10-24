@@ -1,7 +1,10 @@
-import { Box, Text, IconButton, HStack, Spacer, Flex } from '@chakra-ui/react';
+import { Box, Text, IconButton, HStack, Spacer, Flex, Card, CardHeader, CardBody, CardFooter, Spinner, Avatar } from '@chakra-ui/react';
+import {  } from '@chakra-ui/react'
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import http from '../utils/http';
 import { useMutation } from '@tanstack/react-query'
+import UserAvartar from './UserAvartar';
+import { NavLink } from 'react-router-dom';
 
 const PostCard = (props: any) => {
 
@@ -17,6 +20,18 @@ const PostCard = (props: any) => {
   const voteMutation = usePostVote()
 
   return (
+    <div>
+      <Card>
+        <CardHeader>
+            <Avatar size={'sm'} bg='blue.900' bgSize={'inherit'} src={'hll'} name={props.user_name} />
+        </CardHeader>
+        <CardBody>
+
+        </CardBody>
+        <CardBody>
+
+        </CardBody>
+      </Card>
     <Box 
       maxWidth='400px' 
       mb={'20px'}
@@ -60,6 +75,7 @@ const PostCard = (props: any) => {
         </HStack>
       </Flex>
     </Box>
+    </div>
   );
 };
 

@@ -214,7 +214,6 @@ const signUpMutation = useSignUp({onSignUpSuccess, onSignUpFail});
             isLoading={isLoading}
             isDisabled = {!validName || !validEmail || !validPassword || !validMatchPassword ? true : false}
           >
-            {'Signup'}
           </Button>
           
           </ModalFooter>

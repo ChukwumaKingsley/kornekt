@@ -53,9 +53,9 @@ function UserProfile() {
         </Container>
         <Divider size={'5px'}/>
         <HStack justifyContent="space-between" padding={'10px'}>
-            <Text>0 posts</Text>
-            <Text>1 likes</Text>
-            <Text>4 likes</Text>
+            <Text>Posts: {data?.posts_count}</Text>
+            <Text>Likes: {data?.votes_count}</Text>
+            <Text>Dislikes: {data?.downvotes_count}</Text>
         </HStack>
 
       </Box>
