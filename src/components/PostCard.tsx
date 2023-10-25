@@ -3,6 +3,8 @@ import { ChevronUpIcon, ChevronDownIcon, EditIcon } from '@chakra-ui/icons';
 import http from '../utils/http';
 import { useMutation } from '@tanstack/react-query'
 import DeletePost from './DeletePost';
+import UpdatePostModal from '../modals/UpdatePostModal ';
+import { useState } from 'react';
 
 const PostCard = (props: any) => {
 
@@ -45,9 +47,18 @@ const PostCard = (props: any) => {
           </Text>
         </CardBody>
         <CardFooter height={'20px'} alignItems={'center'}>
-          {props.is_creator &&  props.is_editable &&
-          <IconButton size={'sm'} aria-label='Edit' backgroundColor={'white'} icon={<EditIcon />}/>}
-          {props.is_creator && <DeletePost post_id={props.post_id} />}
+          {
+            props.is_creator &&  props.is_editable &&
+            <UpdatePostModal 
+              post_id={props.post_id}
+              title={props.title} 
+              content={props.content} 
+            />
+          }
+          {
+            props.is_creator && 
+            <DeletePost post_id={props.post_id} />
+          }
         <HStack marginLeft={'auto'} spacing={1}>
           <Text>{props.votes_count}</Text>
           <IconButton
