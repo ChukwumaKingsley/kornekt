@@ -3,7 +3,7 @@ import http from "../utils/http";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-interface UserProfile {
+export interface UserProfile {
   email: string;
   id: number;
   created_at: string; // Replace with the appropriate date type if necessary

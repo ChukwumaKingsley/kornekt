@@ -25,7 +25,7 @@ export default function LandingPage() {
     };
   
     return (
-    <Flex flexDir={'column'} height={"100svh"} overflowX={'inherit'} wrap={'wrap'}>
+    <Flex flexDir={'column'} height={"100svh"}>
       <Box
         p={4}
         bg="blue.500"

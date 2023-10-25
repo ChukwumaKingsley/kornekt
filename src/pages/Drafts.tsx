@@ -56,17 +56,19 @@ function Drafts() {
           <Flex overflowY={"auto"} flexDirection={"column"}>
           {data.length > 0 && data.map((post: any) => 
             <DraftCard 
-            key={post.id}
-            post_id={post.id}
-            user_name={post.user_name}
-            title={post.title}
-            content={post.content}
-            created_at={post.created_at}
-            votes_count={post.votes}
-            downvotes_count={post.downvotes}
-            user_voted={post.user_voted}
-            user_downvoted={post.user_downvoted}
-            is_creator={true}
+              key={post.id}
+              post_id={post.id}
+              user_name={post.user_name}
+              title={post.title}
+              content={post.content}
+              created_at={post.created_at}
+              votes_count={post.votes}
+              downvotes_count={post.downvotes}
+              user_voted={post.user_voted}
+              user_downvoted={post.user_downvoted}
+              is_creator={true} 
+              is_editable={true} 
+              refetch={refetch}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Drafts</Heading>}
             </Flex>

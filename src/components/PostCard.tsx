@@ -1,20 +1,36 @@
 import { Text, IconButton, HStack, Spacer, Flex, Card, CardHeader, CardBody, Avatar, CardFooter } from '@chakra-ui/react';
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import http from '../utils/http';
-import { useMutation } from '@tanstack/react-query'
+import { QueryObserverResult, RefetchOptions, useMutation } from '@tanstack/react-query'
 import DeletePost from './DeletePost';
 import UpdatePostModal from '../modals/UpdatePostModal ';
 
-const PostCard = (props: any) => {
+
+export interface CardTypes {
+  post_id: number;
+  user_name: string;
+  title: string;
+  content: string;
+  created_at: string;
+  votes_count: number;
+  downvotes_count: number;
+  user_voted: boolean;
+  user_downvoted: boolean;
+  is_creator: boolean;
+  is_editable: boolean;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>;
+}
+
+const PostCard = (props: CardTypes) => {
 
   const downvote = () => {
     downvoteMutation.mutate(props.post_id);
-    props.reload;
+    props.refetch();
   };
   
   const vote = () => {
     voteMutation.mutate(props.post_id)
-    props.reload
+    props.refetch()
   }
   
   const downvoteMutation = usePostDownvote()
@@ -57,7 +73,7 @@ const PostCard = (props: any) => {
           }
           {
             props.is_creator && 
-            <DeletePost post_id={props.post_id} />
+            <DeletePost post_id={props.post_id} refetch={props.refetch} />
           }
         <HStack marginLeft={'auto'} spacing={1}>
           <Text>{props.votes_count}</Text>

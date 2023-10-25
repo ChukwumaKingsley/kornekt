@@ -13,14 +13,18 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import useUpdateUser from "../hooks/useUpdateUser";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
+import { UserProfile } from "../hooks/useMyProfile";
+
 
 interface UpdateProps {
     onOpen: () => void,
     onClose: () => void,
     isOpen: boolean
+    refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<UserProfile, Error>>
 }
 
-export default function UpdateUserModal({onClose, isOpen}: UpdateProps) {
+export default function UpdateUserModal({onClose, isOpen, refetch}: UpdateProps) {
 
   const toast = useToast()
   const [newName, setNewName] = useState('')
@@ -31,6 +35,7 @@ export default function UpdateUserModal({onClose, isOpen}: UpdateProps) {
     e.preventDefault()
     setIsLoading(true)
     updateMutation.mutate({name: newName})
+    refetch
   }
   const onUpdateSuccess = () => {
     toast({
@@ -40,13 +45,9 @@ export default function UpdateUserModal({onClose, isOpen}: UpdateProps) {
       duration: 3000
     });
     setIsLoading(false)
-    setTimeout(function() {
-      onClose()
-    }, 1500)
+    refetch()
+    onClose()
     setNewName('')
-    setTimeout(function() {
-      window.location.reload()
-    }, 1500)
   }
 
   const onUpdateFail =() => {

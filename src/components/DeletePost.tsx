@@ -1,11 +1,15 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button, IconButton, useToast } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { QueryObserverResult, RefetchOptions, useMutation } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import http from "../utils/http";
 
+interface DeleteProps {
+  post_id: number;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
+}
 
-export default function DeletePost(props: any) {
+export default function DeletePost(props: DeleteProps) {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef: any = useRef();
@@ -16,6 +20,7 @@ export default function DeletePost(props: any) {
 
   const handleDelete = async() => {
     await postDeleteMutation.mutate(props.post_id)
+    props.refetch()
     onClose();
   }
 

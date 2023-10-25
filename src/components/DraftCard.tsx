@@ -2,10 +2,11 @@ import { Text, Spacer, Flex, Card, CardHeader, CardBody, Avatar, CardFooter, But
 import DeletePost from './DeletePost';
 import UpdatePostModal, { useUpdatePost } from '../modals/UpdatePostModal ';
 import { useState } from 'react';
+import { CardTypes } from './PostCard';
 
 
 
-const DraftCard = (props: any) => {
+const DraftCard = (props: CardTypes) => {
 
   const [isLoading, setIsLoading] = useState(false)
   const updateData = {
@@ -19,6 +20,7 @@ const DraftCard = (props: any) => {
       e.preventDefault()
       setIsLoading(true)
       updatePostMutation.mutate({...updateData})
+      props.refetch()
       setIsLoading(false)
   }
 
@@ -55,7 +57,7 @@ const DraftCard = (props: any) => {
             content={props.content} 
             draft={true}
           />
-          <DeletePost post_id={props.post_id} />
+          <DeletePost post_id={props.post_id} refetch={props.refetch} />
           <Spacer />
           <Button 
             height={'30px'} 

@@ -7,7 +7,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import About from './pages/About';
 import Help from './pages/Help';
 import Login from './pages/Login';
-import UserProfile from './pages/UserProfile';
+import MyProfile from './pages/MyProfile';
 import NotFound from './pages/NotFound';
 import Posts from './pages/Posts';
 import NotFoundLoggedIn from './pages/NotFoundLoggedIn';
@@ -45,7 +45,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path='home' element={<HomePage />}>
         <Route index element={<Posts />} />
-        <Route path='my_profile' element={<UserProfile />} />
+        <Route path='my_profile' element={<MyProfile />} />
         <Route path='users' element={<Users />}>
         </Route>
         <Route path='activity' element={<Activity />}>

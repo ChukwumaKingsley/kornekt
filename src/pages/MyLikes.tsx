@@ -55,18 +55,19 @@ function MyLikes() {
           <Flex overflowY={"auto"} flexDirection={"column"}>
           {data.length > 0 && data.map((post: any) => 
             <PostCard 
-            key={post.id}
-            post_id={post.id}
-            user_name={post.user_name}
-            title={post.title}
-            content={post.content}
-            created_at={post.created_at}
-            votes_count={post.votes}
-            downvotes_count={post.downvotes}
-            user_voted={post.user_voted}
-            user_downvoted={post.user_downvoted}
-            is_creator={true}
-            is_editable={post.is_editable}
+              key={post.id}
+              post_id={post.id}
+              user_name={post.user_name}
+              title={post.title}
+              content={post.content}
+              created_at={post.created_at}
+              votes_count={post.votes}
+              downvotes_count={post.downvotes}
+              user_voted={post.user_voted}
+              user_downvoted={post.user_downvoted}
+              is_creator={post.is_creator}
+              is_editable={post.is_editable} 
+              refetch={refetch}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>

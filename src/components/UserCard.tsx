@@ -1,5 +1,4 @@
 import { Text, Spacer, Flex, Avatar, VStack } from '@chakra-ui/react';
-import {  } from '@chakra-ui/react'
 
 const UserCard = (props: any) => {
 

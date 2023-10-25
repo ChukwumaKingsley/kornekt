@@ -3,30 +3,18 @@ import http from "../utils/http";
 import { Box, Button, Flex, Heading, Input, useToast } from "@chakra-ui/react";
 import PostCard from "../components/PostCard";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Posts() {
   const toast = useToast()
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
-  const [load, setLoad] = useState(true)
 
-  const reload = () => {
-    setLoad((prev: any) => !prev)
-    console.log(load)
-  }
-
-  
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["getPosts"],
     queryFn: () => fetchData(toast, navigate, search),
   });
 
-  useEffect(() => {
-    console.log('refetched')
-    refetch()
-  }, [search, load])
-  
   const handleSearchChange = (e: any) => {
     setSearch(e.target.value)
   }
@@ -80,7 +68,7 @@ function Posts() {
             user_downvoted={post.user_downvoted}
             is_creator={post.is_creator}
             is_editable={post.is_editable}
-            reload={reload}
+            refetch={refetch}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>

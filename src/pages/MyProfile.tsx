@@ -14,9 +14,9 @@ function formatJoinDate(joinDate: any) {
     return new Date(joinDate).toLocaleDateString('en-US', options);
   }
 
-function UserProfile() {
+function MyProfile() {
 
-  const { data, isLoading, isError, error } = useMyProfile();
+  const { data, isLoading, isError, error, refetch } = useMyProfile();
   const [passwordResetIsOpen, setPasswordResetIsOpen] = useState(false)
   const [profileUpdateIsOpen, setProfileUpdateIsOpen] = useState(false)
 
@@ -65,10 +65,10 @@ function UserProfile() {
       <Link onClick={onOpenProfileUpdate}>Edit Profile</Link>
       <Link marginLeft="40px" onClick={onOpenPasswordReset}>Edit Password</Link>
     </Center>
-    <UpdateUserModal isOpen={profileUpdateIsOpen} onOpen={onOpenProfileUpdate} onClose={onClose} />
+    <UpdateUserModal isOpen={profileUpdateIsOpen} onOpen={onOpenProfileUpdate} onClose={onClose} refetch={refetch} />
     <PassworResetModal isOpen={passwordResetIsOpen} onOpen={onOpenPasswordReset} onClose={onClose} />
     </div>
   );
 }
 
-export default UserProfile;
+export default MyProfile;
