@@ -11,6 +11,9 @@ import {
     FormControl,
     Textarea,
     IconButton,
+    Flex,
+    FormLabel,
+    Switch,
   } from "@chakra-ui/react";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
@@ -21,6 +24,7 @@ interface UpdateData {
     title: string;
     content: string;
     post_id: number;
+    published: boolean;
 }
 
 export default function UpdatePostModal(props: any) {
@@ -37,7 +41,8 @@ export default function UpdatePostModal(props: any) {
     const defaultData = {
         title: props.title,
         content: props.content,
-        post_id: props.post_id
+        post_id: props.post_id,
+        published: !props.draft
     }
 
     const [updateData, setUpdateData] = useState<UpdateData>(defaultData)
@@ -68,7 +73,7 @@ export default function UpdatePostModal(props: any) {
             <ModalOverlay />
             <ModalContent>
             <form onSubmit={handleUpdate}>
-            <ModalHeader textAlign={'center'}>Create Post</ModalHeader>
+            <ModalHeader textAlign={'center'}>Edit {props.draft ? "Draft" : "Post"}</ModalHeader>
             <ModalBody>
                 <FormControl p={4}>
                 {/* <FormLabel>Title:</FormLabel> */}
@@ -95,13 +100,27 @@ export default function UpdatePostModal(props: any) {
                     name="content"
                     required/>
                 </FormControl>
+                <FormControl>
+            {props.draft &&
+            <Flex alignContent={'center'}>
+                <FormLabel textAlign={'center'}>Post?</FormLabel>
+                <Switch
+                    id="flip-switch"
+                    size="md"
+                    colorScheme="blue" 
+                    isChecked={updateData.published}
+                    onChange={() => {setUpdateData((prev) => ({...prev, published: !updateData.published}))}}
+                />
+            </Flex>
+            }
+            </FormControl>
             </ModalBody>
             <ModalFooter>
             <Button colorScheme="red"  width={'90px'}  onClick={onClose} marginRight={'10px'}>
                 Cancel
                 </Button>
                 <Button colorScheme="blue" width={'90px'} type="submit" isLoading={isLoading}>
-                Post
+                {updateData.published ? 'Post' : 'Save'}
                 </Button>
             </ModalFooter>
             </form>
@@ -111,13 +130,13 @@ export default function UpdatePostModal(props: any) {
     );
 }
 
-function useUpdatePost() {
+export function useUpdatePost() {
     const toast = useToast();
     return useMutation({
     mutationKey: ["updatePost"],
-    mutationFn: async ({ title, content, post_id }: { title: string; content: string; post_id: number }) => {
+    mutationFn: async ({ title, content, post_id, published }: { title: string; content: string; post_id: number, published: boolean }) => {
         try {
-        const formData = { title, content };
+        const formData = { title, content, published };
 
         const res = await http.put(`/posts/${post_id}`, formData);
         console.log(res)

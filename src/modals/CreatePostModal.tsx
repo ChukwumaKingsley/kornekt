@@ -125,7 +125,7 @@ return (
             Cancel
             </Button>
             <Button colorScheme="blue" width={'90px'} type="submit" isLoading={isLoading}>
-            Post
+            {postData.published ? 'Post' : 'Save'}
             </Button>
         </ModalFooter>
         </form>

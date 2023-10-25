@@ -23,7 +23,7 @@ export default function Sidebar() {
       >
 
         <UserAvartar size='lg' show={false} />
-        <Flex textAlign="center" flexDirection={{base: 'row', md: "column"}} gap={0} width={'100%'}>
+        <Flex textAlign="center" flexDirection={{base: 'row', md: "column"}} width={'100%'} justifyItems={'center'} gap={{base: '10px', lg: 0}}>
           <Text 
             as={NavLink}
             background={pathname === '/home' ? 'blue.600' : ''}

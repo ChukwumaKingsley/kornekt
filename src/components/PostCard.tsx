@@ -1,10 +1,9 @@
 import { Text, IconButton, HStack, Spacer, Flex, Card, CardHeader, CardBody, Avatar, CardFooter } from '@chakra-ui/react';
-import { ChevronUpIcon, ChevronDownIcon, EditIcon } from '@chakra-ui/icons';
+import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import http from '../utils/http';
 import { useMutation } from '@tanstack/react-query'
 import DeletePost from './DeletePost';
 import UpdatePostModal from '../modals/UpdatePostModal ';
-import { useState } from 'react';
 
 const PostCard = (props: any) => {
 
@@ -53,6 +52,7 @@ const PostCard = (props: any) => {
               post_id={props.post_id}
               title={props.title} 
               content={props.content} 
+              draft={false}
             />
           }
           {

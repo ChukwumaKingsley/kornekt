@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
 import { Box, Button, Flex, Heading, Input, useToast } from "@chakra-ui/react";
-import PostCard from "../components/PostCard";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import DraftCard from "../components/DraftCard";
 
 function Drafts() {
   const toast = useToast()
@@ -55,7 +55,7 @@ function Drafts() {
           </Box>
           <Flex overflowY={"auto"} flexDirection={"column"}>
           {data.length > 0 && data.map((post: any) => 
-            <PostCard 
+            <DraftCard 
             key={post.id}
             post_id={post.id}
             user_name={post.user_name}
@@ -67,9 +67,8 @@ function Drafts() {
             user_voted={post.user_voted}
             user_downvoted={post.user_downvoted}
             is_creator={true}
-            is_editable={post.is_editable}
             />)}
-            {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
+            {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Drafts</Heading>}
             </Flex>
       </Flex>
   );
