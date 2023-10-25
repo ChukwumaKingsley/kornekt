@@ -3,7 +3,7 @@ import http from "../utils/http";
 import { Box, Button, Flex, Heading, Input, useToast } from "@chakra-ui/react";
 import PostCard from "../components/PostCard";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Posts() {
   const toast = useToast()
@@ -15,9 +15,12 @@ function Posts() {
     queryKey: ["getPosts"],
     queryFn: () => fetchData(toast, navigate, search),
   });
+
+  useEffect(() => {
+    refetch()
+  }, [search])
   
   const handleSearchChange = (e: any) => {
-    refetch()
     setSearch(e.target.value)
   }
   const handleSearch = (e: any) => {
@@ -68,6 +71,7 @@ function Posts() {
             downvotes_count={post.downvotes}
             user_voted={post.user_voted}
             user_downvoted={post.user_downvoted}
+            is_creator={post.user_downvoted}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>

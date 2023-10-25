@@ -33,9 +33,6 @@ function MyPosts() {
     return <div>Error: {error.message}</div>;
   }
 
-
-
-  // Data is available here
   return (
       <Flex maxHeight={'100svh'} overflowY={"auto"} flexDirection={'column'}>
           <Box alignSelf={'center'}>
@@ -82,7 +79,7 @@ async function fetchData(toast: any, navigate: any, search: any) {
     if (!accessToken) {
       throw new Error("Access token not found");
     }
-    const response = await http.get(`/posts?search=${search}`);
+    const response = await http.get(`/posts/my_posts?search=${search}`);
     console.log(response)
     return response.data
   } catch (error: any) {

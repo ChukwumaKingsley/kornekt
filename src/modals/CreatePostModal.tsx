@@ -127,7 +127,7 @@ return (
             Cancel
             </Button>
             <Button colorScheme="blue" width={'90px'} type="submit" isLoading={isLoading}>
-            Update
+            Post
             </Button>
         </ModalFooter>
         </form>

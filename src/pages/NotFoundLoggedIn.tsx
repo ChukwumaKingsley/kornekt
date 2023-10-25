@@ -7,7 +7,7 @@ function NotFound() {
     <Container textAlign={'center'}>
         <Heading as={'h2'} mb={10} color={'blue.400'}>Page not found!</Heading>
         <Text>
-          Page not found. Click <NavLink style={style} to='/home/posts'>here</NavLink> return to Home Page.
+          Page not found. Click <NavLink style={style} to='/home'>here</NavLink> return to Home Page.
         </Text>
     </Container>
   )

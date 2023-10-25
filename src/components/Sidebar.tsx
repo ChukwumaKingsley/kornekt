@@ -5,8 +5,7 @@ import LogoutButton from "./LogoutButton";
 
 export default function Sidebar() {
 
-  const location = useLocation()
-  const { pathname } = location;
+  const { pathname } = useLocation()
 
   return (
     <Flex
@@ -41,7 +40,7 @@ export default function Sidebar() {
           <Text 
             as={NavLink} 
             to="/home/activity"
-            background={pathname === '/home/activity' ? 'blue.600' : ''}
+            background={pathname.includes('/home/activity') ? 'blue.600' : ''}
             p={'10px'} 
             fontSize={{base: '18px', md: '20px'}}
             borderBottomWidth={{base: 0, md: "1px"}}

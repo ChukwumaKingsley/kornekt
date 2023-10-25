@@ -1,5 +1,4 @@
 import { Text, IconButton, HStack, Spacer, Flex, Card, CardHeader, CardBody, Avatar, CardFooter } from '@chakra-ui/react';
-import {  } from '@chakra-ui/react'
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import http from '../utils/http';
 import { useMutation } from '@tanstack/react-query'
@@ -18,6 +17,8 @@ const PostCard = (props: any) => {
   const downvoteMutation = usePostDownvote()
   const voteMutation = usePostVote()
 
+  // Don't forget to add code to make posts editable
+  
   return (
       <Card maxWidth={'400px'}  width={"90%"} mb={'20px'} alignSelf={'center'}>
         <CardHeader borderBottom={'1px'} borderColor={'gray.300'}>

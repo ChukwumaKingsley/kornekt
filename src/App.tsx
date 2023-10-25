@@ -11,16 +11,19 @@ import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
 import Posts from './pages/Posts';
 import NotFoundLoggedIn from './pages/NotFoundLoggedIn';
+import MyLikes from './pages/MyLikes';
+import MyDislikes from './pages/MyDislikes';
 
 //Layouts
 import LandingPage from './layouts/LandingPage';
 import HomePage from './layouts/HomePage';
+import Activity from './layouts/Activity';
 
 //context for authentication
 import { UserContextProvider } from './contexts/UserContext';
 import Users from './pages/Users';
 import MyPosts from './pages/MyPosts';
-import Activity from './layouts/Activity';
+import Drafts from './pages/Drafts';
 
 
 const themeConfig: ThemeConfig = {
@@ -47,6 +50,9 @@ const router = createBrowserRouter(
         </Route>
         <Route path='activity' element={<Activity />}>
           <Route index element={<MyPosts />} />
+          <Route path='likes' element={<MyLikes />} />
+          <Route path='dislikes' element={<MyDislikes />} />
+          <Route path='drafts' element={<Drafts />} />
         </Route>
         <Route path='*' element={<NotFoundLoggedIn />}/>
       </Route>
