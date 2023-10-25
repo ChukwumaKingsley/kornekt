@@ -1,17 +1,19 @@
 import { Text, IconButton, HStack, Spacer, Flex, Card, CardHeader, CardBody, Avatar, CardFooter } from '@chakra-ui/react';
-import { ChevronUpIcon, ChevronDownIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { ChevronUpIcon, ChevronDownIcon, EditIcon } from '@chakra-ui/icons';
 import http from '../utils/http';
 import { useMutation } from '@tanstack/react-query'
 import DeletePost from './DeletePost';
 
 const PostCard = (props: any) => {
 
-  const downvote = async () => {
-    await downvoteMutation.mutate(props.post_id);
+  const downvote = () => {
+    downvoteMutation.mutate(props.post_id);
+    props.reload;
   };
   
-  const vote = async () => {
-    await voteMutation.mutate(props.post_id);
+  const vote = () => {
+    voteMutation.mutate(props.post_id)
+    props.reload
   }
   
   const downvoteMutation = usePostDownvote()

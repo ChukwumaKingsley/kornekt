@@ -9,6 +9,12 @@ function Posts() {
   const toast = useToast()
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
+  const [load, setLoad] = useState(true)
+
+  const reload = () => {
+    setLoad((prev: any) => !prev)
+    console.log(load)
+  }
 
   
   const { data, isLoading, isError, error, refetch } = useQuery({
@@ -17,8 +23,9 @@ function Posts() {
   });
 
   useEffect(() => {
+    console.log('refetched')
     refetch()
-  }, [search])
+  }, [search, load])
   
   const handleSearchChange = (e: any) => {
     setSearch(e.target.value)
@@ -73,6 +80,7 @@ function Posts() {
             user_downvoted={post.user_downvoted}
             is_creator={post.is_creator}
             is_editable={post.is_editable}
+            reload={reload}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>
@@ -88,7 +96,6 @@ async function fetchData(toast: any, navigate: any, search: any) {
       throw new Error("Access token not found");
     }
     const response = await http.get(`/posts?search=${search}`);
-    console.log(response)
     return response.data
   } catch (error: any) {
     if (error?.response){

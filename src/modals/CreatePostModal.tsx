@@ -73,9 +73,7 @@ const handleChange = (e: any) => {
         [e.target.name]: e.target.value
     }));
     }
-
-    console.log(postData)
-
+    
 return (
     <div>
     <Modal isOpen={isOpen} onClose={onClose}>
