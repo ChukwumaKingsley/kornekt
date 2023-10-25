@@ -1,11 +1,11 @@
 import { Text, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from "@chakra-ui/react";
-import { RefObject, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 
 export default function LogoutButton() {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
-  const cancelRef: RefObject<FocusableElement> = useRef();
+  const cancelRef: any = useRef();
 
   const handleClick = () => {
     setIsOpen(true);

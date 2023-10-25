@@ -12,7 +12,7 @@ function MyPosts() {
 
   
   const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["getPosts"],
+    queryKey: ["myPosts"],
     queryFn: () => fetchData(toast, navigate, search),
   });
   
@@ -65,6 +65,8 @@ function MyPosts() {
             downvotes_count={post.downvotes}
             user_voted={post.user_voted}
             user_downvoted={post.user_downvoted}
+            is_creator={true}
+            is_editable={post.is_editable}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>
@@ -80,7 +82,6 @@ async function fetchData(toast: any, navigate: any, search: any) {
       throw new Error("Access token not found");
     }
     const response = await http.get(`/posts/my_posts?search=${search}`);
-    console.log(response)
     return response.data
   } catch (error: any) {
     if (error?.response){

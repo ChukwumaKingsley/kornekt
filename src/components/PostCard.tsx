@@ -1,7 +1,8 @@
 import { Text, IconButton, HStack, Spacer, Flex, Card, CardHeader, CardBody, Avatar, CardFooter } from '@chakra-ui/react';
-import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import { ChevronUpIcon, ChevronDownIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import http from '../utils/http';
 import { useMutation } from '@tanstack/react-query'
+import DeletePost from './DeletePost';
 
 const PostCard = (props: any) => {
 
@@ -10,7 +11,6 @@ const PostCard = (props: any) => {
   };
   
   const vote = async () => {
-    console.log(Date.now)
     await voteMutation.mutate(props.post_id);
   }
   
@@ -42,7 +42,10 @@ const PostCard = (props: any) => {
             {props.content}
           </Text>
         </CardBody>
-        <CardFooter height={'20px'}>
+        <CardFooter height={'20px'} alignItems={'center'}>
+          {props.is_creator &&  props.is_editable &&
+          <IconButton size={'sm'} aria-label='Edit' backgroundColor={'white'} icon={<EditIcon />}/>}
+          {props.is_creator && <DeletePost post_id={props.post_id} />}
         <HStack marginLeft={'auto'} spacing={1}>
           <Text>{props.votes_count}</Text>
           <IconButton
@@ -75,7 +78,6 @@ function usePostDownvote() {
     mutationFn: async (id: any) => {
       try {
         const res = await http.post(`/downvote/${id}`);
-        console.log(res)
         return res;
       } catch (error) {
         console.error("Error while downvoting:", error);
@@ -91,7 +93,6 @@ function usePostVote() {
     mutationFn: async (id: any) => {
       try {
         const res = await http.post(`/vote/${id}`);
-        console.log(res)
         return res;
       } catch (error) {
         console.error("Error while voting:", error);
@@ -100,6 +101,5 @@ function usePostVote() {
     },
   });
 }
-  
     
 export default PostCard

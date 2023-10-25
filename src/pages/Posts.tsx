@@ -71,7 +71,8 @@ function Posts() {
             downvotes_count={post.downvotes}
             user_voted={post.user_voted}
             user_downvoted={post.user_downvoted}
-            is_creator={post.user_downvoted}
+            is_creator={post.is_creator}
+            is_editable={post.is_editable}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>

@@ -8,7 +8,7 @@ export default function Activity() {
     <Grid  
       templateColumns='repeat(4, 1fr)' 
       overflowY={"auto"}
-      height={'95svh'} 
+      // height={'95svh'} 
       rowGap={'20px'}
     >
       <GridItem 
@@ -59,7 +59,7 @@ export default function Activity() {
       >
         <Text>Drafts</Text>
       </GridItem>
-      <GridItem colSpan={4}>
+      <GridItem colSpan={4} justifyItems={'start'}>
         <Outlet />
       </GridItem>
     </Grid>
