@@ -33,7 +33,7 @@ export default function Activity() {
         textColor={'blue.900'}
         fontSize={'18px'}
       >
-        <Text>Likes</Text>
+        <Text>Liked</Text>
       </GridItem>
       <GridItem 
         colSpan={1}
@@ -45,7 +45,7 @@ export default function Activity() {
         textColor={'blue.900'}
         fontSize={'18px'}
       >
-        <Text>Dislikes</Text>
+        <Text>Disliked</Text>
       </GridItem>
       <GridItem 
         colSpan={1}
