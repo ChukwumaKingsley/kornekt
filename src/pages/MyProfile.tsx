@@ -4,6 +4,7 @@ import UserAvartar from "../components/UserAvartar";
 import UpdateUserModal from "../modals/UpdateUserModal";
 import { useState } from "react";
 import PassworResetModal from "../modals/PasswordResetModal";
+import { NavLink } from "react-router-dom";
 
 
 function formatJoinDate(joinDate: any) {
@@ -53,9 +54,9 @@ function MyProfile() {
         </Container>
         <Divider size={'5px'}/>
         <HStack justifyContent="space-between" padding={'10px'}>
-            <Text>Posts: {data?.posts_count}</Text>
-            <Text>Likes: {data?.votes_count}</Text>
-            <Text>Dislikes: {data?.downvotes_count}</Text>
+            <Text as={NavLink} to={'/home/activity'}>Posts: {data?.posts_count}</Text>
+            <Text as={NavLink} to={'/home/activity/likes'}>Likes: {data?.votes_count}</Text>
+            <Text as={NavLink} to={'/home/activity/dislikes'}>Dislikes: {data?.downvotes_count}</Text>
         </HStack>
 
       </Box>

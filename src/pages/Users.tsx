@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
-import { Box, Button, Flex, Heading, Input, useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Flex, Heading, Input, Spinner, useToast } from "@chakra-ui/react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UserCard from "../components/UserCard";
 
@@ -26,10 +26,6 @@ function Users() {
   const handleSearch = (e: any) => {
     e.preventDefault()
     refetch()
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
   }
 
   if (isError) {
@@ -58,7 +54,8 @@ function Users() {
               </Flex>
             </form>
           </Box>
-          <Flex overflowY={"auto"} flexDirection={"column"}>
+          {isLoading && <Spinner alignSelf={'center'} color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
+          {!isLoading && <Flex overflowY={"auto"} flexDirection={"column"}>
           {data.length > 0 && data.map((user: any) => 
             <UserCard 
             key={user.id}
@@ -68,7 +65,7 @@ function Users() {
             email={user.email}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Users</Heading>}
-            </Flex>
+            </Flex>}
       </Flex>
   );
 }

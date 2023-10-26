@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
-import { Box, Button, Flex, Heading, Input, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Input, Spinner, useToast } from "@chakra-ui/react";
 import PostCard from "../components/PostCard";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -12,7 +12,7 @@ function MyDislikes() {
 
   
   const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["myPosts"],
+    queryKey: ["myDislikes"],
     queryFn: () => fetchData(toast, navigate, search),
   });
   
@@ -23,10 +23,6 @@ function MyDislikes() {
   const handleSearch = (e: any) => {
     e.preventDefault()
     refetch()
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
   }
 
   if (isError) {
@@ -52,7 +48,8 @@ function MyDislikes() {
               </Flex>
             </form>
           </Box>
-          <Flex overflowY={"auto"} flexDirection={"column"}>
+          {isLoading && <Spinner alignSelf={'center'} color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
+          {!isLoading && <Flex overflowY={"auto"} flexDirection={"column"}>
           {data.length > 0 && data.map((post: any) => 
             <PostCard 
               key={post.id}
@@ -70,7 +67,7 @@ function MyDislikes() {
               refetch={refetch}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
-            </Flex>
+            </Flex>}
       </Flex>
   );
 }

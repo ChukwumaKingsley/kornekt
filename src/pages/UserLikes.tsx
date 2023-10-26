@@ -1,19 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
 import { Box, Button, Flex, Heading, Input, Spinner, useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import PostCard from "../components/PostCard";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import DraftCard from "../components/DraftCard";
 
-function Drafts() {
+function UserLikes() {
   const toast = useToast()
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
 
+  const { id } = useParams()
   
   const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["getPosts"],
-    queryFn: () => fetchData(toast, navigate, search),
+    queryKey: ["userLikes"],
+    queryFn: () => fetchData(toast, navigate, search, id),
   });
   
   const handleSearchChange = (e: any) => {
@@ -28,7 +29,6 @@ function Drafts() {
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
-
 
   return (
       <Flex maxHeight={'100svh'} overflowY={"auto"} flexDirection={'column'}>
@@ -52,7 +52,7 @@ function Drafts() {
           {isLoading && <Spinner alignSelf={'center'} color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
           {!isLoading && <Flex overflowY={"auto"} flexDirection={"column"}>
           {data.length > 0 && data.map((post: any) => 
-            <DraftCard 
+            <PostCard 
               key={post.id}
               post_id={post.id}
               user_name={post.user_name}
@@ -63,25 +63,24 @@ function Drafts() {
               downvotes_count={post.downvotes}
               user_voted={post.user_voted}
               user_downvoted={post.user_downvoted}
-              is_creator={true} 
-              is_editable={true} 
+              is_creator={post.is_creator}
+              is_editable={post.is_editable} 
               refetch={refetch}
             />)}
-            {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Drafts</Heading>}
+            {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>}
       </Flex>
   );
 }
 
 // Define a function to fetch the data
-async function fetchData(toast: any, navigate: any, search: any) {
+async function fetchData(toast: any, navigate: any, search: any, id: any) {
   const accessToken = localStorage.getItem('accessToken')
   try {
     if (!accessToken) {
       throw new Error("Access token not found");
     }
-    const response = await http.get(`/posts/drafts?search=${search}`);
-    console.log(response)
+    const response = await http.get(`/posts/user_votes/${id}?search=${search}`);
     return response.data
   } catch (error: any) {
     if (error?.response){
@@ -97,4 +96,4 @@ async function fetchData(toast: any, navigate: any, search: any) {
   }
 }
 
-export default Drafts;
+export default UserLikes;

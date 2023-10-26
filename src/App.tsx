@@ -24,6 +24,11 @@ import { UserContextProvider } from './contexts/UserContext';
 import Users from './pages/Users';
 import MyPosts from './pages/MyPosts';
 import Drafts from './pages/Drafts';
+import UserProfile from './pages/UserProfile';
+import User from './layouts/User';
+import UserPosts from './pages/UserPosts';
+import UserLikes from './pages/UserLikes';
+import UserDislikes from './pages/UserDislikes';
 
 
 const themeConfig: ThemeConfig = {
@@ -46,7 +51,12 @@ const router = createBrowserRouter(
       <Route path='home' element={<HomePage />}>
         <Route index element={<Posts />} />
         <Route path='my_profile' element={<MyProfile />} />
-        <Route path='users' element={<Users />}>
+        <Route path='users' element={<Users />} />
+        <Route path='user/:id' element={<User />}>
+          <Route index element={<UserProfile />}/>
+          <Route index path='posts' element={<UserPosts />}/>
+          <Route path='likes' element={<UserLikes />} />
+          <Route path='dislikes' element={<UserDislikes />} />
         </Route>
         <Route path='activity' element={<Activity />}>
           <Route index element={<MyPosts />} />
@@ -54,9 +64,10 @@ const router = createBrowserRouter(
           <Route path='dislikes' element={<MyDislikes />} />
           <Route path='drafts' element={<Drafts />} />
         </Route>
+      </Route>
+        
         <Route path='*' element={<NotFoundLoggedIn />}/>
       </Route>
-    </Route>
   )
   )
 
