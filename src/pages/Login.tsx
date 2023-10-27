@@ -6,8 +6,8 @@ import {
   Flex,
   Image,
 } from '@chakra-ui/react';
-import SignUpModal from '../components/SignUpModal';
-import LoginModal from '../components/LoginModal';
+import SignUpModal from '../modals/SignUpModal';
+import LoginModal from '../modals/LoginModal';
 
 function Login(): JSX.Element {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
@@ -32,7 +32,7 @@ function Login(): JSX.Element {
   return (
     <div>
     <Box p={4} minW="400px" maxW="400px" m="auto" mt={8} bg="white" borderRadius="lg" boxShadow="lg">
-      <Image src="../public/connect-pic.jpg" alt="Meme Image" w="100%" h="350px" />
+      <Image src="/connect-pic.jpg" alt="Meme Image" w="100%" h="350px" />
       <Flex justifyContent="center" mt={4}>
         <Button colorScheme="blue" variant="outline" mx={2} onClick={openLoginModal}>
           Login

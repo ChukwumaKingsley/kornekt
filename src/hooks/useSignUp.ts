@@ -11,6 +11,7 @@ function useSignUp({onSignUpSuccess, onSignUpFail}: FailorSuccess) {
   const toast = useToast();
 
   return useMutation({
+    mutationKey: ["signUp"],
     mutationFn: async ({ name, email, password }: { name: string; email: string; password: string }) => {
       try {
         const formData = { name, email, password };
@@ -21,10 +22,9 @@ function useSignUp({onSignUpSuccess, onSignUpFail}: FailorSuccess) {
           toast({
             title: "Sign up success! Proceed to login!",
             status: "success",
-			position: 'top'
+			      position: 'top'
           });
-        //   navigate("/");
-		  onSignUpSuccess();
+          onSignUpSuccess();
         }
       } catch (error: any) {
         onSignUpFail()

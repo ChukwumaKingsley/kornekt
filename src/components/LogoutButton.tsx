@@ -1,11 +1,11 @@
 import { Text, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from "@chakra-ui/react";
-import { RefObject, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 
 export default function LogoutButton() {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
-  const cancelRef: RefObject<FocusableElement> = useRef();
+  const cancelRef: any = useRef();
 
   const handleClick = () => {
     setIsOpen(true);
@@ -14,14 +14,14 @@ export default function LogoutButton() {
   const handleLogout = () => {
     // Clear the access token and perform logout actions
     // Then redirect the user to the desired location
-    localStorage.removeItem("token");
+    localStorage.removeItem("accessToken");
     onClose();
     window.location.href = "/";
   }
 
   return (
     <>
-      <Text as="span" cursor="pointer" textAlign="center" onClick={handleClick}>
+      <Text as="span" cursor="pointer" textAlign="center" onClick={handleClick} marginRight={{base: '10px'}} fontSize={{base: '18px', md: '20px'}}>
         Logout
       </Text>
       <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>

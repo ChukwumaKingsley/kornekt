@@ -1,27 +1,18 @@
 import { Avatar, Flex, Spinner, Text } from '@chakra-ui/react';
-import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import useMyProfile from '../hooks/useMyProfile';
 
 export default function UserAvartar({size, show}: {size: string, show: boolean}) {
-  const accessToken = localStorage.getItem("token");
 
-  const {  isLoading, data } = useMyProfile(accessToken);
-
-  useEffect(() => {
-    if (!accessToken) {
-        console.log("Access token not found in local storage");
-    }
-  }, [accessToken]);
-
-
+  const { isLoading, data } = useMyProfile();
   return (
     <Flex p={2} 
         flexDir='column' 
-        alignItems='center' 
+        alignItems='center'
         as={NavLink} 
         to="/home/my_profile" 
         mb={"10px"}
+        textAlign={'center'}
     >
         {
             isLoading ? <Spinner /> :

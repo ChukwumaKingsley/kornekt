@@ -2,8 +2,8 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
-import LoginModal from "../components/LoginModal";
-import SignUpModal from "../components/SignUpModal";
+import LoginModal from "../modals/LoginModal";
+import SignUpModal from "../modals/SignUpModal";
 
 export default function LandingPage() {
     const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);

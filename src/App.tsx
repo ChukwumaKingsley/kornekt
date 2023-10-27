@@ -1,21 +1,33 @@
 import { ChakraProvider, CSSReset, extendTheme, ThemeConfig } from '@chakra-ui/react';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 
 //pages
 import About from './pages/About';
 import Help from './pages/Help';
 import Login from './pages/Login';
+import MyProfile from './pages/MyProfile';
+import NotFound from './pages/NotFound';
+import Posts from './pages/Posts';
+import NotFoundLoggedIn from './pages/NotFoundLoggedIn';
+import MyLikes from './pages/MyLikes';
+import MyDislikes from './pages/MyDislikes';
 
 //Layouts
 import LandingPage from './layouts/LandingPage';
-import Posts from './pages/Posts';
 import HomePage from './layouts/HomePage';
-import NotFound from './pages/NotFound';
-import NotFoundLoggedIn from './pages/NotFoundLoggedIn';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import UserProfile from './pages/UserProfile';
+import Activity from './layouts/Activity';
+
+//context for authentication
+import { UserContextProvider } from './contexts/UserContext';
+import Users from './pages/Users';
+import MyPosts from './pages/MyPosts';
+import Drafts from './pages/Drafts';
+import User from './layouts/User';
+import UserPosts from './pages/UserPosts';
+import UserLikes from './pages/UserLikes';
+import UserDislikes from './pages/UserDislikes';
 
 
 const themeConfig: ThemeConfig = {
@@ -36,11 +48,24 @@ const router = createBrowserRouter(
         {/* <Route path='posts' element={<Posts /> } /> */}
       </Route>
       <Route path='home' element={<HomePage />}>
-        <Route path='posts' element={<Posts />} />
-        <Route path='my_profile' element={<UserProfile />} />
+        <Route index element={<Posts />} />
+        <Route path='my_profile' element={<MyProfile />} />
+        <Route path='users' element={<Users />} />
+        <Route path='user/:id/' element={<User />}>
+          <Route index element={<UserPosts />}/>
+          <Route path='likes' element={<UserLikes />} />
+          <Route path='dislikes' element={<UserDislikes />} />
+        </Route>
+        <Route path='activity' element={<Activity />}>
+          <Route index element={<MyPosts />} />
+          <Route path='likes' element={<MyLikes />} />
+          <Route path='dislikes' element={<MyDislikes />} />
+          <Route path='drafts' element={<Drafts />} />
+        </Route>
+      </Route>
+        
         <Route path='*' element={<NotFoundLoggedIn />}/>
       </Route>
-    </Route>
   )
   )
 
@@ -48,13 +73,14 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <CSSReset />
-        <RouterProvider router={router} />
-        <ReactQueryDevtools />
-      </ChakraProvider>
-    </QueryClientProvider>
+    <UserContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <CSSReset />
+          <RouterProvider router={router} />
+        </ChakraProvider>
+      </QueryClientProvider>
+    </UserContextProvider>
   );
 }
 
