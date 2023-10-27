@@ -16,11 +16,11 @@ const DraftCard = (props: CardTypes) => {
     published: true
 }
 
-  const handleUpdate = (e: any) => {
+  const handleUpdate = async (e: any) => {
       e.preventDefault()
       setIsLoading(true)
       updatePostMutation.mutate({...updateData})
-      props.refetch()
+      await props.refetch()
       setIsLoading(false)
   }
 

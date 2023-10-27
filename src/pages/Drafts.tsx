@@ -16,13 +16,13 @@ function Drafts() {
     queryFn: () => fetchData(toast, navigate, search),
   });
   
-  const handleSearchChange = (e: any) => {
-    refetch()
+  const handleSearchChange = async (e: any) => {
     setSearch(e.target.value)
+    await refetch()
   }
-  const handleSearch = (e: any) => {
+  const handleSearch = async (e: any) => {
     e.preventDefault()
-    refetch()
+    await refetch()
   }
 
   if (isError) {
