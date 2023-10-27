@@ -38,7 +38,6 @@ function LoginModal({ isOpen, onClose, openSignUpModal }: LoginModalProps): JSX.
     e.preventDefault()
     setIsLoading(true); // Set loading state when the request starts
     loginMutation.mutate(user);
-    setIsLoading(false)
   }
   
   const onLoginFail = () => {
