@@ -12,8 +12,10 @@ interface onLoginFail {
 }
 
 function useLogin({onLoginFail}: onLoginFail) {
-	const toast = useToast()
 	const navigate = useNavigate()
+
+
+	const toast = useToast()
 
 	return useMutation({
 		mutationFn: async ({ email, password }: { email: string; password: string }) => {
@@ -24,10 +26,16 @@ function useLogin({onLoginFail}: onLoginFail) {
 				formData.append("password", password);
 
 				const res = await http.post("/login", formData);
+				
+
 
 				localStorage.setItem('accessToken', res.data.access_token);
+				// localStorage.setItem('userID', res.data.user)
+
+				// console.log(localStorage.getItem('accessToken'), localStorage.getItem('userID'));
 				navigate('/home')
-				return res
+
+
 			} catch (error: any) {
 				onLoginFail()
 				if (error?.response?.status === 403){
