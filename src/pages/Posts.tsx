@@ -17,6 +17,7 @@ function Posts() {
 
   const handleSearchChange = (e: any) => {
     setSearch(e.target.value)
+    refetch()
   }
   const handleSearch = (e: any) => {
     e.preventDefault()

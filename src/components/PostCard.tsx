@@ -69,6 +69,7 @@ const PostCard = (props: CardTypes) => {
               title={props.title} 
               content={props.content} 
               draft={false}
+              refetch={props.refetch}
             />
           }
           {

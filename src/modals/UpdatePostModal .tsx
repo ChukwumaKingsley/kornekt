@@ -16,7 +16,7 @@ import {
     Switch,
   } from "@chakra-ui/react";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { QueryObserverResult, RefetchOptions, useMutation } from "@tanstack/react-query";
 import http from "../utils/http";
 import { EditIcon } from "@chakra-ui/icons";
 
@@ -27,7 +27,16 @@ interface UpdateData {
     published: boolean;
 }
 
-export default function UpdatePostModal(props: any) {
+interface UpdateProps {
+    post_id: number;
+    title: string;
+    content: string;
+    draft: boolean;
+    refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>;
+}
+
+
+export default function UpdatePostModal(props: UpdateProps) {
 
     const [postUpdateIsOpen, setPostUpdateIsOpen] = useState(false)
 
@@ -35,6 +44,7 @@ export default function UpdatePostModal(props: any) {
         setPostUpdateIsOpen(true)
     }
     const onClose = () => {
+        props.refetch()
         setPostUpdateIsOpen(false)
     }
 
@@ -54,6 +64,7 @@ export default function UpdatePostModal(props: any) {
         setIsLoading(true)
         updatePostMutation.mutate({...updateData})
         setIsLoading(false)
+        props.refetch()
         setPostUpdateIsOpen(false)
     }
 

@@ -7,7 +7,7 @@ import PassworResetModal from "../modals/PasswordResetModal";
 import { NavLink } from "react-router-dom";
 
 
-function formatJoinDate(joinDate: any) {
+export function formatJoinDate(joinDate: any) {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: 'long',

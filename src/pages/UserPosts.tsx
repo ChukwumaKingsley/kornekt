@@ -35,7 +35,7 @@ function UserPost() {
   }
 
   return (
-      <Flex maxHeight={'100svh'} overflowY={"auto"} flexDirection={'column'}>
+      <Flex maxHeight={'100svh'} flexDirection={'column'}>
           <Box alignSelf={'center'}>
             <form onSubmit={handleSearch}>
               <Flex>
@@ -54,7 +54,7 @@ function UserPost() {
             </form>
           </Box>
             {isLoading && <Spinner alignSelf={'center'} color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
-          {!isLoading && <Flex overflowY={"auto"} flexDirection={"column"}>
+          {!isLoading && <Flex flexDirection={"column"}>
           {data.length > 0 && data.map((post: any) => 
             <PostCard 
               key={post.id}

@@ -53,9 +53,10 @@ const DraftCard = (props: CardTypes) => {
         <CardFooter height={'20px'} alignItems={'center'}>
           <UpdatePostModal 
             post_id={props.post_id}
-            title={props.title} 
-            content={props.content} 
-            draft={true}
+            title={props.title}
+            content={props.content}
+            draft={true} 
+            refetch={props.refetch}
           />
           <DeletePost post_id={props.post_id} refetch={props.refetch} />
           <Spacer />

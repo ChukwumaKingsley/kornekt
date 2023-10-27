@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
 import { Box, Button, Flex, Heading, Input, Spinner, useToast } from "@chakra-ui/react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UserCard from "../components/UserCard";
 

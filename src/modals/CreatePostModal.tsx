@@ -57,7 +57,7 @@ const onUpdateSuccess = () => {
     setIsLoading(false)
     setTimeout(function() {
     onClose()
-    }, 1500)
+    }, 300)
     setPostData(defaultData)
 }
 

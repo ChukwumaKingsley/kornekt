@@ -9,7 +9,6 @@ export type UserContextType = {
     saveDetails: (user: AuthUser | null) => void;
 }
 
-
 type UsercontProviderType = {
     children: React.ReactNode
 }

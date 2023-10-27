@@ -31,7 +31,7 @@ function UserDislikes() {
   }
 
   return (
-      <Flex maxHeight={'100svh'} overflowY={"auto"} flexDirection={'column'}>
+      <Flex maxHeight={'100svh'} flexDirection={'column'}>
           <Box alignSelf={'center'}>
             <form onSubmit={handleSearch}>
               <Flex>
@@ -50,7 +50,7 @@ function UserDislikes() {
             </form>
           </Box>
           {isLoading && <Spinner alignSelf={'center'} color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
-          {!isLoading && <Flex overflowY={"auto"} flexDirection={"column"}>
+          {!isLoading && <Flex flexDirection={"column"}>
           {data.length > 0 && data.map((post: any) => 
             <PostCard 
               key={post.id}
@@ -67,7 +67,7 @@ function UserDislikes() {
               is_editable={post.is_editable} 
               refetch={refetch}
             />)}
-            {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
+            {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No DisLikes</Heading>}
             </Flex>}
       </Flex>
   );

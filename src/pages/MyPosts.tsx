@@ -30,7 +30,7 @@ function MyPosts() {
   }
 
   return (
-      <Flex maxHeight={'100svh'} overflowY={"auto"} flexDirection={'column'}>
+      <Flex maxHeight={'100svh'} flexDirection={'column'}>
           <Box alignSelf={'center'}>
             <form onSubmit={handleSearch}>
               <Flex>

@@ -24,7 +24,6 @@ import { UserContextProvider } from './contexts/UserContext';
 import Users from './pages/Users';
 import MyPosts from './pages/MyPosts';
 import Drafts from './pages/Drafts';
-import UserProfile from './pages/UserProfile';
 import User from './layouts/User';
 import UserPosts from './pages/UserPosts';
 import UserLikes from './pages/UserLikes';
@@ -52,9 +51,8 @@ const router = createBrowserRouter(
         <Route index element={<Posts />} />
         <Route path='my_profile' element={<MyProfile />} />
         <Route path='users' element={<Users />} />
-        <Route path='user/:id' element={<User />}>
-          <Route index element={<UserProfile />}/>
-          <Route index path='posts' element={<UserPosts />}/>
+        <Route path='user/:id/' element={<User />}>
+          <Route index element={<UserPosts />}/>
           <Route path='likes' element={<UserLikes />} />
           <Route path='dislikes' element={<UserDislikes />} />
         </Route>
