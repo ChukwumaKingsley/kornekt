@@ -35,7 +35,6 @@ function Posts() {
                 <Input 
                   type="text" 
                   placeholder="Search" 
-                  width='300px' 
                   mb={'20px'} 
                   bg={'white'} 
                   borderRadius={'10px'}

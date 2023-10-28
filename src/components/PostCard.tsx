@@ -48,7 +48,7 @@ const PostCard = (props: CardTypes) => {
               {props.user_name}
             </Text>
             <Spacer />
-            <Text fontSize="sm" color="gray.500">
+            <Text fontSize="sm" color="gray.500" textAlign={'right'}>
               {new Date(props.created_at).toLocaleString()}
             </Text>
           </Flex>
