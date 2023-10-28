@@ -21,7 +21,7 @@ export default function LogoutButton() {
 
   return (
     <>
-      <Text as="span" cursor="pointer" textAlign="center" onClick={handleClick} marginRight={{base: '10px'}} fontSize={{base: '18px', md: '20px'}}>
+      <Text as="span" cursor="pointer" textAlign="center" onClick={handleClick} marginRight={{base: '10px'}} fontSize={{base: '12px', md: '20px'}}>
         Logout
       </Text>
       <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>

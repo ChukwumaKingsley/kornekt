@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
-import { Box, Button, Flex, Heading, Input, Spinner, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Input, Spinner, Text, useToast } from "@chakra-ui/react";
 import PostCard from "../components/PostCard";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -10,7 +10,7 @@ function Posts() {
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
 
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["getPosts"],
     queryFn: () => fetchData(toast, navigate, search),
   });
@@ -24,10 +24,6 @@ function Posts() {
     refetch()
   }
 
-  if (isError) {
-    return <div>Error: {error.message}</div>;
-  }
-
 
 
   // Data is available here
@@ -39,7 +35,6 @@ function Posts() {
                 <Input 
                   type="text" 
                   placeholder="Search" 
-                  width='300px' 
                   mb={'20px'} 
                   bg={'white'} 
                   borderRadius={'10px'}
@@ -51,7 +46,7 @@ function Posts() {
             </form>
           </Box>
           {isLoading && <Spinner alignSelf={'center'} color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
-          {!isLoading && <Flex overflowY={"auto"} flexDirection={"column"}>
+          {!isLoading && !isError && <Flex overflowY={"auto"} flexDirection={"column"}>
           {data.length > 0 && data.map((post: any) => 
             <PostCard 
             key={post.id}
@@ -70,6 +65,7 @@ function Posts() {
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>}
+            {isError && <Text fontSize={'24px'} alignSelf={"center"} justifySelf={'center'}>Can't retrieve posts at the moment</Text>}
       </Flex>
   );
 }

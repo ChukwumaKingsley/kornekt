@@ -10,10 +10,14 @@ export default function User() {
   const { pathname } = useLocation()
   const { id } = useParams()
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
 		queryKey: ["getUserProfile", id],
 		queryFn: () => http.get(`/users/user/${id}`).then((r) => r.data),
 	});
+
+  if (isError) {
+    return <Flex mt={'20px'} flexDirection="column" alignItems="center" p={'10px'} ><Text fontSize={'24px'} alignSelf={"center"} justifySelf={'center'}>Server not reachable</Text></Flex>;
+  }
 
   return (
     <Grid  
@@ -46,16 +50,16 @@ export default function User() {
               <Text>{data.name}</Text>
             </Flex>
 
-              <HStack alignItems={'center'} p={'5px'}>
+              <Flex alignItems={'center'} flexWrap={'wrap'}>
               <Text>{data?.email}</Text>
               <Box width={'100px'} marginLeft={'auto'} textAlign={'center'}>
                   <Text fontSize={'12px'}>Joined since</Text>
                   <Text>{formatJoinDate(data?.created_at)}</Text>
               </Box>
-          </HStack>
+          </Flex>
           </Container>
           <Divider size={'5px'}/>
-          <HStack justifyContent="space-between" padding={'5px'}>
+          <HStack fontSize={{base: '12px', md: '18px'}} justifyContent="space-between" padding={'5px'}>
               <Text as={NavLink} to={`/home/user/${id}`}>Posts: {data?.posts_count}</Text>
               <Text as={NavLink} to={`/home/user/${id}/likes`}>Likes: {data?.votes_count}</Text>
               <Text as={NavLink} to={`/home/user/${id}/dislikes`}>Dislikes: {data?.downvotes_count}</Text>

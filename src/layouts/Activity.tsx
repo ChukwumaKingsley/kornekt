@@ -15,11 +15,11 @@ export default function Activity() {
         textAlign='center' 
         colSpan={1} 
         background={pathname === '/home/activity' ? 'gray.400' : ''}
-        height={'30px'}
+        height={'20px'}
         as={NavLink} 
         to={'/home/activity'}
         textColor={'blue.900'}
-        fontSize={'18px'}
+        fontSize={'15px'}
       >
         <Text>Posts</Text>
       </GridItem>
@@ -27,11 +27,11 @@ export default function Activity() {
         colSpan={1}
         textAlign='center' 
         background={pathname === '/home/activity/likes' ? 'gray.400' : ''}
-        height={'30px'}
+        height={'20px'}
         as={NavLink}
         to={'/home/activity/likes'}
         textColor={'blue.900'}
-        fontSize={'18px'}
+        fontSize={'15px'}
       >
         <Text>Liked</Text>
       </GridItem>
@@ -39,11 +39,11 @@ export default function Activity() {
         colSpan={1}
         textAlign='center' 
         background={pathname === '/home/activity/dislikes' ? 'gray.400' : ''}
-        height={'30px'}
+        height={'20px'}
         as={NavLink}
         to={'/home/activity/dislikes'}
         textColor={'blue.900'}
-        fontSize={'18px'}
+        fontSize={'15px'}
       >
         <Text>Disliked</Text>
       </GridItem>
@@ -51,11 +51,11 @@ export default function Activity() {
         colSpan={1}
         textAlign='center' 
         background={pathname === '/home/activity/drafts' ? 'gray.400' : ''}
-        height={'30px'}
+        height={'20px'}
         as={NavLink}
         to={'/home/activity/drafts'}
         textColor={'blue.900'}
-        fontSize={'18px'}
+        fontSize={'15px'}
       >
         <Text>Drafts</Text>
       </GridItem>

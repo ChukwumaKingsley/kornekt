@@ -10,3 +10,4 @@ const http = axios.create({
 });
 
 export default http;
+// https://fastapi-2.onrender.com

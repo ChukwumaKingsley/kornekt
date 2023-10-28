@@ -17,7 +17,7 @@ export function formatJoinDate(joinDate: any) {
 
 function MyProfile() {
 
-  const { data, isLoading, isError, error, refetch } = useMyProfile();
+  const { data, isLoading, isError, refetch } = useMyProfile();
   const [passwordResetIsOpen, setPasswordResetIsOpen] = useState(false)
   const [profileUpdateIsOpen, setProfileUpdateIsOpen] = useState(false)
 
@@ -33,24 +33,24 @@ function MyProfile() {
   }
 
   if (isError) {
-    return <Text>Error: {error.message}</Text>;
+    return <Flex mt={'20px'} flexDirection="column" alignItems="center" p={'10px'} ><Text fontSize={'24px'} alignSelf={"center"} justifySelf={'center'}>Server not reachable</Text></Flex>;
   }
 
   return (
     <div>
     <Flex mt={'20px'} flexDirection="column" alignItems="center" p={'10px'} >
         {isLoading && <Spinner color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
-        {!isLoading &&
-      <Box width='80%'p={'10px'} bg="white" borderRadius="md" boxShadow="md">
+        {!isLoading && !isError &&
+      <Box width='80%' bg="white" borderRadius="md" boxShadow="md">
         <Container  marginBottom={10}>
-            <UserAvartar size='xl' show={true}/>
-            <HStack alignItems={'center'} p={'5px'}>
+            <UserAvartar size={{base: 'lg', md: 'xl'}} show={true}/>
+            <Flex alignItems={'center'} flexWrap={'wrap'}>
             <Text>{data?.email}</Text>
             <Box width={'100px'} marginLeft={'auto'} textAlign={'center'}>
                 <Text fontSize={'12px'}>Joined since</Text>
                 <Text>{formatJoinDate(data?.created_at)}</Text>
             </Box>
-        </HStack>
+        </Flex>
         </Container>
         <Divider size={'5px'}/>
         <HStack justifyContent="space-between" padding={'10px'}>

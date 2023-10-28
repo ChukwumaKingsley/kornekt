@@ -15,15 +15,15 @@ export default function HomePage() {
     useEffect(() => {
       if (!accessToken) {
         // navigate('/')
-        navigate('/s')
+        navigate('/')
       }
     }, [])
     
 
   return (
-    <SimpleGrid columns={5} maxWidth={'100vw'}>
+    <SimpleGrid columns={5} maxWidth={'100%'}>
         <Sidebar />
-        <Flex flexDir={'column'} height={'100svh'} gridColumn={{base: 'span 5', md: 'span 4'}} bg={'gray.200'} >
+        <Flex flexDir={'column'} height={'100svh'} width={'100svw'} gridColumn={{base: 'span 5', md: 'span 4'}} bg={'gray.200'} >
             <Header />
             <Outlet />
         </Flex>

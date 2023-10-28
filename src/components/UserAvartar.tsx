@@ -2,7 +2,7 @@ import { Avatar, Flex, Spinner, Text } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import useMyProfile from '../hooks/useMyProfile';
 
-export default function UserAvartar({size, show}: {size: string, show: boolean}) {
+export default function UserAvartar({size, show}: {size: {base: string; md: string;}, show: boolean}) {
 
   const { isLoading, data } = useMyProfile();
   return (

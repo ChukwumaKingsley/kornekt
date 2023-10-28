@@ -19,7 +19,7 @@ export default function Header() {
       justifyContent='center'
       alignItems={'center'}
       bg={''}
-      p={5}
+      p={'5px'}
       boxShadow={'0px 0px 4px rgba(0, 0, 0, 0.2)'}
       color={'blue.900'}
       marginBottom={0}
@@ -28,8 +28,8 @@ export default function Header() {
         <Text as={NavLink} to="/home" cursor="pointer" >Kornekt</Text>
       </Heading>
       <Flex marginLeft={'auto'} alignItems={'center'} cursor={'pointer'} onClick={onOpenProfileUpdate}>
-        <Icon as={AddIcon} w={'20px'} h={'20px'} color="blue.500" />
-        <Text ml={2} fontSize="xl">
+        <Icon as={AddIcon} w={'15px'} h={'15px'} color="blue.500" />
+        <Text ml='5px' fontSize="md">
           Create Post
         </Text>
       </Flex>
