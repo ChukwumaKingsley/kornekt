@@ -25,7 +25,8 @@ export default function LandingPage() {
     };
   
     return (
-    <Flex flexDir={'column'} height={"100svh"} maxWidth={'1500px'}>
+
+    <Flex flexDir={'column'} height={"100svh"}>
       <Box
         p={'10px'}
         bg="blue.500"
