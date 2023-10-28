@@ -12,11 +12,11 @@ export default function HomePage() {
     const accessToken = localStorage.getItem('accessToken')
     const navigate = useNavigate()
 
-    useEffect(() => {
-      if (!accessToken) {
-        navigate('/')
-      }
-    }, [])
+    // useEffect(() => {
+    //   if (!accessToken) {
+    //     navigate('/')
+    //   }
+    // }, [])
     
 
   return (

@@ -22,12 +22,7 @@ function useMyProfile() {
     queryKey: ["myProfile"],
     queryFn: async () => {
       try {
-        const accessToken = localStorage.getItem('accessToken');
-        const res = await http.get("/users/me", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const res = await http.get("/users/me");
         return res.data;
       } catch (error: any) {
         // Handle specific error status codes
