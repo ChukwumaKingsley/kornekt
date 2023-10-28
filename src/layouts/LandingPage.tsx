@@ -25,9 +25,10 @@ export default function LandingPage() {
     };
   
     return (
-    <Flex flexDir={'column'} height={"100svh"} maxWidth={'1500px'}>
+
+    <Flex flexDir={'column'} height={"100svh"}>
       <Box
-        p={4}
+        p={'10px'}
         bg="blue.500"
         color="white"
         display="flex"
@@ -35,39 +36,25 @@ export default function LandingPage() {
         alignItems="center"
         height="20"
       >
-        <Heading as={'h1'}>Kornekt</Heading>
-        <Box display="flex" alignItems="center" flexWrap={'wrap'}>
+        <Heading as={'h1'} mr={'15px'}>Kornekt</Heading>
+        <Box display="flex" alignItems="center" flexWrap={'wrap'}justifyItems={'right'}>
         <Text
-            mx={2}
+            mx={"4px"}
             cursor="pointer"
           >
             <NavLink to='/'>Home</NavLink>
           </Text>
           <Text
-            mx={2}
+            mx={'4px'}
             cursor="pointer"
           >
             <NavLink to='about'>About</NavLink>
           </Text>
           <Text
-            mx={2}
+            mx={"4px"}
             cursor="pointer"
           >
             <NavLink to='contact'>Help</NavLink>
-          </Text>
-          <Text
-            mx={2}
-            cursor="pointer"
-            onClick={openLoginModal}
-          >
-            Login
-          </Text>
-          <Text
-            mx={'4px'}
-            cursor="pointer"
-            onClick={openSignUpModal}
-          >
-            Signup
           </Text>
         </Box>
         <SignUpModal isOpen={isSignUpModalOpen} openLoginModal={openLoginModal} onClose={closeModal} />

@@ -59,9 +59,9 @@ function usePostDelete() {
       try {
         const res = await http.delete(`/posts/${id}`);
         toast({
-          title: "Post successfully deleted!",
-          status: "success",
-          position: 'top'
+          title: "Post deleted!",
+          colorScheme: 'gray',
+          position: 'top',
         });
         return res.status;
       } catch (error) {

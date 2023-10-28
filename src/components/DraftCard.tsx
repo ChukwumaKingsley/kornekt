@@ -16,11 +16,11 @@ const DraftCard = (props: CardTypes) => {
     published: true
 }
 
-  const handleUpdate = async (e: any) => {
+  const handlePost = async (e: any) => {
       e.preventDefault()
       setIsLoading(true)
-      updatePostMutation.mutate({...updateData})
-      await props.refetch()
+      await updatePostMutation.mutate({...updateData})
+      props.refetch()
       setIsLoading(false)
   }
 
@@ -63,7 +63,7 @@ const DraftCard = (props: CardTypes) => {
           <Button 
             height={'30px'} 
             colorScheme='blue' 
-            onClick={handleUpdate}
+            onClick={handlePost}
             isLoading={isLoading}
           >
             Post

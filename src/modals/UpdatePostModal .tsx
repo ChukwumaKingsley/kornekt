@@ -59,12 +59,12 @@ export default function UpdatePostModal(props: UpdateProps) {
 
     const [isLoading, setIsLoading] = useState(false)
 
-    const handleUpdate = (e: any) => {
+    const handleUpdate = async (e: any) => {
         e.preventDefault()
         setIsLoading(true)
-        updatePostMutation.mutate({...updateData})
-        setIsLoading(false)
+        await updatePostMutation.mutate({...updateData})
         props.refetch()
+        setIsLoading(false)
         setPostUpdateIsOpen(false)
     }
 
@@ -153,7 +153,7 @@ export function useUpdatePost() {
         console.log(res)
         if (res.status === 200) {
             toast({
-            title: "Update successful!",
+            title: "Successful!",
             status: "success",
             position: 'top'
             });

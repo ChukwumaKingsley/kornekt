@@ -35,7 +35,7 @@ export default function Sidebar() {
           <Text 
             as={NavLink}
             background={{lg: pathname === '/home' ? 'blue.600' : ''}}
-            textDecoration={{base: pathname === '/home' ? 'underline' : ''}}
+            textDecoration={{base: pathname === '/home' ? 'underline' : '', md: 'none'}}
             to="/home" 
             p={'10px'} 
             borderBottomWidth={{base: 0, md: "1px"}}
@@ -49,7 +49,7 @@ export default function Sidebar() {
             as={NavLink} 
             to="/home/activity"
             background={{lg: pathname.includes('/home/activity') ? 'blue.600' : ''}}
-            textDecoration={{base: pathname === '/home/activity' ? 'underline' : ''}}
+            textDecoration={{base: pathname === '/home/activity' ? 'underline' : '', md: 'none'}}
             p={'10px'} 
             borderBottomWidth={{base: 0, md: "1px"}}
             borderColor={'blue.200'}
@@ -62,7 +62,7 @@ export default function Sidebar() {
             as={NavLink} 
             to="/home/my_profile"
             background={{lg: pathname === '/home/my_profile' ? 'blue.600' : ''}}
-            textDecoration={{base: pathname === '/home/my_profile' ? 'underline' : ''}}
+            textDecoration={{base: pathname === '/home/my_profile' ? 'underline' : '', md: 'none'}}
             p={'10px'} 
             borderBottomWidth={{base: 0, md: "1px"}}
             borderColor={'blue.200'}
@@ -75,7 +75,7 @@ export default function Sidebar() {
             as={NavLink} 
             to="/home/users"
             background={{lg: pathname === '/home/users' ? 'blue.600' : ''}} 
-            textDecoration={{base: pathname === '/home/users' ? 'underline' : ''}}
+            textDecoration={{base: pathname === '/home/users' ? 'underline' : '', md: 'none'}}
             p={'10px'} 
             borderBottomWidth={{base: 0, md: "1px"}}
             borderColor={'blue.200'}
