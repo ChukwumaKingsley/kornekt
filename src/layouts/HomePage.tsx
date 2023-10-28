@@ -14,14 +14,13 @@ export default function HomePage() {
 
     useEffect(() => {
       if (!accessToken) {
-        // navigate('/')
         navigate('/')
       }
     }, [])
     
 
   return (
-    <SimpleGrid columns={5} maxWidth={'100%'}>
+    <SimpleGrid columns={5} width={'100svw'}>
         <Sidebar />
         <Flex flexDir={'column'} height={'100svh'} width={'100svw'} gridColumn={{base: 'span 5', md: 'span 4'}} bg={'gray.200'} >
             <Header />
