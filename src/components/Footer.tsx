@@ -13,7 +13,7 @@ function Footer() {
       width="100%"
       textAlign="center"
     >
-      <HStack spacing={4} justify="center">
+      <HStack flexWrap={'wrap'} spacing={4} justify="center">
         <Link href="https://github.com/ChukwumaKingsley" isExternal>
           <IconButton
             aria-label="GitHub"

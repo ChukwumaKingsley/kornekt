@@ -34,10 +34,9 @@ export default function LandingPage() {
         justifyContent="space-between"
         alignItems="center"
         height="20"
-        flexWrap={'wrap'}
       >
         <Heading as={'h1'}>Kornekt</Heading>
-        <Box display="flex" alignItems="center">
+        <Box display="flex" alignItems="center" flexWrap={'wrap'}>
         <Text
             mx={2}
             cursor="pointer"
