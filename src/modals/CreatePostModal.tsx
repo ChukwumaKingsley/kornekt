@@ -88,6 +88,7 @@ return (
                 placeholder="Title" 
                 size="lg"
                 type="text"
+                autoComplete="off"
                 mb={'5px'}
                 maxLength={50}
                 value={postData.title} 
