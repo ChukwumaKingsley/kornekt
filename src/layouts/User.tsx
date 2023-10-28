@@ -10,10 +10,14 @@ export default function User() {
   const { pathname } = useLocation()
   const { id } = useParams()
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
 		queryKey: ["getUserProfile", id],
 		queryFn: () => http.get(`/users/user/${id}`).then((r) => r.data),
 	});
+
+  if (isError) {
+    return <Flex mt={'20px'} flexDirection="column" alignItems="center" p={'10px'} ><Text fontSize={'24px'} alignSelf={"center"} justifySelf={'center'}>Server not reachable</Text></Flex>;
+  }
 
   return (
     <Grid  

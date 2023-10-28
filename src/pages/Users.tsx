@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
-import { Box, Button, Flex, Heading, Input, Spinner, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Text, Input, Spinner, useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UserCard from "../components/UserCard";
@@ -11,7 +11,7 @@ function Users() {
   const [search, setSearch] = useState('')
 
   
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["getUsers"],
     queryFn: () => fetchData(toast, navigate, search),
   });
@@ -29,7 +29,7 @@ function Users() {
   }
 
   if (isError) {
-    return <div>Error: {error.message}</div>;
+    return <Flex mt={'20px'} flexDirection="column" alignItems="center" p={'10px'} ><Text fontSize={'24px'} alignSelf={"center"} justifySelf={'center'}>Server not reachable</Text></Flex>;
   }
 
 

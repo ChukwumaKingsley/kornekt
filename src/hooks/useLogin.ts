@@ -30,9 +30,10 @@ function useLogin({onLoginFail}: onLoginFail) {
 
 
 				localStorage.setItem('accessToken', res.data.access_token);
-				// localStorage.setItem('userID', res.data.user)
+				localStorage.setItem('userID', res.data.user)
 
 				// console.log(localStorage.getItem('accessToken'), localStorage.getItem('userID'));
+				window.location.href = "/home";
 				navigate('/home')
 
 

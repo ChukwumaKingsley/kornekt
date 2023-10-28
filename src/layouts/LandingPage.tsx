@@ -25,7 +25,7 @@ export default function LandingPage() {
     };
   
     return (
-    <Flex flexDir={'column'} height={"100svh"}>
+    <Flex flexDir={'column'} height={"100svh"} maxWidth={'1500px'}>
       <Box
         p={4}
         bg="blue.500"
@@ -63,7 +63,7 @@ export default function LandingPage() {
             Login
           </Text>
           <Text
-            mx={2}
+            mx={'4px'}
             cursor="pointer"
             onClick={openSignUpModal}
           >

@@ -31,8 +31,8 @@ function Login(): JSX.Element {
 
   return (
     <div>
-    <Box p={4} minW="400px" maxW="400px" m="auto" mt={8} bg="white" borderRadius="lg" boxShadow="lg">
-      <Image src="/connect-pic.jpg" alt="Meme Image" w="100%" h="350px" />
+    <Box p={'5px'} maxW="400px" m="auto" mt={8} bg="white" overflowX={'auto'} borderRadius="lg" boxShadow="lg">
+      <Image src="/connect-pic.jpg" alt="Meme Image" w="100%" />
       <Flex justifyContent="center" mt={4}>
         <Button colorScheme="blue" variant="outline" mx={2} onClick={openLoginModal}>
           Login

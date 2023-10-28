@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
-import { Box, Button, Flex, Heading, Input, Spinner, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Input, Spinner, Text, useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import DraftCard from "../components/DraftCard";
@@ -11,7 +11,7 @@ function Drafts() {
   const [search, setSearch] = useState('')
 
   
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["getPosts"],
     queryFn: () => fetchData(toast, navigate, search),
   });
@@ -24,11 +24,6 @@ function Drafts() {
     e.preventDefault()
     await refetch()
   }
-
-  if (isError) {
-    return <div>Error: {error.message}</div>;
-  }
-
 
   return (
       <Flex maxHeight={'100svh'} flexDirection={'column'}>
@@ -50,7 +45,7 @@ function Drafts() {
             </form>
           </Box>
           {isLoading && <Spinner alignSelf={'center'} color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
-          {!isLoading && <Flex overflowY={"auto"} flexDirection={"column"}>
+          {!isLoading && !isError && <Flex overflowY={"auto"} flexDirection={"column"}>
           {data.length > 0 && data.map((post: any) => 
             <DraftCard 
               key={post.id}
@@ -69,6 +64,7 @@ function Drafts() {
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Drafts</Heading>}
             </Flex>}
+            {isError && <Text fontSize={'24px'} alignSelf={"center"} justifySelf={'center'}>Can't retrieve drafts at the moment</Text>}
       </Flex>
   );
 }

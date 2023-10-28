@@ -17,7 +17,7 @@ export function formatJoinDate(joinDate: any) {
 
 function MyProfile() {
 
-  const { data, isLoading, isError, error, refetch } = useMyProfile();
+  const { data, isLoading, isError, refetch } = useMyProfile();
   const [passwordResetIsOpen, setPasswordResetIsOpen] = useState(false)
   const [profileUpdateIsOpen, setProfileUpdateIsOpen] = useState(false)
 
@@ -33,14 +33,14 @@ function MyProfile() {
   }
 
   if (isError) {
-    return <Text>Error: {error.message}</Text>;
+    return <Flex mt={'20px'} flexDirection="column" alignItems="center" p={'10px'} ><Text fontSize={'24px'} alignSelf={"center"} justifySelf={'center'}>Server not reachable</Text></Flex>;
   }
 
   return (
     <div>
     <Flex mt={'20px'} flexDirection="column" alignItems="center" p={'10px'} >
         {isLoading && <Spinner color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
-        {!isLoading &&
+        {!isLoading && !isError &&
       <Box width='80%'p={'10px'} bg="white" borderRadius="md" boxShadow="md">
         <Container  marginBottom={10}>
             <UserAvartar size='xl' show={true}/>
