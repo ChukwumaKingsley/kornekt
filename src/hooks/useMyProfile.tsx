@@ -21,8 +21,13 @@ function useMyProfile() {
   return useQuery<UserProfile, Error>({
     queryKey: ["myProfile"],
     queryFn: async () => {
+      const accessToken = localStorage.getItem('accessToken')
       try {
-        const res = await http.get("/users/me");
+        const res = await http.get("/users/me", {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
         return res.data;
       } catch (error: any) {
         // Handle specific error status codes
