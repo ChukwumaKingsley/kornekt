@@ -14,7 +14,7 @@ export default function LogoutButton() {
   const handleLogout = () => {
     // Clear the access token and perform logout actions
     // Then redirect the user to the desired location
-    localStorage.removeItem("accessToken");
+    localStorage.clear();
     onClose();
     window.location.href = "/";
   }

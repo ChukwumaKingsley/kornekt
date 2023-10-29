@@ -9,7 +9,7 @@ function Posts() {
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["getPosts"],
-    queryFn: () => fetchData(search),
+    queryFn: async () => fetchData(search),
   });
 
   const handleSearchChange = (e: any) => {
@@ -74,8 +74,12 @@ async function fetchData(search: any) {
     if (!accessToken) {
       throw new Error("Access token not found");
     }
-    const response = await http.get(`/posts?search=${search}`);
-    return response.data
+    const res = await http.get(`/posts?search=${search}`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    });
+    return  res.data
   } catch (error: any) {
     if (error?.response){
       console.log(error.response.status)
