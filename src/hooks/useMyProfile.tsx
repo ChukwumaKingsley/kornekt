@@ -40,7 +40,7 @@ function useMyProfile() {
             position: "top",
             duration: 1,
           });
-          navigate('/');
+          // navigate('/');
         } else {
           toast({
             title: 'Server not reachable',

@@ -25,15 +25,10 @@ function useLogin({onLoginFail}: onLoginFail) {
 				formData.append("email", email);
 				formData.append("password", password);
 
-				const res = await http.post("/login", formData);
-				
-
-
+				const res = await http.post("/login");
 				localStorage.setItem('accessToken', res.data.access_token);
 				// window.location.href = "/home";
 				navigate('/home')
-
-
 			} catch (error: any) {
 				onLoginFail()
 				if (error?.response?.status === 403){
