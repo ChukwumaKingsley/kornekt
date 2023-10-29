@@ -25,7 +25,8 @@ function useLogin({onLoginFail}: onLoginFail) {
 				formData.append("email", email);
 				formData.append("password", password);
 
-				const res = await http.post("/login");
+				const res = await http.post("/login", formData);
+
 				localStorage.setItem('accessToken', res.data.access_token);
 				// window.location.href = "/home";
 				navigate('/home')
