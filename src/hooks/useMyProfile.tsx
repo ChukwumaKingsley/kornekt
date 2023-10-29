@@ -32,7 +32,7 @@ function useMyProfile() {
             status: "warning",
             position: "top",
           });
-          navigate('/');
+          // navigate('/');
         } else if (error.response && error.response.status === 400) {
           toast({
             title: "Login required",
