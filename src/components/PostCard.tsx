@@ -24,7 +24,23 @@ export interface CardTypes {
 
 const PostCard = (props: CardTypes) => {
 
+  const [liked, setLiked] = useState(props.user_voted)
+  const [disliked, setDisLiked] = useState(props.user_downvoted)
+  const [likecount, setLikeCount] = useState(props.votes_count)
+  const [dislikeCount, setDislikecount] = useState(props.downvotes_count)
+
   const downvote = () => {
+    if (liked) {
+      setLiked(false)
+      setLikeCount(prev => prev-1)
+    }
+    if (disliked) {
+      setDisLiked(false)
+      setDislikecount(prev => prev - 1)
+    } else {
+      setDisLiked(true)
+      setDislikecount(prev => prev + 1)
+    }
     downvoteMutation.mutate(props.post_id);
     props.refetch();
   };
@@ -32,6 +48,17 @@ const PostCard = (props: CardTypes) => {
   const [show, setShow] = useState(true)
   
   const vote = () => {
+    if (disliked) {
+      setDisLiked(false)
+      setDislikecount(prev => prev-1)
+    }
+    if (liked) {
+      setLiked(false)
+      setLikeCount(prev => prev - 1)
+    } else {
+      setLiked(true)
+      setLikeCount(prev => prev + 1)
+    }
     voteMutation.mutate(props.post_id)
     props.refetch()
   }
@@ -80,19 +107,19 @@ const PostCard = (props: CardTypes) => {
             <DeletePost post_id={props.post_id} refetch={props.refetch} setShow={setShow}/>
           }
         <HStack marginLeft={'auto'} spacing={1}>
-          <Text>{props.votes_count}</Text>
+          <Text>{likecount}</Text>
           <IconButton
           size="sm"
-          bg={props.user_voted ? 'blue.300' : 'gray.400'}
+          bg={liked ? 'blue.300' : 'gray.400'}
           onClick={vote}
           aria-label="Upvote"
 
           icon={<ChevronUpIcon />}
           />
-          <Text>{props.downvotes_count}</Text>
+          <Text>{dislikeCount}</Text>
           <IconButton
           size="sm"
-          bg={props.user_downvoted ? 'red.300' : 'gray.400'}
+          bg={disliked ? 'red.300' : 'gray.400'}
           onClick={downvote}
           aria-label="Downvote"
           icon={<ChevronDownIcon />}
