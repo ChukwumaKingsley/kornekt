@@ -75,7 +75,11 @@ async function fetchData(toast: any, navigate: any, search: any) {
     if (!accessToken) {
       throw new Error("Access token not found");
     }
-    const response = await http.get(`/posts/drafts?search=${search}`);
+    const response = await http.get(`/posts/drafts?search=${search}`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    });
     console.log(response)
     return response.data
   } catch (error: any) {

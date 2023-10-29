@@ -106,8 +106,13 @@ function usePostDownvote() {
   return useMutation({
     mutationKey: ["downvoting"],
     mutationFn: async (id: any) => {
+      const accessToken = localStorage.getItem("accessToken")
       try {
-        const res = await http.post(`/downvote/${id}`);
+        const res = await http.post(`/downvote/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
         return res;
       } catch (error) {
         console.error("Error while downvoting:", error);
@@ -122,7 +127,12 @@ function usePostVote() {
     mutationKey: ["voting"],
     mutationFn: async (id: any) => {
       try {
-        const res = await http.post(`/vote/${id}`);
+        const accessToken = localStorage.getItem("accessToken")
+        const res = await http.post(`/vote/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
         return res;
       } catch (error) {
         console.error("Error while voting:", error);

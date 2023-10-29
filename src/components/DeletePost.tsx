@@ -57,7 +57,11 @@ function usePostDelete() {
     mutationKey: ["deletePost"],
     mutationFn: async (id: any) => {
       try {
-        const res = await http.delete(`/posts/${id}`);
+        const res = await http.delete(`/posts/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
         toast({
           title: "Post deleted!",
           colorScheme: 'gray',

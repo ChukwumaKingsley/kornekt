@@ -149,7 +149,11 @@ export function useUpdatePost() {
         try {
         const formData = { title, content, published };
 
-        const res = await http.put(`/posts/${post_id}`, formData);
+        const res = await http.put(`/posts/${post_id}`, formData, {
+            headers: {
+              'Authorization': `Bearer ${accessToken}`,
+            },
+          });
         console.log(res)
         if (res.status === 200) {
             toast({
