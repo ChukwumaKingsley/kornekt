@@ -23,6 +23,11 @@ export default function LandingPage() {
       setIsLoginModalOpen(false);
       setIsSignUpModalOpen(false);
     };
+    
+    const accessToken = localStorage.getItem('accessToken')
+    if (accessToken) {
+      window.location.href = '/home'
+    }
   
     return (
 
