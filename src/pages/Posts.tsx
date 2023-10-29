@@ -1,18 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
-import { Box, Button, Flex, Heading, Input, Spinner, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Input, Spinner, Text } from "@chakra-ui/react";
 import PostCard from "../components/PostCard";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Posts() {
-  const toast = useToast()
-  const navigate = useNavigate()
   const [search, setSearch] = useState('')
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["getPosts"],
-    queryFn: () => fetchData(toast, navigate, search),
+    queryFn: () => fetchData(search),
   });
 
   const handleSearchChange = (e: any) => {
@@ -71,7 +68,7 @@ function Posts() {
 }
 
 // Define a function to fetch the data
-async function fetchData(toast: any, navigate: any, search: any) {
+async function fetchData(search: any) {
   const accessToken = localStorage.getItem('accessToken')
   try {
     if (!accessToken) {
@@ -81,16 +78,10 @@ async function fetchData(toast: any, navigate: any, search: any) {
     return response.data
   } catch (error: any) {
     if (error?.response){
-      if (error.response.status === 400){
-        toast({
-          title: "Invalid access token",
-          status: "warning",
-          position: "top",
-        });
-        navigate('/')
+      console.log(error.response.status)
       }
+      return error
     }
   }
-}
 
 export default Posts;
