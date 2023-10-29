@@ -42,7 +42,7 @@ const PostCard = (props: CardTypes) => {
   // Don't forget to add code to make posts editable
   
   return (
-      show && <Card maxWidth={'400px'}  width={"90%"} mb={'20px'} alignSelf={'center'}>
+      show && <Card maxWidth={'800px'}  width={"90%"} mb={'20px'} alignSelf={'center'}>
         <CardHeader borderBottom={'1px'} borderColor={'gray.300'}>
           <Flex alignItems={'center'} >
 
