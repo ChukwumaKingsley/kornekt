@@ -148,6 +148,7 @@ export function useUpdatePost() {
     mutationFn: async ({ title, content, post_id, published }: { title: string; content: string; post_id: number, published: boolean }) => {
         try {
         const formData = { title, content, published };
+        const accessToken = localStorage.getItem('accessToken')
 
         const res = await http.put(`/posts/${post_id}`, formData, {
             headers: {
