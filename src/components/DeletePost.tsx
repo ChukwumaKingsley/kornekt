@@ -56,6 +56,7 @@ function usePostDelete() {
   return useMutation({
     mutationKey: ["deletePost"],
     mutationFn: async (id: any) => {
+      const accessToken = localStorage.getItem('accessToken')
       try {
         const res = await http.delete(`/posts/${id}`, {
           headers: {
