@@ -4,6 +4,7 @@ import http from '../utils/http';
 import { QueryObserverResult, RefetchOptions, useMutation } from '@tanstack/react-query'
 import DeletePost from './DeletePost';
 import UpdatePostModal from '../modals/UpdatePostModal ';
+import { useState } from 'react';
 
 
 export interface CardTypes {
@@ -27,6 +28,8 @@ const PostCard = (props: CardTypes) => {
     downvoteMutation.mutate(props.post_id);
     props.refetch();
   };
+
+  const [show, setShow] = useState(true)
   
   const vote = () => {
     voteMutation.mutate(props.post_id)
@@ -39,7 +42,7 @@ const PostCard = (props: CardTypes) => {
   // Don't forget to add code to make posts editable
   
   return (
-      <Card maxWidth={'400px'}  width={"90%"} mb={'20px'} alignSelf={'center'}>
+      show && <Card maxWidth={'400px'}  width={"90%"} mb={'20px'} alignSelf={'center'}>
         <CardHeader borderBottom={'1px'} borderColor={'gray.300'}>
           <Flex alignItems={'center'} >
 
@@ -74,7 +77,7 @@ const PostCard = (props: CardTypes) => {
           }
           {
             props.is_creator && 
-            <DeletePost post_id={props.post_id} refetch={props.refetch} />
+            <DeletePost post_id={props.post_id} refetch={props.refetch} setShow={setShow}/>
           }
         <HStack marginLeft={'auto'} spacing={1}>
           <Text>{props.votes_count}</Text>

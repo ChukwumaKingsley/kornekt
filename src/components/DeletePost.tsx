@@ -7,6 +7,7 @@ import http from "../utils/http";
 interface DeleteProps {
   post_id: number;
   refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
+  setShow: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function DeletePost(props: DeleteProps) {
@@ -19,6 +20,7 @@ export default function DeletePost(props: DeleteProps) {
   }
 
   const handleDelete = async() => {
+    props.setShow(false)
     await postDeleteMutation.mutate(props.post_id)
     props.refetch()
     onClose();

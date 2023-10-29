@@ -8,6 +8,8 @@ import { CardTypes } from './PostCard';
 
 const DraftCard = (props: CardTypes) => {
 
+  const [show, setShow] = useState(false)
+
   const [isLoading, setIsLoading] = useState(false)
   const updateData = {
     title: props.title,
@@ -29,7 +31,7 @@ const DraftCard = (props: CardTypes) => {
   // Don't forget to add code to make posts editable
   
   return (
-      <Card maxWidth={'400px'}  width={"90%"} mb={'20px'} alignSelf={'center'}>
+      show && <Card maxWidth={'400px'}  width={"90%"} mb={'20px'} alignSelf={'center'}>
         <CardHeader borderBottom={'1px'} borderColor={'gray.300'}>
           <Flex alignItems={'center'} >
             <Avatar size={'sm'} marginRight={'5px'} bg='blue.900' bgSize={'inherit'} src={'hll'} name={props.user_name} />
@@ -58,7 +60,7 @@ const DraftCard = (props: CardTypes) => {
             draft={true} 
             refetch={props.refetch}
           />
-          <DeletePost post_id={props.post_id} refetch={props.refetch} />
+          <DeletePost post_id={props.post_id} refetch={props.refetch} setShow={setShow}/>
           <Spacer />
           <Button 
             height={'30px'} 
