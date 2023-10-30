@@ -36,7 +36,7 @@ function Users() {
 
   // Data is available here
   return (
-      <Flex mt={'20px'} maxHeight={'100svh'} overflowY={"auto"} flexDirection={'column'}>
+      <Flex mt={'20px'} maxHeight={'100svh'} overflowY={!isLoading ? 'auto' : 'unset'} flexDirection={'column'}>
           <Box alignSelf={'center'}>
             <form onSubmit={handleSearch}>
               <Flex>
@@ -54,7 +54,7 @@ function Users() {
             </form>
           </Box>
           {isLoading && <Spinner alignSelf={'center'} color='red.500' size={'xl'} thickness="5px" colorScheme="blue.400" speed="1s" />}
-          {!isLoading && <Flex overflowY={"auto"} flexDirection={"column"}>
+          {!isLoading && <Flex overflowY={!isLoading ? 'auto' : 'unset'} flexDirection={"column"}>
           {data.length > 0 && data.map((user: any) => 
             <UserCard 
             key={user.id}
