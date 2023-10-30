@@ -143,8 +143,12 @@ mutationKey: ["makePost"],
 mutationFn: async ({ title, content, published }: { title: string; content: string; published: boolean }) => {
     try {
     const formData = { title, content, published };
-
-    const res = await http.post("/posts", formData);
+    const accessToken = localStorage.getItem("accessToken")
+    const res = await http.post("/posts", formData, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
     console.log(res)
     if (res.status === 201) {
         toast({
