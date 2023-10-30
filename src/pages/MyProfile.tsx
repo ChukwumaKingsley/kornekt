@@ -5,7 +5,7 @@ import UpdateUserModal from "../modals/UpdateUserModal";
 import { useRef, useState } from "react";
 import PassworResetModal from "../modals/PasswordResetModal";
 import { NavLink } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
 
 
@@ -41,7 +41,7 @@ function MyProfile() {
   }
 
   const [isOpen, setIsOpen] = useState(false);
-  const onCloseDelete = () => setIsOpen(false);
+  const onCloseDelete = () => {setIsOpen(false); setIsLoadingDelete(false)}
   const [isLoadingDelete, setIsLoadingDelete] = useState(false)
   const cancelRef: any = useRef();
 
@@ -51,31 +51,11 @@ function MyProfile() {
 
   const handleDeleteAcount = () => {
     setIsLoadingDelete(true)
-    const { status } = useQuery({
-      queryKey: ["deleteAccount"],
-      queryFn: async () => {
-        const accessToken = localStorage.getItem('accessToken')
-        try {
-          const res = await http.delete("/users", {
-            headers: {
-              'Authorization': `Bearer ${accessToken}`,
-            },
-          })
-          return res
-        }
-        catch (error: any) {
-          throw Error
-        }
-        }
-      })
-      if (status === "success") {
-        toast({title: "Acount deleted!"})
-        window.location.href = "/";
-      } else if (status === "error") {
-        toast({title: "Cannot complete action at the moment."})
-      }
-      setIsLoadingDelete(false)
+    deleteMutation.mutate()
+    setIsLoadingDelete(false)
+    onCloseDelete()
   }
+  const deleteMutation = useDeleteUser()
 
   return (
     <div>
@@ -136,3 +116,28 @@ function MyProfile() {
 }
 
 export default MyProfile;
+
+
+function useDeleteUser() {
+  const toast = useToast() 
+return useMutation({
+  mutationKey: ["deleteUser"],
+  mutationFn: async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken")
+      const res = await http.delete(`/users`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+      toast({title: "Acount deleted!"})
+      window.location.href = "/";
+      return res;
+    } catch (error) {
+      console.error("Error while deleting:", error);
+      toast({title: "Cannot complete action at the moment."})
+      throw new Error("Failed to vote the post");
+    }
+  },
+});
+}
