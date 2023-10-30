@@ -75,7 +75,7 @@ const PostCard = (props: CardTypes) => {
         <CardHeader borderBottom={'1px'} borderColor={'gray.300'}>
           <Flex alignItems={'center'} >
 
-            <Avatar as={NavLink} to={`/home/user/${props.user_id}`} size={'sm'} marginRight={'5px'} bg='blue.900' bgSize={'inherit'} src={'hll'} name={props.user_name} />
+            <Avatar as={NavLink} to={props.is_creator ? '/home/my_profile' : `/home/user/${props.user_id}`} size={'sm'} marginRight={'5px'} bg='blue.900' bgSize={'inherit'} src={'hll'} name={props.user_name} />
             <Text fontSize="sm" color="gray.500">
               {props.user_name}
             </Text>
