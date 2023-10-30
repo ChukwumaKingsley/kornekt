@@ -109,7 +109,7 @@ function MyProfile() {
     </Center>
 
     <center>
-      <Button colorScheme="red" onClick={handleClickDelete}>Delete account</Button>
+      <Button marginTop='40px' colorScheme="red" onClick={handleClickDelete}>Delete account</Button>
       <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
         <AlertDialogOverlay>
           <AlertDialogContent>
