@@ -1,10 +1,12 @@
-import { Box, Center, Container, Divider, Link, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
+import { Box, Center, Container, Divider, Link, Flex, HStack, Spinner, Text, Button, AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, useToast } from "@chakra-ui/react";
 import useMyProfile from "../hooks/useMyProfile";
 import UserAvartar from "../components/UserAvartar";
 import UpdateUserModal from "../modals/UpdateUserModal";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import PassworResetModal from "../modals/PasswordResetModal";
 import { NavLink } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import http from "../utils/http";
 
 
 export function formatJoinDate(joinDate: any) {
@@ -16,6 +18,8 @@ export function formatJoinDate(joinDate: any) {
   }
 
 function MyProfile() {
+
+  const toast = useToast()
 
   const { data, isLoading, isError, refetch } = useMyProfile();
   const [passwordResetIsOpen, setPasswordResetIsOpen] = useState(false)
@@ -34,6 +38,40 @@ function MyProfile() {
 
   if (isError) {
     return <Flex mt={'20px'} flexDirection="column" alignItems="center" p={'10px'} ><Text fontSize={'24px'} alignSelf={"center"} justifySelf={'center'}>Server not reachable</Text></Flex>;
+  }
+
+  const [isOpen, setIsOpen] = useState(false);
+  const onCloseDelete = () => setIsOpen(false);
+  const cancelRef: any = useRef();
+
+  const handleClickDelete = () => {
+    setIsOpen(true);
+  }
+
+  const handleDeleteAcount = () => {
+    const { status } = useQuery({
+      queryKey: ["deleteAccount"],
+      queryFn: async () => {
+        const accessToken = localStorage.getItem('accessToken')
+        try {
+          const res = await http.delete("/users", {
+            headers: {
+              'Authorization': `Bearer ${accessToken}`,
+            },
+          })
+          return res
+        }
+        catch (error: any) {
+          throw Error
+        }
+        }
+      })
+      if (status === "success") {
+        toast({title: "Acount deleted!"})
+        window.location.href = "/";
+      } else if (status === "error") {
+        toast({title: "Cannot complete action at the moment."})
+      }
   }
 
   return (
@@ -66,6 +104,28 @@ function MyProfile() {
       <Link onClick={onOpenProfileUpdate}>Edit Profile</Link>
       <Link marginLeft="40px" onClick={onOpenPasswordReset}>Edit Password</Link>
     </Center>
+
+    <center>
+      <Button colorScheme="red" onClick={handleClickDelete}>Delete account</Button>
+      <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader>Confirm Account Delete</AlertDialogHeader>
+            <AlertDialogBody>
+              Are you sure you want to delete your account? This action cannot be undone!
+            </AlertDialogBody>
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onCloseDelete}>
+                Cancel
+              </Button>
+              <Button colorScheme="red" onClick={handleDeleteAcount} ml={3}>
+                Logout
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    </center>
     <UpdateUserModal isOpen={profileUpdateIsOpen} onOpen={onOpenProfileUpdate} onClose={onClose} refetch={refetch} />
     <PassworResetModal isOpen={passwordResetIsOpen} onOpen={onOpenPasswordReset} onClose={onClose} />
     </div>
