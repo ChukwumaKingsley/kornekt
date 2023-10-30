@@ -2,22 +2,17 @@ import {
   Flex,
   SimpleGrid,
 } from '@chakra-ui/react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
-import { useEffect } from 'react';
 
 export default function HomePage() {
 
-    const accessToken = localStorage.getItem('accessToken')
-    const navigate = useNavigate()
+  const accessToken = localStorage.getItem('accessToken')
 
-    useEffect(() => {
-      if (!accessToken) {
-        navigate('/')
-      }
-    }, [])
-    
+  if (!accessToken) {
+    window.location.href = '/'
+  }
 
   return (
     <SimpleGrid columns={5} bgColor='pink' width={'100%'}>

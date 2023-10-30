@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
-import { AccordionIcon, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 export interface UserProfile {
