@@ -59,6 +59,7 @@ function Posts() {
             is_creator={post.is_creator}
             is_editable={post.is_editable}
             refetch={refetch}
+            user_id={post.user_id}  
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>}

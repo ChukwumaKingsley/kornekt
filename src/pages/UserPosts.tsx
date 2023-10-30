@@ -60,7 +60,8 @@ function UserPost() {
               user_downvoted={post.user_downvoted}
               is_creator={true}
               is_editable={post.is_editable} 
-              refetch={refetch}            
+              refetch={refetch}
+              user_id={post.user_id}         
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Posts</Heading>}
             </Flex>}
