@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import http from "../utils/http";
-import { useToast } from "@chakra-ui/react";
+import { AccordionIcon, useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 export interface UserProfile {
@@ -16,7 +16,11 @@ export interface UserProfile {
 function useMyProfile() {
   const toast = useToast();
   const navigate =  useNavigate()
-  
+  const accessToken = localStorage.getItem('accessToken')
+
+  if (!accessToken) {
+    window.location.href = '/'
+  }
   
   return useQuery<UserProfile, Error>({
     queryKey: ["myProfile"],

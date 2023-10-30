@@ -46,9 +46,9 @@ function MyProfile() {
     setIsOpen(true);
   }
 
-  const handleDeleteAcount = () => {
+  const handleDeleteAcount = async () => {
     setIsLoadingDelete(true)
-    deleteMutation.mutate()
+    await deleteMutation.mutate()
     setIsLoadingDelete(false)
     onCloseDelete()
   }
@@ -128,6 +128,7 @@ return useMutation({
         },
       });
       toast({title: "Acount deleted!"})
+      localStorage.removeItem('accessToken')
       window.location.href = "/";
       return res;
     } catch (error) {
