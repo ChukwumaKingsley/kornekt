@@ -5,7 +5,7 @@ import UpdateUserModal from "../modals/UpdateUserModal";
 import { useRef, useState } from "react";
 import PassworResetModal from "../modals/PasswordResetModal";
 import { NavLink } from "react-router-dom";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import http from "../utils/http";
 
 
@@ -18,9 +18,6 @@ export function formatJoinDate(joinDate: any) {
   }
 
 function MyProfile() {
-
-  const toast = useToast()
-
   const { data, isLoading, isError, refetch } = useMyProfile();
   const [passwordResetIsOpen, setPasswordResetIsOpen] = useState(false)
   const [profileUpdateIsOpen, setProfileUpdateIsOpen] = useState(false)
