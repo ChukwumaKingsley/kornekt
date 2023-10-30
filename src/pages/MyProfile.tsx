@@ -42,6 +42,7 @@ function MyProfile() {
 
   const [isOpen, setIsOpen] = useState(false);
   const onCloseDelete = () => setIsOpen(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false)
   const cancelRef: any = useRef();
 
   const handleClickDelete = () => {
@@ -49,6 +50,7 @@ function MyProfile() {
   }
 
   const handleDeleteAcount = () => {
+    setIsLoadingDelete(true)
     const { status } = useQuery({
       queryKey: ["deleteAccount"],
       queryFn: async () => {
@@ -72,6 +74,7 @@ function MyProfile() {
       } else if (status === "error") {
         toast({title: "Cannot complete action at the moment."})
       }
+      setIsLoadingDelete(false)
   }
 
   return (
@@ -118,8 +121,8 @@ function MyProfile() {
               <Button ref={cancelRef} onClick={onCloseDelete}>
                 Cancel
               </Button>
-              <Button colorScheme="red" onClick={handleDeleteAcount} ml={3}>
-                Logout
+              <Button colorScheme="red" isLoading={isLoadingDelete} onClick={handleDeleteAcount} ml={3}>
+                Delete
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>
