@@ -11,6 +11,7 @@ export interface UserProfile {
   votes_count: number;
   downvotes_count: number;
   posts_count: number;
+  profile_pic: string;
 }
 
 function useMyProfile() {
