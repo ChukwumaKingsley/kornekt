@@ -12,12 +12,17 @@ export default function useUpdateUser({onUpdateSuccess, onUpdateFail}: {onUpdate
     mutationFn: async ({name, profile_pic}: {name: undefined | string, profile_pic: File | null}) => {
       try {
         const formData = new FormData();
-        formData.append('name', name);
+
+        if (name){
+          formData.append('name', name);
+        }
         if (profile_pic) {
           formData.append('profile_pic', profile_pic);
+          console.log(profile_pic)
         }
-        
-        console.log(formData)
+        formData.forEach((value, key) => {
+          console.log(key, value);
+        });
         const res = await http.put("/users/update", formData, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
