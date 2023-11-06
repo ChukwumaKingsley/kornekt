@@ -61,7 +61,8 @@ function UserDislikes() {
               is_creator={post.is_creator}
               is_editable={post.is_editable} 
               refetch={refetch}
-              user_id={post.user_id}  
+              user_id={post.user_id}
+              profile_pic={post.profile_pic}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No DisLikes</Heading>}
             </Flex>}
@@ -77,7 +78,7 @@ async function fetchData(toast: any, navigate: any, search: any, id: any) {
     if (!accessToken) {
       throw new Error("Access token not found");
     }
-    const response = await http.get(`/posts/user_votes/${id}?search=${search}`, {
+    const response = await http.get(`/posts/user_downvotes/${id}?search=${search}`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       },
