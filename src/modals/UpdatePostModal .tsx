@@ -30,7 +30,9 @@ interface UpdateData {
 interface UpdateProps {
     post_id: number;
     title: string;
+    updateTitle: (newContent: string) => void;
     content: string;
+    updateContent: (newContent: string) => void;
     draft: boolean;
     refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>;
 }
@@ -64,6 +66,8 @@ export default function UpdatePostModal(props: UpdateProps) {
         setIsLoading(true)
         await updatePostMutation.mutate({...updateData})
         props.refetch()
+        props.updateTitle(updateData.title)
+        props.updateContent(updateData.content)
         setIsLoading(false)
         setPostUpdateIsOpen(false)
     }
@@ -155,7 +159,6 @@ export function useUpdatePost() {
               'Authorization': `Bearer ${accessToken}`,
             },
           });
-        console.log(res)
         if (res.status === 200) {
             toast({
             title: "Successful!",
@@ -163,6 +166,7 @@ export function useUpdatePost() {
             position: 'top'
             });
         }
+        return res.status
         } catch (error: any) {
         if (error.response) {
             // The request was made, but the server responded
@@ -184,8 +188,8 @@ export function useUpdatePost() {
             console.error("Error:", error);
         }
             }
+            return error.response.status
         }
     },
-    onSuccess: (data) => console.log("Success data", data),
     });
 }

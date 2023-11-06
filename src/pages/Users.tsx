@@ -62,6 +62,7 @@ function Users() {
             user_name={user.name}
             created_at={user.created_at}
             email={user.email}
+            profile_pic={user.profile_pic}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Users</Heading>}
             </Flex>}
