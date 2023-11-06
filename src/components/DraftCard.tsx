@@ -1,4 +1,4 @@
-import { Text, Spacer, Flex, Card, CardHeader, CardBody, Avatar, CardFooter, Button } from '@chakra-ui/react';
+import { Text, Spacer, Card, CardBody, CardFooter, Button } from '@chakra-ui/react';
 import DeletePost from './DeletePost';
 import UpdatePostModal, { useUpdatePost } from '../modals/UpdatePostModal ';
 import { useState } from 'react';
@@ -8,7 +8,12 @@ import { CardTypes } from './PostCard';
 
 const DraftCard = (props: CardTypes) => {
 
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(true)
+  const [title, setTitle] = useState(props.title)
+  const [content, setContent] = useState(props.content)
+
+  const updateContent = (newContent: string) => {setContent(newContent)}
+  const updateTitle = (newTitle: string) => {setTitle(newTitle)}
 
   const [isLoading, setIsLoading] = useState(false)
   const updateData = {
@@ -23,6 +28,7 @@ const DraftCard = (props: CardTypes) => {
       setIsLoading(true)
       await updatePostMutation.mutate({...updateData})
       props.refetch()
+      setShow(false)
       setIsLoading(false)
   }
 
@@ -32,31 +38,21 @@ const DraftCard = (props: CardTypes) => {
   
   return (
       show && <Card maxWidth={'800px'}  width={"90%"} mb={'20px'} alignSelf={'center'}>
-        <CardHeader borderBottom={'1px'} borderColor={'gray.300'}>
-          <Flex alignItems={'center'} >
-            <Avatar size={'sm'} marginRight={'5px'} bg='blue.900' bgSize={'inherit'} src={'hll'} name={props.user_name} />
-            <Text fontSize="sm" color="gray.500">
-              {props.user_name}
-            </Text>
-            <Spacer />
-            <Text fontSize="sm" color="gray.500">
-              {new Date(props.created_at).toLocaleString()}
-            </Text>
-          </Flex>
-        </CardHeader>
         <CardBody borderBottom={'1px'} borderColor={'gray.300'}>
           <Text fontSize="lg" fontWeight="bold">
-          {props.title}
+          {title}
           </Text>
           <Text fontSize="md" my="2">
-            {props.content}
+            {content}
           </Text>
         </CardBody>
         <CardFooter height={'20px'} alignItems={'center'}>
           <UpdatePostModal 
             post_id={props.post_id}
-            title={props.title}
-            content={props.content}
+            title={title}
+            updateTitle={updateTitle}
+            content={content}
+            updateContent={updateContent}
             draft={true} 
             refetch={props.refetch}
           />

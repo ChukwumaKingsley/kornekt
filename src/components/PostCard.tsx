@@ -21,6 +21,7 @@ export interface CardTypes {
   user_downvoted: boolean;
   is_creator: boolean;
   is_editable: boolean;
+  profile_pic: string | undefined;
   refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>;
 }
 
@@ -30,6 +31,12 @@ const PostCard = (props: CardTypes) => {
   const [disliked, setDisLiked] = useState(props.user_downvoted)
   const [likecount, setLikeCount] = useState(props.votes_count)
   const [dislikeCount, setDislikecount] = useState(props.downvotes_count)
+
+  const [title, setTitle] = useState(props.title)
+  const [content, setContent] = useState(props.content)
+
+  const updateContent = (newContent: string) => {setContent(newContent)}
+  const updateTitle = (newTitle: string) => {setTitle(newTitle)}
 
   const downvote = () => {
     if (liked) {
@@ -75,7 +82,7 @@ const PostCard = (props: CardTypes) => {
         <CardHeader borderBottom={'1px'} borderColor={'gray.300'}>
           <Flex alignItems={'center'} >
 
-            <Avatar as={NavLink} to={props.is_creator ? '/home/my_profile' : `/home/user/${props.user_id}`} size={'sm'} marginRight={'5px'} bg='blue.900' bgSize={'inherit'} src={'hll'} name={props.user_name} />
+            <Avatar as={NavLink} to={props.is_creator ? '/home/my_profile' : `/home/user/${props.user_id}`} size={'sm'} marginRight={'5px'} bg='blue.900' bgSize={'inherit'} src={props.profile_pic} name={props.user_name} />
             <Text fontSize="sm" color="gray.500">
               {props.user_name}
             </Text>
@@ -87,10 +94,10 @@ const PostCard = (props: CardTypes) => {
         </CardHeader>
         <CardBody borderBottom={'1px'} borderColor={'gray.300'}>
           <Text fontSize="lg" fontWeight="bold">
-          {props.title}
+          {title}
           </Text>
           <Text fontSize="md" my="2">
-            {props.content}
+            {content}
           </Text>
         </CardBody>
         <CardFooter height={'20px'} alignItems={'center'}>
@@ -98,8 +105,10 @@ const PostCard = (props: CardTypes) => {
             props.is_creator &&  props.is_editable &&
             <UpdatePostModal 
               post_id={props.post_id}
-              title={props.title} 
-              content={props.content} 
+              title={title} 
+              updateTitle={updateTitle}
+              content={content}
+              updateContent={updateContent}
               draft={false}
               refetch={props.refetch}
             />

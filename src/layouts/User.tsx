@@ -44,7 +44,7 @@ export default function User() {
                 size={'xl'} 
                 bg='blue.900' 
                 bgSize={'inherit'} 
-                src={'hll'} 
+                src={data.profile_pic} 
                 name={data.name}
               />
               <Text>{data.name}</Text>

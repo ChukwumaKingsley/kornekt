@@ -62,6 +62,8 @@ function Users() {
             user_name={user.name}
             created_at={user.created_at}
             email={user.email}
+            profile_pic={user.profile_pic}
+            current_user={user.current_user}
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Users</Heading>}
             </Flex>}
@@ -81,7 +83,6 @@ async function fetchData(toast: any, navigate: any, search: any) {
         'Authorization': `Bearer ${accessToken}`,
       },
     });
-    console.log(response)
     return response.data
   } catch (error: any) {
     if (error?.response){

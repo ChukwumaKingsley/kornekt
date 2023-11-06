@@ -106,7 +106,7 @@ function MyProfile() {
         </AlertDialogOverlay>
       </AlertDialog>
     </center>
-    <UpdateUserModal isOpen={profileUpdateIsOpen} onOpen={onOpenProfileUpdate} onClose={onClose} refetch={refetch} />
+    <UpdateUserModal profile_pic={data?.profile_pic} name={data?.name} isOpen={profileUpdateIsOpen} onOpen={onOpenProfileUpdate} onClose={onClose} refetch={refetch} />
     <PassworResetModal isOpen={passwordResetIsOpen} onOpen={onOpenPasswordReset} onClose={onClose} />
     </div>
   );

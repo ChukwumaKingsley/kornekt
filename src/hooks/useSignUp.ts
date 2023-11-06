@@ -50,7 +50,6 @@ function useSignUp({onSignUpSuccess, onSignUpFail}: FailorSuccess) {
           }
       }
     },
-    onSuccess: (data) => console.log("Success data", data),
   });
 }
 

@@ -149,7 +149,6 @@ mutationFn: async ({ title, content, published }: { title: string; content: stri
           'Authorization': `Bearer ${accessToken}`,
         },
       });
-    console.log(res)
     if (res.status === 201) {
         toast({
         title: "Post successful!",
@@ -182,6 +181,5 @@ mutationFn: async ({ title, content, published }: { title: string; content: stri
         }
     }
 },
-onSuccess: (data) => console.log("Success data", data),
 });
 }

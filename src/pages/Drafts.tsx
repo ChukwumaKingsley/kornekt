@@ -15,7 +15,6 @@ function Drafts() {
     queryKey: ["getPosts"],
     queryFn: () => fetchData(toast, navigate, search),
   });
-  
   const handleSearchChange = async (e: any) => {
     setSearch(e.target.value)
     await refetch()
@@ -60,7 +59,8 @@ function Drafts() {
               is_creator={true} 
               is_editable={true} 
               refetch={refetch}
-              user_id={post.user_id}  
+              user_id={post.user_id}
+              profile_pic={post.profile_pic} 
             />)}
             {data.length === 0 && <Heading as='h2' mt='50px' alignSelf={'center'} textColor={'blue.400'} >No Drafts</Heading>}
             </Flex>}
@@ -81,7 +81,6 @@ async function fetchData(toast: any, navigate: any, search: any) {
         'Authorization': `Bearer ${accessToken}`,
       },
     });
-    console.log(response)
     return response.data
   } catch (error: any) {
     if (error?.response){

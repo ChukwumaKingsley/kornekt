@@ -16,7 +16,7 @@ export default function UserAvartar({size, show}: {size: {base: string; md: stri
     >
         {
             isLoading ? <Spinner /> :
-            <div><Avatar size={size} bg='blue.900' bgSize={'inherit'} src={'hll'} name={data?.name} />
+            <div><Avatar size={size} bg='blue.900' bgSize={'inherit'} src={data?.profile_pic} name={data?.name} />
             {show && <Text>{data?.name}</Text>}</div>
         }
     </Flex>
