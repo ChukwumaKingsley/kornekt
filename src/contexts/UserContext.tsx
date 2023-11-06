@@ -24,7 +24,6 @@ export const UserContextProvider = ({ children }: UsercontProviderType) => {
     const [user, setUser] = useState<AuthUser | null>(null)
 
     function saveDetails(details: AuthUser | null) {
-        console.log('Successful')
         setUser(details);
         window.location.href = "/home";
     }

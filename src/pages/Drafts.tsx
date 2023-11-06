@@ -15,7 +15,6 @@ function Drafts() {
     queryKey: ["getPosts"],
     queryFn: () => fetchData(toast, navigate, search),
   });
-  console.log(data)
   const handleSearchChange = async (e: any) => {
     setSearch(e.target.value)
     await refetch()
@@ -82,7 +81,6 @@ async function fetchData(toast: any, navigate: any, search: any) {
         'Authorization': `Bearer ${accessToken}`,
       },
     });
-    console.log(response)
     return response.data
   } catch (error: any) {
     if (error?.response){

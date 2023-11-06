@@ -42,7 +42,6 @@ function useLogin({onLoginFail}: onLoginFail) {
 				return error;
 			}
 		},
-		onSuccess: (data) => console.log("Login data", data),
 		onError: (err) => console.log("Data error", err),
 	});
 }

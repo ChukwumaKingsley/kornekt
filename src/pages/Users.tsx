@@ -83,7 +83,6 @@ async function fetchData(toast: any, navigate: any, search: any) {
         'Authorization': `Bearer ${accessToken}`,
       },
     });
-    console.log(response)
     return response.data
   } catch (error: any) {
     if (error?.response){
