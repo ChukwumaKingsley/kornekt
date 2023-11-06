@@ -32,6 +32,12 @@ const PostCard = (props: CardTypes) => {
   const [likecount, setLikeCount] = useState(props.votes_count)
   const [dislikeCount, setDislikecount] = useState(props.downvotes_count)
 
+  const [title, setTitle] = useState(props.title)
+  const [content, setContent] = useState(props.content)
+
+  const updateContent = (newContent: string) => {setContent(newContent)}
+  const updateTitle = (newTitle: string) => {setTitle(newTitle)}
+
   const downvote = () => {
     if (liked) {
       setLiked(false)
@@ -88,10 +94,10 @@ const PostCard = (props: CardTypes) => {
         </CardHeader>
         <CardBody borderBottom={'1px'} borderColor={'gray.300'}>
           <Text fontSize="lg" fontWeight="bold">
-          {props.title}
+          {title}
           </Text>
           <Text fontSize="md" my="2">
-            {props.content}
+            {content}
           </Text>
         </CardBody>
         <CardFooter height={'20px'} alignItems={'center'}>
@@ -99,8 +105,10 @@ const PostCard = (props: CardTypes) => {
             props.is_creator &&  props.is_editable &&
             <UpdatePostModal 
               post_id={props.post_id}
-              title={props.title} 
-              content={props.content} 
+              title={title} 
+              updateTitle={updateTitle}
+              content={content}
+              updateContent={updateContent}
               draft={false}
               refetch={props.refetch}
             />

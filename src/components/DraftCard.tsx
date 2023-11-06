@@ -13,7 +13,7 @@ const DraftCard = (props: CardTypes) => {
   const [content, setContent] = useState(props.content)
 
   const updateContent = (newContent: string) => {setContent(newContent)}
-  const updateTitle = (newContent: string) => {setTitle(newContent)}
+  const updateTitle = (newTitle: string) => {setTitle(newTitle)}
 
   const [isLoading, setIsLoading] = useState(false)
   const updateData = {
@@ -40,7 +40,7 @@ const DraftCard = (props: CardTypes) => {
       show && <Card maxWidth={'800px'}  width={"90%"} mb={'20px'} alignSelf={'center'}>
         <CardBody borderBottom={'1px'} borderColor={'gray.300'}>
           <Text fontSize="lg" fontWeight="bold">
-          {content}
+          {title}
           </Text>
           <Text fontSize="md" my="2">
             {content}

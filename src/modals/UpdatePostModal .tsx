@@ -65,10 +65,10 @@ export default function UpdatePostModal(props: UpdateProps) {
         e.preventDefault()
         setIsLoading(true)
         await updatePostMutation.mutate({...updateData})
-        props.refetch()
         props.updateTitle(updateData.title)
         props.updateContent(updateData.content)
         setIsLoading(false)
+        props.refetch()
         setPostUpdateIsOpen(false)
     }
 
